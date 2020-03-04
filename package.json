@@ -123,7 +123,6 @@
     "webpack-dev-server": "3.10.3",
     "webpack-manifest-plugin": "2.2.0",
     "webpack-md5-hash": "0.0.6",
-    "webpack-merge": "4.2.2",
     "validator": "12.2.0"
   }
 }

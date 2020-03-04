@@ -1,22 +1,29 @@
+require('dotenv').config()
 const path = require("path");
 const webpack = require("webpack");
-const webpackMerge = require("webpack-merge");
 const WebpackMd5Hash = require("webpack-md5-hash")
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const TerserWebpackPlugin = require("terser-webpack-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const WebpackManifestPlugin = require('webpack-manifest-plugin');
 const { ReactLoadablePlugin } = require('react-loadable/webpack');
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
-// loads config based on what mode were in
-const modeConfiguration = env => require(`./utils/build-utils/webpack.${env}`)(env);
 
-// quickly decides which mode were in based on node env
-module.exports = ({ mode } = { mode: process.env.NODE_ENV === "production" ? "production" : "development" }) => {
-  const isProduction = mode === "production";
 
+
+// quickly decides which mode were in based on node env then destructures into object
+module.exports = ({ mode } = {
+  mode: process.env.NODE_ENV === "production" ?
+    "production"
+    :
+    "development"
+}) => {
+  // puts current mode into variable
+  const isProduction = (mode === "production");
+  console.log(mode, process.env.NODE_ENV)
   // webpackmerge will help decide between our prod/dev configs on build and overwrite the correct one
-  return webpackMerge({
+  return {
     // sets mode for current env
     mode,
     // checks for entry for webapck
@@ -29,6 +36,7 @@ module.exports = ({ mode } = { mode: process.env.NODE_ENV === "production" ? "pr
       path: path.resolve("./dist"),
       filename: "index.[hash].js"
     },
+    devtool: "nosource-source-map",
     resolve: {
       // helps semantic ui load into react
       alias: {
@@ -36,6 +44,31 @@ module.exports = ({ mode } = { mode: process.env.NODE_ENV === "production" ? "pr
       },
       // helps resolve extensions in react
       extensions: ["*", ".js", ".jsx"]
+    },
+    optimization: {
+      minimize: true,
+      splitChunks: {
+        chunks: "all",
+        minSize: 0,
+        maxInitialRequests: 10,
+        maxAsyncRequests: 10,
+        cacheGroups: {
+          vendors: {
+            test: /[\\/]node_modules[\\/]/,
+            name(module, chunks, cacheGroupKey) {
+              const packageName = module.context.match(
+                /[\\/]node_modules[\\/](.*?)([\\/]|$)/
+              )[1];
+              return `${cacheGroupKey}.${packageName.replace("@", "")}`;
+            }
+          },
+          common: {
+            minChunks: 2,
+            priority: -10
+          }
+        }
+      },
+      runtimeChunk: "single"
     },
     module: {
       rules: [
@@ -127,7 +160,25 @@ module.exports = ({ mode } = { mode: process.env.NODE_ENV === "production" ? "pr
             }],
         },
         canPrint: true
-      }),new ReactLoadablePlugin({
+      }),
+      new TerserWebpackPlugin({
+        parallel: true,
+        terserOptions: {
+          compress: {
+            comparisons: false
+          },
+          mangle: {
+            safari10: true
+          },
+          output: {
+            comments: false,
+            ascii_only: true
+          },
+          ecma: 6,
+          warnings: false
+        }
+      }),
+      new ReactLoadablePlugin({
         filename: './dist/react-loadable.json',
       }),
       // to create manifest.json on build
@@ -137,8 +188,5 @@ module.exports = ({ mode } = { mode: process.env.NODE_ENV === "production" ? "pr
       // for hashing
       new WebpackMd5Hash()
     ]
-  },
-    // second arg for webpack merge
-    modeConfiguration(mode)
-  );
+  };
 };
