@@ -1,15 +1,15 @@
 {
   "name": "vmsa_beta",
-  "homepage": "http://cranky-poincare-e0c81c.netlify.com/",
+  "homepage": "http://vmsa.cyberworks.tech/",
   "version": "1.0.0",
   "description": "admin login web app",
   "main": "index.js",
   "scripts": {
     "build": "babel-node ./node_modules/webpack/bin/webpack --mode production --config webpack.config.js",
     "webpack": "babel-node ./node_modules/webpack-dev-server/bin/webpack-dev-server --open",
-    "express": "nodemon src/Server/index.js",
-    "dev": "concurrently \"npm run server\" \"npm run express\"",
-    "prod": "webpack --mode production",
+    "express": "nodemon ../vmsa_prod_backend/index.js",
+    "dev": "concurrently \"npm run webpack\" \"npm run express\"",
+    "prod": "webpack --mode production --config webpack.config.js",
     "babel": "./node_modules/.bin/babel src -d dist",
     "test": "jest",
     "lint": "eslint ./src/**/*.js"
@@ -20,15 +20,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/boredasfawk/vmsabeta.git"
+    "url": "git+https://github.com/CyberWorks-Las-Vegas/vmsa_frontend.git"
   },
   "keywords": [
     "vmsa",
     "cyberworks"
   ],
   "authors": [
-    "Olonnye JaTaWa <O.JaTaWa@gmail.com> (https://Olonnye.com)",
-    "Carlos "
+    "Olonnye JaTaWa <O.JaTaWa@gmail.com> (https://Olonnye.com)"
   ],
   "license": "MIT",
   "bugs": {
