@@ -92,7 +92,7 @@ class UserProvider extends Component {
     headers.append('Access-Control-Allow-Origin', '*');
     headers.append('Accept', 'application/json');
     headers.append('Authorization', 'Basic ' + Base64.encode(form.premises_id + ":" + form.password));
-    headers.append('Origin', `${endPoint}`);
+    headers.append('Origin', `https://test.cyberworks.tech`);
     // get response json from express server
     return await fetch(endPoint, {
       mode: 'cors',
