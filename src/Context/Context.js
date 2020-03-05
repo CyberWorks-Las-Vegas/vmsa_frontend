@@ -89,6 +89,7 @@ class UserProvider extends Component {
     let headers = new Headers();
 
     headers.append('Content-Type', 'application/json');
+    headers.append('Access-Control-Allow-Origin', '*');
     headers.append('Accept', 'application/json');
     headers.append('Authorization', 'Basic ' + Base64.encode(form.premises_id + ":" + form.password));
     headers.append('Origin', `${endPoint}`);
