@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Base64 } from 'js-base64';
 
 // TODO: put all form changes into single function
 
@@ -89,7 +90,7 @@ class UserProvider extends Component {
 
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', 'application/json');
-    headers.append('Authorization', 'Basic ' + base64.encode(form.premises_id + ":" + form.password));
+    headers.append('Authorization', 'Basic ' + Base64.encode(form.premises_id + ":" + form.password));
     headers.append('Origin', `${endPoint}`);
     // get response json from express server
     return await fetch(endPoint, {
