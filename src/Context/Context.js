@@ -84,15 +84,25 @@ class UserProvider extends Component {
   }
   // Post form data to express
   postApi = async (form, endPoint) => {
+    // set headers for cors
+    let headers = new Headers();
+
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
+    headers.append('Authorization', 'Basic ' + base64.encode(form.premises_id + ":" + form.password));
+    headers.append('Origin', `${endPoint}`);
+    // get response json from express server
     return await fetch(endPoint, {
+      mode: 'cors',
+      credentials: 'include',
       method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-        'Accept': 'application/json'
-      },
+      headers,
       body: JSON.stringify(form)
-    }).then((result) => result.json())
+    })
+      .then((result) => result.json())
+      .catch(error => console.log('Authorization failed : ' + error.message));
   }
+
 
   /*SERVER FUNCTIONS END*/
   /* FORMS START*/
