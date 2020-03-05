@@ -92,7 +92,6 @@ class UserProvider extends Component {
     headers.append('Accept', 'application/json');
     // get response json from express server
     return await fetch(endPoint, {
-      mode: 'no-cors',
       credentials: true,
       method: 'POST',
       headers,
