@@ -1,9 +1,7 @@
-
 import React, { Component } from "react";
-import getIP from 'external-ip';
 
 // TODO: put all form changes into single function
-const currentIP = getIP()
+
 // creates context api
 const UserContext = React.createContext();
 
@@ -137,7 +135,7 @@ class UserProvider extends Component {
       premises_password
     };
     // waits for post api to resolve promise
-    const endPoint = '/API/premisesLogVal/premisesLogin'
+    const endPoint = 'https://vmsa-prod-backend.herokuapp.com/API/premisesLogVal/premisesLogin'
     const body = await this.postApi(loginPremiseForm, endPoint).then(res => res);
 
     // updates state with info from express
@@ -219,7 +217,8 @@ class UserProvider extends Component {
       front_Desk_Password,
     };
     // waits for post api to resolve promise
-    const endPoint = '/API/adminRegVal/register'
+
+    const endPoint = 'https://vmsa-prod-backend.herokuapp.com/API/adminRegVal/register'
     const body = await this.postApi(adminDetailsForm, endPoint).then(res => res);
 
     // updates state with info from express
