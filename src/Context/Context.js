@@ -58,7 +58,6 @@ class UserProvider extends Component {
     this.pageRedirect = this.pageRedirect.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSubmitApp = this.handleSubmitApp.bind(this);
-    this.saveAndContinue = this.saveAndContinue.bind(this);
     this.handleFilterChange = this.handleFilterChange.bind(this);
     this.handleAdminRegSubmit = this.handleAdminRegSubmit.bind(this);
     this.handleLoginFormChange = this.handleLoginFormChange.bind(this);
