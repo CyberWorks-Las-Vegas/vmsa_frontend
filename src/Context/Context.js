@@ -60,6 +60,7 @@ class UserProvider extends Component {
     this.handleSubmitApp = this.handleSubmitApp.bind(this);
     this.saveAndContinue = this.saveAndContinue.bind(this);
     this.handleFilterChange = this.handleFilterChange.bind(this);
+    this.handleAdminRegSubmit = this.handleAdminRegSubmit.bind(this);
     this.handleLoginFormChange = this.handleLoginFormChange.bind(this);
     this.handlePremiseFormChange = this.handlePremiseFormChange.bind(this)
     this.handleAdminDetailsFormChange = this.handleAdminDetailsFormChange.bind(this);
@@ -136,12 +137,6 @@ class UserProvider extends Component {
       step: desiredStep
     });
   }
-
-  // save form info to state
-  saveAndContinue = e => {
-    e.preventDefault();
-    this.nextStep();
-  };
 
   // function to handle form submit and post data to express
   handleSubmit = async e => {
@@ -414,7 +409,7 @@ class UserProvider extends Component {
           jumpStep: this.jumpStep,
           onSubmit: this.handleSubmit,
           onAppSubmit: this.handleSubmitApp,
-          saveContinue: this.saveAndContinue,
+          saveContinue: this.handleAdminRegSubmit,
           loginFormChange: this.handleLoginFormChange,
           premiseFormChange: this.handlePremiseFormChange,
           adminDetailsChange: this.handleAdminDetailsFormChange,

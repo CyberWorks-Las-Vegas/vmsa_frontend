@@ -93,7 +93,7 @@ const FormContainer = ({ context }) => {
 
   // Object values of form inputs
   const activeStep = step;
-  const { handleAdminRegSubmit } = context;
+  const { saveContinue } = context;
 
   return (
     <React.Fragment>
@@ -142,7 +142,7 @@ const FormContainer = ({ context }) => {
                     <Button
                       variant="contained"
                       color="secondary"
-                      onClick={() => { setStep(step + 1), handleAdminRegSubmit() }}
+                      onClick={() => { setStep(step + 1), saveContinue() }}
                       className={classes.button}
                     >
                       Submit
