@@ -85,15 +85,15 @@ const steps = ['Administrator Details', 'School details', 'Review'];
 
 const FormContainer = ({ context }) => {
   const classes = useStyles();
-  const [step, nextStep, prevStep] = useState(0);
+  const [step, setStep] = useState(0);
   useEffect(() => {
-    if (step <= 0) step = 0;
-    if (step >= 2) step = 2;
+    if (step <= 0) setStep(step = 0);
+    if (step >= 2) setStep(step = 2);
   })
 
   // Object values of form inputs
-  const handleNext = nextStep(++step);
-  const handleBack = prevStep(--step);
+  const handleNext = setStep(++step);
+  const handleBack = setStep(--step);
   const activeStep = step;
   console.log({ step }, { activeStep }, { context })
   return (
