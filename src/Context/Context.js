@@ -106,16 +106,25 @@ class UserProvider extends Component {
   // forward pagnation
   nextStep = () => {
     const { step } = this.state;
+    let newStep = step;
+
+    if (newStep >= 2) newStep = 2;
+
     this.setState({
-      step: step += 1
+      step: newStep += 1
     });
+    console.log(this.state.step)
   };
 
   // prev pagnation
   prevStep = () => {
     const { step } = this.state;
+    let newStep = step;
+
+    if (newStep <= 0) newStep = 0;
+
     this.setState({
-      step: step -= 1
+      step: newStep -= 1
     });
 
     console.log(this.state.step)
