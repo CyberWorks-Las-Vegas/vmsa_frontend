@@ -148,7 +148,6 @@ const FormContainer = (props) => {
                 </Button>
               </div>
             </React.Fragment>
-            )}
           </React.Fragment>
         </Paper>
         <Copyright />
