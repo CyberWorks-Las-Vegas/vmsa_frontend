@@ -32,8 +32,8 @@ function Review(props) {
     adminDetails,
     schoolDetails,
   } = context;
-  const { stet, setStep } = props
-  const schoolArray = [schoolDetails.streetNumber, schoolDetails.street, schoolDetails.city, schoolDetails.state, schoolDetails.zip]
+  const { step, setStep } = props
+  const schoolArray = [ schoolDetails.street, schoolDetails.street_Number,  schoolDetails.city, schoolDetails.state, schoolDetails.zip]
 
   return (
     <React.Fragment>
@@ -78,7 +78,10 @@ function Review(props) {
           <Typography variant="h6" gutterBottom className={classes.title}>
             School Address:
           </Typography>
-
+          <Typography variant="h6" gutterBottom className={classes.title}>
+            <p style="text-decorations: underline;">{schoolDetails.school_Name}</p>
+          </Typography>
+         
           <Typography gutterBottom>{schoolArray.join(', ')}</Typography>
           <Button
             variant="contained"
