@@ -92,8 +92,6 @@ const FormContainer = ({ context }) => {
   })
 
   // Object values of form inputs
-  const handleNext = setStep(++step);
-  const handleBack = setStep(--step);
   const activeStep = step;
   console.log({ step }, { activeStep }, { context })
   return (
@@ -134,14 +132,14 @@ const FormContainer = ({ context }) => {
             <React.Fragment>
               <div className={classes.buttons}>
                 {activeStep !== 0 && (
-                  <Button onClick={handleBack} className={classes.button}>
+                  <Button onClick={() => setStep(step--)} className={classes.button}>
                     Back
                     </Button>
                 )}
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={handleNext}
+                  onClick={() => setStep(step++)}
                   className={classes.button}
                 >
                   {activeStep === steps.length - 1 ? 'Submit' : 'Next'}
