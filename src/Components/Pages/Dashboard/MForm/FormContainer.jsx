@@ -68,6 +68,19 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+function formPages(step) {
+  switch (step) {
+    case 0:
+      return <AdminDetails />;
+    case 1:
+      return <SchoolDetails />;
+    case 2:
+      return <Review />;
+    default:
+      throw new Error('Unknown step');
+  }
+}
+
 const steps = ['Administrator Details', 'School details', 'Review'];
 
 const FormContainer = (props) => {
@@ -115,43 +128,33 @@ const FormContainer = (props) => {
               </React.Fragment>
             ) : (
                 <React.Fragment>
-                  {(
-                    (function () {
-                      switch (step) {
-                        case 0:
-                          return <AdminDetails />;
-                        case 1:
-                          return <SchoolDetails />;
-                        case 2:
-                          return <Review />;
-                        default:
-                          throw new Error('Unknown step');
-                      }
-                    })()
-                  )}
-                  <div className={classes.buttons}>
-                    {activeStep !== 0 && (
-                      <Button onClick={handleBack} className={classes.button}>
-                        Back
-                    </Button>
-                    )}
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={handleNext}
-                      className={classes.button}
-                    >
-                      {activeStep === steps.length - 1 ? 'Submit' : 'Next'}
-                    </Button>
-                  </div>
+                  {formPages(step)}
                 </React.Fragment>
               )}
+            <React.Fragment>
+              <div className={classes.buttons}>
+                {activeStep !== 0 && (
+                  <Button onClick={handleBack} className={classes.button}>
+                    Back
+                    </Button>
+                )}
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleNext}
+                  className={classes.button}
+                >
+                  {activeStep === steps.length - 1 ? 'Submit' : 'Next'}
+                </Button>
+              </div>
+            </React.Fragment>
+            )}
           </React.Fragment>
         </Paper>
         <Copyright />
       </main>
     </React.Fragment>
-  );
-};
+  )
+}
 
 export default FormContainer;
