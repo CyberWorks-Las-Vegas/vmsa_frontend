@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Redirect, Route } from 'react-router-dom';
 
-import { withUserConsumer } from "../../Context/Context"
+import { UserContext } from "../../Context/Context"
 
 
 
-const PrivateFormRoute = ({ component: Component, context, ...rest }) => {
+const PrivateFormRoute = ({ component: Component, ...rest }) => {
+  const context = useContext(UserContext);
   const {
     isFirstSignin,
     accessTokens: {
@@ -15,7 +16,7 @@ const PrivateFormRoute = ({ component: Component, context, ...rest }) => {
   return (
     <Route {...rest} render={props => (
       (adminToken !== null || undefined) && isFirstSignin ? (
-        <Component {...props} context={context} />
+        <Component {...props} />
       ) : (
           <Redirect to={{
             pathname: '/',
@@ -27,4 +28,4 @@ const PrivateFormRoute = ({ component: Component, context, ...rest }) => {
   )
 };
 
-export default withUserConsumer(PrivateFormRoute); 
+export default PrivateFormRoute; 

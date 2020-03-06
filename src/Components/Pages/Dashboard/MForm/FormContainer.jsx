@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import { withUserConsumer } from "../../../../Context/Context"
 // Styles
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -154,4 +155,4 @@ const FormContainer = ({ context }) => {
   )
 }
 
-export default FormContainer;
+export default withUserConsumer(FormContainer);
