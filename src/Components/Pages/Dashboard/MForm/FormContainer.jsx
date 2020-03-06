@@ -87,8 +87,8 @@ const FormContainer = ({ context }) => {
   const classes = useStyles();
   const [step, setStep] = useState(0);
   useEffect(() => {
-    if (step <= 0) setStep(step = 0);
-    if (step >= 2) setStep(step = 2);
+    if (step < 0) setStep(step++);
+    if (step > 2) setStep(step--);
   })
 
   // Object values of form inputs
