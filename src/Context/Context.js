@@ -12,7 +12,6 @@ class UserProvider extends Component {
     this.state = {
       currentProfile: '',
       isFirstSignin: true,
-      step: 0,
       accessTokens: {
         admin_token: '',
         front_desk_token: '',
@@ -115,7 +114,6 @@ class UserProvider extends Component {
     this.setState({
       step: addStep
     });
-    console.log(this.state.step)
   };
 
   // prev pagnation
@@ -130,8 +128,6 @@ class UserProvider extends Component {
     this.setState({
       step: subStep
     });
-
-    console.log(this.state.step)
   };
 
   // jumpStep
@@ -177,7 +173,7 @@ class UserProvider extends Component {
       loginPremise: {
         ...prevState.loginPremise,
         correct: body.correct !== undefined ? body.correct : false,
-        errorResponse: body.error ? body.error : "no errors"
+        errorResponse: body.error ? body.error : false
       }
     }))
   };
@@ -253,7 +249,11 @@ class UserProvider extends Component {
     this.setState(prevState => ({
       adminDetails: {
         ...prevState.adminDetails,
-        errorResponse: body.error ? body.error : "no errors"
+        errorResponse: body.error ? body.error : false
+      },
+      schoolDetails: {
+        ...prevState.adminDetails,
+        errorResponse: body.error ? body.error : false
       }
     }))
 

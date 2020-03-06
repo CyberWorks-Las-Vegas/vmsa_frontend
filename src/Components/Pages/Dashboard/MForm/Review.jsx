@@ -10,8 +10,6 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import EditTwoToneIcon from '@material-ui/icons/EditTwoTone';
 
-import { UserContext } from "../../../../Context/Context"
-
 
 const useStyles = makeStyles(theme => ({
   listItem: {
@@ -26,15 +24,15 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Review(props) {
+
   const classes = useStyles();
-  const context = useContext(UserContext);
   const {
     adminDetails,
     schoolDetails,
-  } = context;
+  } = props.context;
   const { step, setStep } = props
   const schoolArray = [schoolDetails.street, schoolDetails.street_Number, schoolDetails.city, schoolDetails.state, schoolDetails.zip]
-  console.log({ context }, { props }, "review")
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>

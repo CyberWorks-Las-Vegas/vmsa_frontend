@@ -88,12 +88,13 @@ const FormContainer = ({ context }) => {
   const [step, setStep] = useState(0);
   useEffect(() => {
     if (step === -1) setStep(step + 1);
-    if (step === 3) setStep(step - 1);
+    if (step === 4) setStep(step - 1);
   })
 
   // Object values of form inputs
   const activeStep = step;
-  console.log({ step }, { activeStep }, { context })
+  const { handleAdminRegSubmit } = context;
+
   return (
     <React.Fragment>
       <CssBaseline />
@@ -136,14 +137,29 @@ const FormContainer = ({ context }) => {
                     Back
                     </Button>
                 )}
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => setStep(step + 1)}
-                  className={classes.button}
-                >
-                  {activeStep === steps.length - 1 ? 'Submit' : 'Next'}
-                </Button>
+                {activeStep === steps.length - 1 ?
+                  (
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      onClick={() => setStep(step + 1), handleAdminRegSubmit}
+                      className={classes.button}
+                    >
+                      Submit
+                    </Button>
+                  )
+                  :
+                  (
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => setStep(step + 1)}
+                      className={classes.button}
+                    >
+                      Next
+                   </Button>
+                  )
+                }
               </div>
             </React.Fragment>
           </React.Fragment>

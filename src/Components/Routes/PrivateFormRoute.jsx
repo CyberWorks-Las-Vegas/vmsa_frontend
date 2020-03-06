@@ -6,13 +6,14 @@ import { UserContext } from "../../Context/Context"
 
 
 const PrivateFormRoute = ({ component: Component, ...rest }) => {
+
   const context = useContext(UserContext);
   const {
     isFirstSignin,
     accessTokens: {
       admin_token
     } } = context;
-  console.log({ isFirstSignin }, { admin_token }, 'privateformroute')
+
   return (
     <Route {...rest} render={props => (
       (admin_token !== undefined && admin_token !== null) && isFirstSignin ? (
