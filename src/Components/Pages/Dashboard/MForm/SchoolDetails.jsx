@@ -7,7 +7,7 @@ import { UserContext } from "../../../../Context/Context"
 
 const SchoolDetails = (props, ref) => {
   const context = useContext(UserContext);
-  const { schoolDetailsChange, SchoolDetails } = context;
+  const { schoolDetailsChange, schoolDetails } = context;
   const inputRef = useRef();
 
   return (
@@ -19,13 +19,12 @@ const SchoolDetails = (props, ref) => {
 
         <Grid item xs={12} sm={6}>
           <TextField
-            required
             id="schoolName"
             name="school_Name"
             label="School Name"
             ref={inputRef}
             fullWidth
-            autoComplete="fname"
+            autoComplete="school_Name"
             autoFocus
             onChange={schoolDetailsChange}
             value={schoolDetails.school_Name}
@@ -47,7 +46,6 @@ const SchoolDetails = (props, ref) => {
 
         <Grid item xs={12}>
           <TextField
-            required
             id="address1"
             name="street"
             label="Street Address"
@@ -61,7 +59,6 @@ const SchoolDetails = (props, ref) => {
 
         <Grid item xs={12} sm={6}>
           <TextField
-            required
             id="city"
             name="city"
             label="City"
@@ -85,7 +82,6 @@ const SchoolDetails = (props, ref) => {
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
-            required
             id="zip"
             name="zip"
             label="Zip / Postal code"

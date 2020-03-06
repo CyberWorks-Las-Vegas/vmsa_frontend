@@ -7,14 +7,10 @@
   "scripts": {
     "build": "babel-node ./node_modules/webpack/bin/webpack --mode production --config webpack.config.js",
     "webpack": "babel-node ./node_modules/webpack-dev-server/bin/webpack-dev-server --open",
-    "express": "nodemon ../vmsa_prod_backend/index.js",
-    "dev": "concurrently \"npm run webpack\" \"npm run express\"",
-    "prod": "webpack --mode production --config webpack.config.js",
     "babel": "./node_modules/.bin/babel src -d dist",
     "test": "jest",
     "lint": "eslint ./src/**/*.js"
   },
-  "proxy": "http://localhost:8000",
   "jest": {
     "collectCoverage": true
   },

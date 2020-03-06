@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { useContext } from "react";
+
 import { UserContext } from "../../../../Context/Context"
 // Styles
 import { makeStyles } from '@material-ui/core/styles';
@@ -77,35 +77,8 @@ const FormContainer = (props) => {
     nextStep,
     prevStep,
     step,
-    saveContinue,
-    adminDetails: {
-      firstName,
-      lastName,
-      email,
-      adminPassword,
-      frontDeskPassword
-    },
-    adminDetailsChange,
-    schoolDetails: {
-      street,
-      streetNumber,
-      apt_suite,
-      city,
-      state,
-      zipCode
-    },
-    schoolDetailsChange
   } = context;
   // Object values of form inputs
-  const adminDetails = { firstName, lastName, email, adminPassword, frontDeskPassword };
-  const schoolDetails = { street, streetNumber, apt_suite, city, state, zipCode };
-  const vv = { adminDetails, schoolDetails }
-  const ad = adminDetails
-  const sd = schoolDetails
-  const adc = adminDetailsChange
-  const sdc = schoolDetailsChange
-  const sc = saveContinue
-
   const handleNext = nextStep;
   const handleBack = prevStep;
   const activeStep = step;
@@ -142,20 +115,20 @@ const FormContainer = (props) => {
               </React.Fragment>
             ) : (
                 <React.Fragment>
-                  {
+                  {(
                     (function () {
                       switch (step) {
                         case 0:
-                          return <AdminDetails values={ad} onchange={adc} save={sc} />;
+                          return <AdminDetails />;
                         case 1:
-                          return <SchoolDetails values={sd} onchange={sdc} save={sc} />;
+                          return <SchoolDetails />;
                         case 2:
-                          return <Review values={vv} save={sc} />;
+                          return <Review />;
                         default:
                           throw new Error('Unknown step');
                       }
-                    })(step, ad, sd, adc, sdc, sc, vv)
-                  }
+                    })()
+                  )}
                   <div className={classes.buttons}>
                     {activeStep !== 0 && (
                       <Button onClick={handleBack} className={classes.button}>

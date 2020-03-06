@@ -21,7 +21,6 @@ module.exports = ({ mode } = {
 }) => {
   // puts current mode into variable
   const isProduction = (mode === "production");
-  console.log(mode, process.env.NODE_ENV)
   // webpackmerge will help decide between our prod/dev configs on build and overwrite the correct one
   return {
     // sets mode for current env
@@ -36,9 +35,14 @@ module.exports = ({ mode } = {
       path: path.resolve("./dist"),
       filename: "index.[hash].js"
     },
-    devtool: "nosource-source-map",
+    devServer: {
+      contentBase: path.join(__dirname, 'dist'),
+      compress: true,
+      hot: true,
+      port: 3000
+    },
+    devtool: "none",
     resolve: {
-      // helps semantic ui load into react
       alias: {
         "react-dom": "@hot-loader/react-dom"
       },
@@ -129,9 +133,7 @@ module.exports = ({ mode } = {
     },
     plugins: [
       // to keep dist folder clean on rebuild
-      new CleanWebpackPlugin({
-        dry: true
-      }),
+      new CleanWebpackPlugin(),
       // for html files
       new HtmlWebpackPlugin({
         inject: true,

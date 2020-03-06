@@ -54,6 +54,7 @@ class UserProvider extends Component {
     this.postApi = this.postApi.bind(this);
     this.nextStep = this.nextStep.bind(this);
     this.prevStep = this.prevStep.bind(this);
+    this.jumpStep = this.jumpStep.bind(this);
     this.filterNames = this.filterNames.bind(this);
     this.pageRedirect = this.pageRedirect.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -116,7 +117,16 @@ class UserProvider extends Component {
     this.setState({
       step: step - 1
     });
+
+    console.log(this.state.step)
   };
+
+  // jumpStep
+  jumpStep = (desiredStep) => {
+    this.setState({
+      step: desiredStep
+    });
+  }
 
   // save form info to state
   saveAndContinue = e => {
@@ -272,14 +282,12 @@ class UserProvider extends Component {
       this.setState({
         currentProfile: user
       })
-
-    console.log(this.state.loginApp, this.state.currentProfile);
   };
 
   // load input changes for admin page into state
   handleAdminDetailsFormChange = (e) => {
     e.persist();
-    console.log(this.state.adminDetails, "admin Details")
+
     this.setState(prevState => ({
       adminDetails: {
         ...prevState.adminDetails,
@@ -290,13 +298,15 @@ class UserProvider extends Component {
   // load input changes for school page into state
   handleSchoolDetailsFormChange = (e) => {
     e.persist();
-    console.log(this.state.schoolDetails, "school Details");
+
     this.setState(prevState => ({
       schoolDetails: {
         ...prevState.schoolDetails,
         [e.target.name]: e.target.value
       }
     }))
+
+    console.log(this.state.schoolDetails)
   };
 
 
@@ -388,6 +398,7 @@ class UserProvider extends Component {
           ...this.state,
           nextStep: this.nextStep,
           prevStep: this.prevStep,
+          jumpStep: this.jumpStep,
           onSubmit: this.handleSubmit,
           onAppSubmit: this.handleSubmitApp,
           saveContinue: this.saveAndContinue,
