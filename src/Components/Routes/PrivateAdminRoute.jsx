@@ -1,18 +1,18 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 
-import { UserContext } from "../../Context/Context"
+import { withUserConsumer } from "../../Context/Context"
 
 
 
-const PrivateAdminRoute = ({ component: Component, ...rest }) => {
-  const context = useContext(UserContext);
+const PrivateAdminRoute = ({ component: Component, ...rest }, { context }) => {
+
   const {
     isFirstSignin,
     accessTokens: {
       adminToken
     } } = context;
-  console.log(isFirstSignin, "adminroute")
+
   return (
     <Route {...rest} render={props => (
       adminToken !== null || undefined ? (
@@ -23,7 +23,7 @@ const PrivateAdminRoute = ({ component: Component, ...rest }) => {
           }}
           />
         ) : (
-            <Component {...props} />
+            <Component {...props} context={context} />
           )
       ) : (
           <Redirect to={{
@@ -36,4 +36,4 @@ const PrivateAdminRoute = ({ component: Component, ...rest }) => {
   )
 };
 
-export default PrivateAdminRoute; 
+export default withUserConsumer(PrivateAdminRoute); 

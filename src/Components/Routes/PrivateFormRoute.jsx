@@ -1,24 +1,22 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 
-import { UserContext } from "../../Context/Context"
+import { withUserConsumer } from "../../Context/Context"
 
 
 
-const PrivateFormRoute = ({ component: Component, ...rest }) => {
-  const context = useContext(UserContext);
+const PrivateFormRoute = ({ component: Component, ...rest }, { context }) => {
   const {
     isFirstSignin,
     accessTokens: {
       adminToken
     } } = context;
-  console.log(isFirstSignin, "formroute before return", { Component }, { rest })
+
   return (
     <Route {...rest} render={props => (
-      console.log('formroute after return', { rest }, { props })
-        (adminToken !== null || undefined) && isFirstSignin ? (
-          <Component {...props} />
-        ) : (
+      (adminToken !== null || undefined) && isFirstSignin ? (
+        <Component {...props} context={context} />
+      ) : (
           <Redirect to={{
             pathname: '/',
             state: { from: props.location }
@@ -29,4 +27,4 @@ const PrivateFormRoute = ({ component: Component, ...rest }) => {
   )
 };
 
-export default PrivateFormRoute; 
+export default withUserConsumer(PrivateFormRoute); 
