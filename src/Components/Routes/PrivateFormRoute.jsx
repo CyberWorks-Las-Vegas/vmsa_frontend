@@ -12,7 +12,7 @@ const PrivateFormRoute = ({ component: Component, ...rest }) => {
     accessTokens: {
       adminToken
     } } = context;
-
+  console.log({ isFirstSignin }, { adminToken }, 'privateformroute')
   return (
     <Route {...rest} render={props => (
       (adminToken !== null || undefined) && isFirstSignin ? (

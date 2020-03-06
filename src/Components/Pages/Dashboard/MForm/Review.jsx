@@ -65,7 +65,7 @@ function Review(props) {
         <ListItem className={classes.listItem} key={5}>
           <ListItemText primary='Front Desk Password' secondary={adminDetails.front_Desk_Password} />
         </ListItem>
-        <Button onClick={jumpStep(0)} className={classes.button}>
+        <Button className={classes.button}>
           Edit Profile Details
           </Button>
 
@@ -78,7 +78,7 @@ function Review(props) {
           </Typography>
 
           <Typography gutterBottom>{schoolArray.join(', ')}</Typography>
-          <Button onClick={jumpStep(1)} className={classes.button}>
+          <Button className={classes.button}>
             Edit School Details
           </Button>
         </Grid>
