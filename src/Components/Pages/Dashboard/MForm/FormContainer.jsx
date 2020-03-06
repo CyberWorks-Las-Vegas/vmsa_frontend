@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { withUserConsumer } from "../../../../Context/Context"
@@ -85,14 +85,15 @@ const steps = ['Administrator Details', 'School details', 'Review'];
 
 const FormContainer = ({ context }) => {
   const classes = useStyles();
-  const {
-    nextStep,
-    prevStep,
-    step,
-  } = context;
+  const [step, nextStep, prevStep] = useState(0);
+  useEffect(() => {
+    if (step <= 0) step = 0;
+    if (step >= 2) step = 2;
+  })
+
   // Object values of form inputs
-  const handleNext = nextStep;
-  const handleBack = prevStep;
+  const handleNext = nextStep(++step);
+  const handleBack = prevStep(--step);
   const activeStep = step;
   console.log({ step }, { activeStep }, { context })
   return (
