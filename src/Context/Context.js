@@ -302,6 +302,7 @@ class UserProvider extends Component {
     e.persist();
 
     this.setState(prevState => ({
+      ...prevState,
       adminDetails: {
         ...prevState.adminDetails,
         [e.target.name]: e.target.value
@@ -313,6 +314,7 @@ class UserProvider extends Component {
     e.persist();
 
     this.setState(prevState => ({
+      ...prevState,
       schoolDetails: {
         ...prevState.schoolDetails,
         [e.target.name]: e.target.value

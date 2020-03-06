@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 // Styles
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -8,9 +8,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
-
-import { UserContext } from "../../../../Context/Context"
-
 
 const useStyles = makeStyles(theme => ({
   listItem: {
@@ -24,9 +21,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Review(props) {
+function Review({ context }) {
   const classes = useStyles();
-  const context = useContext(UserContext);
+
   const {
     adminDetails,
     schoolDetails,
