@@ -142,7 +142,7 @@ const FormContainer = ({ context }) => {
                     <Button
                       variant="contained"
                       color="secondary"
-                      onClick={() => { setStep(step + 1), saveContinue(e) }}
+                      onClick={(e) => { setStep(step + 1), saveContinue(e) }}
                       className={classes.button}
                     >
                       Submit
