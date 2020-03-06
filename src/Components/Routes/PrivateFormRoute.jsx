@@ -15,7 +15,7 @@ const PrivateFormRoute = ({ component: Component, ...rest }) => {
   console.log(isFirstSignin, "formroute before return", { Component }, { rest })
   return (
     <Route {...rest} render={props => (
-      consol.log('formroute after return', { rest }, { props })
+      console.log('formroute after return', { rest }, { props })
         (adminToken !== null || undefined) && isFirstSignin ? (
           <Component {...props} />
         ) : (
