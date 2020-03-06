@@ -68,14 +68,14 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function formPages(step, context) {
+function formPages(step, setStep, context) {
   switch (step) {
     case 0:
       return <AdminDetails context={context} />;
     case 1:
       return <SchoolDetails context={context} />;
     case 2:
-      return <Review context={context} />;
+      return <Review step={step} setStep={setStep} context={context} />;
     default:
       throw new Error('Unknown step');
   }
@@ -126,7 +126,7 @@ const FormContainer = ({ context }) => {
               </React.Fragment>
             ) : (
                 <React.Fragment>
-                  {formPages(step, context)}
+                  {formPages(step, setStep, context)}
                 </React.Fragment>
               )}
             <React.Fragment>

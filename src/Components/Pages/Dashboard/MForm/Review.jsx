@@ -8,6 +8,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
+import EditTwoToneIcon from '@material-ui/icons/EditTwoTone';
 
 import { UserContext } from "../../../../Context/Context"
 
@@ -30,9 +31,8 @@ function Review(props) {
   const {
     adminDetails,
     schoolDetails,
-    jumpStep
   } = context;
-
+  const { stet, setStep } = props
   const schoolArray = [schoolDetails.streetNumber, schoolDetails.street, schoolDetails.city, schoolDetails.state, schoolDetails.zip]
 
   return (
@@ -45,32 +45,34 @@ function Review(props) {
         <ListItem className={classes.listItem} key={1}>
           <ListItemText primary='First Name' secondary={adminDetails.first_Name} />
         </ListItem>
-        <Divider />
 
         <ListItem className={classes.listItem} key={2}>
           <ListItemText primary='Last Name' secondary={adminDetails.last_Name} />
         </ListItem>
-        <Divider />
 
         <ListItem className={classes.listItem} key={3}>
           <ListItemText primary='Email' secondary={adminDetails.email} />
         </ListItem>
-        <Divider />
 
         <ListItem className={classes.listItem} key={4}>
           <ListItemText primary="Administrator Password" secondary={adminDetails.admin_Password} />
         </ListItem>
-        <Divider />
 
         <ListItem className={classes.listItem} key={5}>
           <ListItemText primary='Front Desk Password' secondary={adminDetails.front_Desk_Password} />
         </ListItem>
-        <Button className={classes.button}>
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          startIcon={<EditTwoToneIcon />}
+          onClick={() => setStep(step - 2)}
+        >
           Edit Profile Details
           </Button>
 
       </List>
-
+      <Divider />
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <Typography variant="h6" gutterBottom className={classes.title}>
@@ -78,7 +80,13 @@ function Review(props) {
           </Typography>
 
           <Typography gutterBottom>{schoolArray.join(', ')}</Typography>
-          <Button className={classes.button}>
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            startIcon={<EditTwoToneIcon />}
+            onClick={() => setStep(step - 1)}
+          >
             Edit School Details
           </Button>
         </Grid>
