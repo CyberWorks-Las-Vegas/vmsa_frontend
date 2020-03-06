@@ -104,7 +104,8 @@ class UserProvider extends Component {
   /* FORMS START*/
 
   // forward pagnation
-  nextStep = () => {
+  nextStep = (e) => {
+    e.persist();
     const { step } = this.state;
     let newStep = step;
 
@@ -117,7 +118,8 @@ class UserProvider extends Component {
   };
 
   // prev pagnation
-  prevStep = () => {
+  prevStep = (e) => {
+    e.persist();
     const { step } = this.state;
     let newStep = step;
 
