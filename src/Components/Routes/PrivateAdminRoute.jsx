@@ -5,7 +5,7 @@ import { withUserConsumer } from "../../Context/Context"
 
 
 
-const PrivateAdminRoute = ({ component: Component, ...rest }, { context }) => {
+const PrivateAdminRoute = ({ component: Component, context, ...rest, }) => {
 
   const {
     isFirstSignin,

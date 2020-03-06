@@ -5,7 +5,7 @@ import { withUserConsumer } from "../../Context/Context"
 
 
 
-const PrivateFormRoute = ({ component: Component, ...rest }, { context }) => {
+const PrivateFormRoute = ({ component: Component, context, ...rest }) => {
   const {
     isFirstSignin,
     accessTokens: {
