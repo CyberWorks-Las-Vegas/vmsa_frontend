@@ -1,4 +1,4 @@
-import React, { forwardRef, useRef, useContext } from 'react';
+import React, { forwardRef, useRef } from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -6,10 +6,8 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
-import { UserContext } from "../../../../Context/Context"
+const AdminDetails = ({ context }, ref) => {
 
-const AdminDetails = (props, ref) => {
-  const context = useContext(UserContext);
   const { adminDetailsChange, adminDetails } = context;
   const inputRef = useRef();
 

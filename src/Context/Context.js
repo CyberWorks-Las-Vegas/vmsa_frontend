@@ -108,9 +108,9 @@ class UserProvider extends Component {
     e.persist();
     const { step } = this.state;
     let newStep = step;
-    let addStep = (newStep += 1);
+    let addStep = ++newStep;
 
-    if (newStep >= 2) newStep = 2;
+    if (addStep >= 2) addStep = 2;
 
     this.setState({
       step: addStep
@@ -123,9 +123,9 @@ class UserProvider extends Component {
     e.persist();
     const { step } = this.state;
     let newStep = step;
-    let subStep = (newStep -= 1);
+    let subStep = --newStep;
 
-    if (newStep <= 0) newStep = 0;
+    if (subStep <= 0) subStep = 0;
 
     this.setState({
       step: subStep

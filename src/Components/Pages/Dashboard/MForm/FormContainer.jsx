@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { UserContext } from "../../../../Context/Context"
+import { withUserConsumer } from "../../../../Context/Context"
 // Styles
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -68,14 +68,14 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function formPages(step) {
+function formPages(step, context) {
   switch (step) {
     case 0:
-      return <AdminDetails />;
+      return <AdminDetails context={context} />;
     case 1:
-      return <SchoolDetails />;
+      return <SchoolDetails context={context} />;
     case 2:
-      return <Review />;
+      return <Review context={context} />;
     default:
       throw new Error('Unknown step');
   }
@@ -83,9 +83,8 @@ function formPages(step) {
 
 const steps = ['Administrator Details', 'School details', 'Review'];
 
-const FormContainer = (props) => {
+const FormContainer = ({ context }) => {
   const classes = useStyles();
-  const context = useContext(UserContext);
   const {
     nextStep,
     prevStep,
@@ -95,7 +94,7 @@ const FormContainer = (props) => {
   const handleNext = nextStep;
   const handleBack = prevStep;
   const activeStep = step;
-
+  console.log({ step }, { activeStep }, { context })
   return (
     <React.Fragment>
       <CssBaseline />
@@ -128,7 +127,7 @@ const FormContainer = (props) => {
               </React.Fragment>
             ) : (
                 <React.Fragment>
-                  {formPages(step)}
+                  {formPages(step, context)}
                 </React.Fragment>
               )}
             <React.Fragment>
@@ -156,4 +155,4 @@ const FormContainer = (props) => {
   )
 }
 
-export default FormContainer;
+export default withUserConsumer(FormContainer);

@@ -1,12 +1,11 @@
-import React, { forwardRef, useRef, useContext } from 'react';
+import React, { forwardRef, useRef } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 
-import { UserContext } from "../../../../Context/Context";
 
-const SchoolDetails = (props, ref) => {
-  const context = useContext(UserContext);
+const SchoolDetails = ({ context }, ref) => {
+
   const { schoolDetailsChange, schoolDetails } = context;
   const inputRef = useRef();
 
