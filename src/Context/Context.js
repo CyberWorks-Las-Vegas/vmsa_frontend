@@ -107,7 +107,7 @@ class UserProvider extends Component {
   nextStep = () => {
     const { step } = this.state;
     this.setState({
-      step: step + 1
+      step: step += 1
     });
   };
 
@@ -115,7 +115,7 @@ class UserProvider extends Component {
   prevStep = () => {
     const { step } = this.state;
     this.setState({
-      step: step - 1
+      step: step -= 1
     });
 
     console.log(this.state.step)
