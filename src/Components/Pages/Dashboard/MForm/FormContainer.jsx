@@ -87,8 +87,8 @@ const FormContainer = ({ context }) => {
   const classes = useStyles();
   const [step, setStep] = useState(0);
   useEffect(() => {
-    if (step < 0) setStep(step++);
-    if (step > 2) setStep(step--);
+    if (step < 0) setStep(step + 1);
+    if (step > 2) setStep(step - 1);
   })
 
   // Object values of form inputs
@@ -132,14 +132,14 @@ const FormContainer = ({ context }) => {
             <React.Fragment>
               <div className={classes.buttons}>
                 {activeStep !== 0 && (
-                  <Button onClick={() => setStep(step--)} className={classes.button}>
+                  <Button onClick={() => setStep(step - 1)} className={classes.button}>
                     Back
                     </Button>
                 )}
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={() => setStep(step++)}
+                  onClick={() => setStep(step + 1)}
                   className={classes.button}
                 >
                   {activeStep === steps.length - 1 ? 'Submit' : 'Next'}
