@@ -33,7 +33,7 @@ function Review(props) {
     jumpStep
   } = context;
 
-  const schoolArray = [schoolDetails.street, schoolDetails.streetNumber, schoolDetails.city, schoolDetails.state, schoolDetails.zip]
+  const schoolArray = [schoolDetails.streetNumber, schoolDetails.street, schoolDetails.city, schoolDetails.state, schoolDetails.zip]
 
   return (
     <React.Fragment>
