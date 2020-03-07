@@ -223,6 +223,14 @@ class UserProvider extends Component {
         email,
         admin_Password,
         front_Desk_Password,
+      },
+      schoolDetails: {
+        school_Name,
+        street,
+        street_Number,
+        city,
+        state,
+        zip
       }
     } = this.state;
 
@@ -233,6 +241,12 @@ class UserProvider extends Component {
       email,
       admin_Password,
       front_Desk_Password,
+      school_Name,
+      street,
+      street_Number,
+      city,
+      state,
+      zip,
     };
     // waits for post api to resolve promise
 
@@ -252,12 +266,6 @@ class UserProvider extends Component {
     }))
 
   };
-
-  // TEST
-  // Redirect to new page after checking tokens
-  pageRedirect = async (token, page) => {
-
-  }
 
   // load input changes  into state
   handlePremiseFormChange = (e) => {
