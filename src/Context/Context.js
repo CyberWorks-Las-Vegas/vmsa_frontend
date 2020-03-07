@@ -55,7 +55,6 @@ class UserProvider extends Component {
     this.prevStep = this.prevStep.bind(this);
     this.jumpStep = this.jumpStep.bind(this);
     this.filterNames = this.filterNames.bind(this);
-    this.pageRedirect = this.pageRedirect.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSubmitApp = this.handleSubmitApp.bind(this);
     this.handleFilterChange = this.handleFilterChange.bind(this);
