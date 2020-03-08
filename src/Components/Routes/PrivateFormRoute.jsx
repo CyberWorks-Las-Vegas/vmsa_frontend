@@ -11,12 +11,12 @@ const PrivateFormRoute = ({ component: Component, ...rest }) => {
   const {
     isFirstSignin,
     accessTokens: {
-      admin_token
+      administrator_token
     } } = context;
 
   return (
     <Route {...rest} render={props => (
-      (admin_token !== undefined && admin_token !== null) && isFirstSignin ? (
+      (administrator_token !== undefined && administrator_token !== null) && isFirstSignin ? (
         <Component {...props} />
       ) : (
           <Redirect to={{
