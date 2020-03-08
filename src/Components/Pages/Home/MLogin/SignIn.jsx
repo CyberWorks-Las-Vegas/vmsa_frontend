@@ -65,8 +65,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 // page redirect to dashboard
-const nextPageAuth = async (props, adminToken) => {
-  const token = await adminToken
+const nextPageAuth = async (props, administrator_token) => {
+  const token = await administrator_token
   return token && props.history.push('/applogin')
 }
 const SignInSide = (props, ref) => {
@@ -74,13 +74,13 @@ const SignInSide = (props, ref) => {
   const context = useContext(UserContext);
   const {
     accessTokens: {
-      admin_token
+      administrator_token
     },
     onSubmit,
     premiseFormChange } = context;
   const inputRef = useRef();
 
-  admin_token && nextPageAuth(props, admin_token)
+  administrator_token && nextPageAuth(props, administrator_token)
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
