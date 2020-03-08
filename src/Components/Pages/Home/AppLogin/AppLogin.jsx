@@ -77,7 +77,7 @@ const AppLogin = (props, ref) => {
   } = context;
   const inputRef = useRef();
   // check if login responeded correct then calls redirect func
-  correct && nextPageAuth(props, administrator_token)
+  correct && nextPageAuth(props, correct)
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
