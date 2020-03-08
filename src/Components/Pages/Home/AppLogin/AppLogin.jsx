@@ -61,19 +61,23 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(3, 0, 2),
   },
 }));
-
+const nextPageAuth = async (props, correct) => {
+  const correctLogin = await correct
+  return correctLogin && props.history.push('/dashboard')
+}
 const AppLogin = (props, ref) => {
   const classes = useStyles();
   const context = useContext(UserContext);
   const {
     loginApp: {
-      current_profile
+      correct
     },
     onAppSubmit,
     loginFormChange
   } = context;
   const inputRef = useRef();
-
+  // check if login responeded correct then calls redirect func
+  correct && nextPageAuth(props, administrator_token)
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
