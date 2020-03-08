@@ -10,10 +10,10 @@ class UserProvider extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentProfile: '',
-      isFirstSignin: true,
+
+      isFirstSignin: '',
       accessTokens: {
-        admin_token: '',
+        administrator_token: '',
         front_desk_token: '',
         visitor_station_token: ''
       },
@@ -24,8 +24,8 @@ class UserProvider extends Component {
         errorResponse: ''
       },
       loginApp: {
-        user: 'administrator',
-        password: '',
+        current_profile: '',
+        profile_password: '',
         correct: true,
         errorResponse: ''
       },
@@ -59,7 +59,7 @@ class UserProvider extends Component {
     this.handleSubmitApp = this.handleSubmitApp.bind(this);
     this.handleFilterChange = this.handleFilterChange.bind(this);
     this.handleAdminRegSubmit = this.handleAdminRegSubmit.bind(this);
-    this.handleLoginFormChange = this.handleLoginFormChange.bind(this);
+    this.handleAppLoginFormChange = this.handleAppLoginFormChange.bind(this);
     this.handlePremiseFormChange = this.handlePremiseFormChange.bind(this)
     this.handleAdminDetailsFormChange = this.handleAdminDetailsFormChange.bind(this);
     this.handleSchoolDetailsFormChange = this.handleSchoolDetailsFormChange.bind(this);
@@ -161,7 +161,7 @@ class UserProvider extends Component {
       isFirstSignin: body.first_login,
       accessTokens: {
         ...prevState.accessTokens,
-        admin_token: body.accessToken ? body.accessToken : false
+        administrator_token: body.accessToken ? body.accessToken : false
       },
       loginPremise: {
         ...prevState.loginPremise,
@@ -174,37 +174,37 @@ class UserProvider extends Component {
   // function to handle form submit and post data to express
   handleSubmitApp = async e => {
     e.preventDefault();
-
+    e.persist();
 
     const {
+      loginPremise: {
+        premises_id
+      },
       loginApp: {
-        user,
-        password
+        current_profile,
+        profile_password
       },
     } = this.state;
 
     const loginAppForm = {
-      user,
-      password
+      premises_id,
+      current_profile,
+      profile_password
     };
 
 
     // waits for post api to resolve promise
-    //const endPoint = '/API/appLogVal/appLogin'
-    //const body = await this.postApi(loginApp, endPoint).then(res => res);
+    const endPoint = 'https://vmsa-prod-backend.herokuapp.com/API/appLogVal/appLogin'
+    const body = await this.postApi(loginAppForm, endPoint).then(res => res);
 
     // updates state with info from express
-    // this.setState(prevState => ({
-    //   currentProfile: user,
-    //   loginApp: {
-    //     ...prevState.loginApp,
-    //     // correct: body.correct,
-    //     //fetchResponse: body.error ? body.error : "no errors"
-    //   }
-    // }))
-    this.setState({
-      currentProfile: user
-    })
+    this.setState(prevState => ({
+      loginApp: {
+        ...prevState.loginApp,
+        correct: body.correct,
+        fetchResponse: body.error ? body.error : "no errors"
+      }
+    }))
   };
 
   // function to handle form submit and post data to express
@@ -280,7 +280,7 @@ class UserProvider extends Component {
   }
 
   // load input changes into state
-  handleLoginFormChange = (e) => {
+  handleAppLoginFormChange = (e) => {
     e.persist();
 
     this.setState(prevState => ({
@@ -294,7 +294,7 @@ class UserProvider extends Component {
 
     if (user !== false)
       this.setState({
-        currentProfile: user
+        current_profile: user
       })
   };
 
@@ -319,8 +319,6 @@ class UserProvider extends Component {
         [e.target.name]: e.target.value
       }
     }))
-
-    console.log(this.state.schoolDetails)
   };
 
 
@@ -416,7 +414,7 @@ class UserProvider extends Component {
           onSubmit: this.handleSubmit,
           onAppSubmit: this.handleSubmitApp,
           saveContinue: this.handleAdminRegSubmit,
-          loginFormChange: this.handleLoginFormChange,
+          loginFormChange: this.handleAppLoginFormChange,
           premiseFormChange: this.handlePremiseFormChange,
           adminDetailsChange: this.handleAdminDetailsFormChange,
           schoolDetailsChange: this.handleSchoolDetailsFormChange

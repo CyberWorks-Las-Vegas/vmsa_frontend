@@ -1,4 +1,5 @@
-import React, { forwardRef, useContext, useRef } from 'react'; import { withRouter } from 'react-router-dom';
+import React, { forwardRef, useContext, useRef } from 'react';
+import { withRouter } from 'react-router-dom';
 // Styles
 import Avatar from '@material-ui/core/Avatar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -66,7 +67,7 @@ const AppLogin = (props, ref) => {
   const context = useContext(UserContext);
   const {
     loginApp: {
-      user
+      current_profile
     },
     onAppSubmit,
     loginFormChange
@@ -92,10 +93,10 @@ const AppLogin = (props, ref) => {
           >
             <Select
               ref={inputRef}
-              id="userSelect"
+              id="current_profile"
               variant="outlined"
-              name="user"
-              value={user}
+              name="current_profile"
+              value={current_profile}
               onChange={loginFormChange}
               required
               fullWidth
@@ -114,7 +115,7 @@ const AppLogin = (props, ref) => {
               label="Password"
               type="password"
               id="password"
-              name="password"
+              name="profile_password"
               ref={inputRef}
               onChange={loginFormChange}
               autoComplete="current-password"
