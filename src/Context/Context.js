@@ -10,7 +10,6 @@ class UserProvider extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
       isFirstSignin: '',
       accessTokens: {
         administrator_token: '',
@@ -169,6 +168,7 @@ class UserProvider extends Component {
         errorResponse: body.error ? body.error : false
       }
     }))
+    console.log(this.state, 'context api call')
   };
 
   // function to handle form submit and post data to express

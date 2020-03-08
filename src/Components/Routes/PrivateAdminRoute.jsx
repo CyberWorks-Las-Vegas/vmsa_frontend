@@ -13,7 +13,7 @@ const PrivateAdminRoute = ({ component: Component, ...rest }) => {
     accessTokens: {
       admin_token
     } } = context;
-
+  console.log({ context }, 'private admin route')
   return (
     <Route {...rest} render={props => (
       admin_token !== undefined && admin_token !== null ? (
