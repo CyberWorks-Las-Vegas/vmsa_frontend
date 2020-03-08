@@ -70,6 +70,7 @@ const AppLogin = (props, ref) => {
   const context = useContext(UserContext);
   const {
     loginApp: {
+      current_profile,
       correct
     },
     onAppSubmit,
