@@ -19,13 +19,13 @@ class UserProvider extends Component {
       loginPremise: {
         premises_id: '',
         premises_password: '',
-        correct: true,
+        correct: '',
         errorResponse: ''
       },
       loginApp: {
         current_profile: '',
         profile_password: '',
-        correct: true,
+        correct: '',
         errorResponse: ''
       },
       adminDetails: {
