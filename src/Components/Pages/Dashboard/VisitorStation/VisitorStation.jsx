@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 // Components
-
+import Main from './Modal/Main'
 
 function Copyright() {
   return (
@@ -82,6 +82,7 @@ const VSDashboard = () => {
     <React.Fragment>
       <CssBaseline />
       <main className={classes.layout}>
+        <Main />
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
             Check In
