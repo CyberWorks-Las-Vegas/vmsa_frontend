@@ -27,8 +27,8 @@ const App = () => {
           <PrivateAdminRoute path="/applogin" component={AppLogin} />
           <PrivateFormRoute path="/form" component={FormContainer} />
           <PrivateDashboardRoute path="/administrator/dashboard" component={MDashboard} />
-          <PrivateDashboardFDRoute path="/front_desk/dashboard" component={FDDashboard} />
-          <PrivateDashboardVSRoute path="/visitor_station/dashboard" component={VSDashboard} />
+          {/* <PrivateDashboardFDRoute path="/front_desk/dashboard" component={FDDashboard} /> */}
+          {/* <PrivateDashboardVSRoute path="/visitor_station/dashboard" component={VSDashboard} /> */}
           <Route component={Error} />
         </Switch>
       </Container>

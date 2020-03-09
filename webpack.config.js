@@ -40,7 +40,7 @@ module.exports = ({ mode } = {
       hot: true,
       port: 3000
     },
-    devtool: "eval-cheap-module-source-map",
+    devtool: "none",
     resolve: {
       alias: {
         "react-dom": "@hot-loader/react-dom"
@@ -118,7 +118,7 @@ module.exports = ({ mode } = {
         },
         {
           // for loading modules
-          test: /\.(eot|woff|woff2|ttf|svg|png|jp(e*)g)$/,
+          test: /\.(eot|woff|woff2|ttf|svg|png|jpeg|jpg)$/,
           use: {
             loader: "url-loader",
             options: {
