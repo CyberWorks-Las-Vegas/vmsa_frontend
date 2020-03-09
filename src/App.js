@@ -7,6 +7,7 @@ import SignInSide from './Components/Pages/Home/MLogin/SignIn';
 import ButtonAppBar from './Components/Pages/Home/MLogin/AppBar';
 import FormContainer from './Components/Pages/Dashboard/MForm/FormContainer';
 import MDashboard from "./Components/Pages/Dashboard/MDashboard/Main";
+import VisitorStationContainer from "./Components/Pages/Dashboard/VisitorStation/VisitorStation";
 import PrivateAdminRoute from "./Components/Routes/PrivateAdminRoute";
 import PrivateFormRoute from "./Components/Routes/PrivateFormRoute";
 import AppLogin from "./Components/Pages/Home/AppLogin/AppLogin"
@@ -20,10 +21,11 @@ const App = () => {
         <ButtonAppBar />
 
         <Switch>
-          <Route exact path="/" component={SignInSide} />
+          <Route exact path="/" component={VisitorStationContainer} />
           <PrivateAdminRoute path="/applogin" component={AppLogin} />
           <PrivateFormRoute path="/form" component={FormContainer} />
           <Route path="/dashboard" component={MDashboard} />
+          <Route exact path="/test/visitorstation" component={VisitorStationContainer} />
         </Switch>
       </Container>
     </>

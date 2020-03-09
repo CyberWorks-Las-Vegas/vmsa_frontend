@@ -37,11 +37,10 @@ module.exports = ({ mode } = {
     },
     devServer: {
       contentBase: path.join(__dirname, 'dist'),
-      compress: true,
       hot: true,
       port: 3000
     },
-    devtool: "none",
+    devtool: "eval-cheap-module-source-map",
     resolve: {
       alias: {
         "react-dom": "@hot-loader/react-dom"
