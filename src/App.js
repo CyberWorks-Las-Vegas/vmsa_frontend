@@ -3,7 +3,7 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { hot } from "react-hot-loader";
 // COMPONENTS
-import SignInSide from './Components/Pages/Home/MLogin/SignIn';
+// import SignInSide from './Components/Pages/Home/MLogin/SignIn';
 import ButtonAppBar from './Components/Pages/Home/MLogin/AppBar';
 import FormContainer from './Components/Pages/Dashboard/MForm/FormContainer';
 import MDashboard from "./Components/Pages/Dashboard/MDashboard/Main";
@@ -23,7 +23,7 @@ const App = () => {
         <ButtonAppBar />
 
         <Switch>
-          <Route exact path="/" component={SignInSide} />
+          <Route exact path="/" component={VSDashboard} />
           <PrivateAdminRoute path="/applogin" component={AppLogin} />
           <PrivateFormRoute path="/form" component={FormContainer} />
           <PrivateDashboardRoute path="/administrator/dashboard" component={MDashboard} />
@@ -38,10 +38,3 @@ const App = () => {
 
 // helps perserve state on each reload in dev
 export default hot(module)(App);
-
-
-// <Route path="/Admin" component={InitForm} />
-//           <Route path="/Admin/Dashboard" component={Dashboard} />
-//           {/* test */}
-//           <Route exact path="/Admin/Dashboard/:slug" component={Search} />
-//           <Route exact path="/Guest/Dashboard/:slug" component={AddVistor} />
