@@ -7,10 +7,12 @@ import SignInSide from './Components/Pages/Home/MLogin/SignIn';
 import ButtonAppBar from './Components/Pages/Home/MLogin/AppBar';
 import FormContainer from './Components/Pages/Dashboard/MForm/FormContainer';
 import MDashboard from "./Components/Pages/Dashboard/MDashboard/Main";
-import VisitorStationContainer from "./Components/Pages/Dashboard/VisitorStation/VisitorStation";
+import VSDashboard from "./Components/Pages/Dashboard/VisitorStation/VisitorStation";
 import PrivateAdminRoute from "./Components/Routes/PrivateAdminRoute";
 import PrivateFormRoute from "./Components/Routes/PrivateFormRoute";
-import AppLogin from "./Components/Pages/Home/AppLogin/AppLogin"
+import PrivateDashboardRoute from "./Components/Routes/PrivateDashboardRoute";
+import AppLogin from "./Components/Pages/Home/AppLogin/AppLogin";
+import Error from "./Components/Pages/Error/Error";
 // Styles
 import Container from '@material-ui/core/Container';
 
@@ -21,11 +23,13 @@ const App = () => {
         <ButtonAppBar />
 
         <Switch>
-          <Route exact path="/" component={VisitorStationContainer} />
+          <Route exact path="/" component={SignInSide} />
           <PrivateAdminRoute path="/applogin" component={AppLogin} />
           <PrivateFormRoute path="/form" component={FormContainer} />
-          <Route path="/dashboard" component={MDashboard} />
-          <Route exact path="/test/visitorstation" component={VisitorStationContainer} />
+          <PrivateDashboardRoute path="/administrator/dashboard" component={MDashboard} />
+          <PrivateDashboardFDRoute path="/front_desk/dashboard" component={FDDashboard} />
+          <PrivateDashboardVSRoute path="/visitor_station/dashboard" component={VSDashboard} />
+          <Route component={Error} />
         </Switch>
       </Container>
     </>

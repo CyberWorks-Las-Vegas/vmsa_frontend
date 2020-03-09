@@ -73,7 +73,7 @@ function VisitorStationFormChange() {
   return console.log("form changed")
 }
 
-const VisitorStationContainer = () => {
+const VSDashboard = () => {
   const classes = useStyles();
   // const inputRef = 0;
   // const { saveContinue } = context;
@@ -213,4 +213,4 @@ const VisitorStationContainer = () => {
   )
 }
 
-export default VisitorStationContainer;
+export default VSDashboard;
