@@ -1,3 +1,6 @@
+import bigInt from 'big-integer';
+
+
 (function(exports, Error, document, Uin8Array, Uint32Array, BigInteger, undefined){
 document.addEventListener("DOMContentLoaded", function() {
 //
@@ -4876,4 +4879,4 @@ ZXing.PDF417.PDF417Reader.prototype.reset = function () {
 };
 
 }, false);
-}(window, window.Error, window.document, window.Uint8Array, window.Uint32Array, window.bigInt));
+}(window, window.Error, window.document, window.Uint8Array, window.Uint32Array, bigInt));
