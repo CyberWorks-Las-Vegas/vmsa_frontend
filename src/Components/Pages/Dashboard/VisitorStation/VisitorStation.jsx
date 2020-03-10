@@ -101,7 +101,6 @@ class VSDashboard extends React.Component {
 
     this.signIn = this.signIn.bind(this);
     this.signOut = this.signOut.bind(this);
-    this.Copyright = this.Copyright.bind(this);
     this.toggleState = this.toggleState.bind(this);
     this.VisitorStationFormChange = this.VisitorStationFormChange.bind(this);
   }
