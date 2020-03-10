@@ -2,14 +2,12 @@ import React, { Component } from "react";
 import ReactDom from "react-dom";
 import PropTypes from "prop-types";
 import adapter from 'webrtc-adapter';
-let $ = require("jquery");
 import Quagga from 'quagga';
 import ZXing from '../../../../../assets/js/zxing-pdf417'
 
 // styled
 import StyledModal from "./ModalCss";
 
-console.log($, "jquery")
 
 const modalRoot = document.getElementById("modal-root");
 
@@ -49,8 +47,13 @@ class Modal extends Component {
 
     // scanner functionality
     const interactiveNode = this.interactiveRef.current;
+
     console.log(interactiveNode, "ref - component did mount")
-    scanner(interactiveNode);
+      // checks if doc has loaded and waits for scanner to run and add node
+      (document.readyState != "loading") ?
+      async () => await scanner(interactiveNode)
+      :
+      document.addEventListener("DOMContentLoaded", scanner(interactiveNode));
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -197,7 +200,7 @@ class Modal extends Component {
   }
 }
 
-const scanner = $(function (Ref) {
+const scanner = document.addEventListener("DOMContentLoaded", function (Ref) {
   let resultCollector = Quagga.ResultCollector.create({
     capture: true,
     capacity: 20,
@@ -307,17 +310,36 @@ const scanner = $(function (Ref) {
       let self = this;
 
       self.initCameraSelection();
-      $(".controls").on("click", "button.stop", function (e) {
+
+      let controls = document.querySelector(".controls")
+      controls.querySelector('.stop').addEventListener("click", function (e) {
         e.preventDefault();
         Quagga.stop();
         self._printCollectedResults();
       });
 
-      $(".controls .reader-config-group").on("change", "input, select", function (e) {
+      let controlsReader = document.querySelector(".controls .reader-config-group");
+      let controlsReaderSelect = controlsReader.querySelectorAll("select");
+      let controlsReaderInput = controlsReader.querySelector("input");
+
+      controlsReaderSelect.forEach(function (selectElm) {
+        selectElm.addEventListener("change", function (e) {
+          e.preventDefault();
+          let $target = e.target,
+            value = $target.getAttribute("type") === "checkbox" ? $target.prop("checked") : $target.val(),
+            name = $target.getAttribute("name"),
+            state = self._convertNameToState(name);
+
+          console.log("Value of " + state + " changed to " + value);
+          self.setState(state, value);
+        });
+      })
+
+      controlsReaderInput.addEventListener("change", function (e) {
         e.preventDefault();
-        let $target = $(e.target),
-          value = $target.attr("type") === "checkbox" ? $target.prop("checked") : $target.val(),
-          name = $target.attr("name"),
+        let $target = e.target,
+          value = $target.getAttribute("type") === "checkbox" ? $target.prop("checked") : $target.val(),
+          name = $target.getAttribute("name"),
           state = self._convertNameToState(name);
 
         console.log("Value of " + state + " changed to " + value);
@@ -326,13 +348,13 @@ const scanner = $(function (Ref) {
     },
     _printCollectedResults: function () {
       let results = resultCollector.getResults(),
-        $ul = $("#result_strip ul.collector");
+        $ul = document.querySelector("#result_strip ul.collector");
 
       results.forEach(function (result) {
-        let $li = $('<li><div class="thumbnail"><div class="imgWrapper"><img /></div><div class="caption"><h4 class="code"></h4></div></div></li>');
+        let $li = document.createElement('<li><div class="thumbnail"><div class="imgWrapper"><img /></div><div class="caption"><h4 class="code"></h4></div></div></li>');
 
-        $li.find("img").attr("src", result.frame);
-        $li.find("h4.code").html(result.codeResult.code + " (" + result.codeResult.format + ")");
+        $li.querySelector("img").setAttribute("src", result.frame);
+        $li.querySelector("h4.code").innerHTML(result.codeResult.code + " (" + result.codeResult.format + ")");
         $ul.prepend($li);
       });
     },
@@ -358,8 +380,40 @@ const scanner = $(function (Ref) {
       });
     },
     detachListeners: function () {
-      $(".controls").off("click", "button.stop");
-      $(".controls .reader-config-group").off("change", "input, select");
+      let controls = document.querySelector(".controls")
+      controls.querySelector('.stop').removeEventListener("click", function (e) {
+        e.preventDefault();
+        Quagga.stop();
+        self._printCollectedResults();
+      });
+
+      let controlsReader = document.querySelector(".controls .reader-config-group");
+      let controlsReaderSelect = controlsReader.querySelectorAll("select");
+      let controlsReaderInput = controlsReader.querySelector("input");
+
+      controlsReaderSelect.forEach(function (selectElm) {
+        selectElm.removeEventListener("change", function (e) {
+          e.preventDefault();
+          let $target = e.target,
+            value = $target.getAttribute("type") === "checkbox" ? $target.prop("checked") : $target.val(),
+            name = $target.getAttribute("name"),
+            state = self._convertNameToState(name);
+
+          console.log("Value of " + state + " changed to " + value);
+          self.setState(state, value);
+        });
+      })
+
+      controlsReaderInput.removeEventListener("change", function (e) {
+        e.preventDefault();
+        let $target = e.target,
+          value = $target.getAttribute("type") === "checkbox" ? $target.prop("checked") : $target.val(),
+          name = $target.getAttribute("name"),
+          state = self._convertNameToState(name);
+
+        console.log("Value of " + state + " changed to " + value);
+        self.setState(state, value);
+      });
     },
     applySetting: function (setting, value) {
       let track = Quagga.CameraAccess.getActiveTrack();
@@ -490,10 +544,10 @@ const scanner = $(function (Ref) {
       App.lastResult = code;
       let $node = null, canvas = Quagga.canvas.dom.image;
 
-      $node = $('<li><div class="thumbnail"><div class="imgWrapper"><img /></div><div class="caption"><h4 class="code"></h4></div></div></li>');
-      $node.find("img").attr("src", canvas.toDataURL());
-      $node.find("h4.code").html(code);
-      $("#result_strip ul.thumbnails").prepend($node);
+      $node = document.createElement('<li><div class="thumbnail"><div class="imgWrapper"><img /></div><div class="caption"><h4 class="code"></h4></div></div></li>');
+      $node.querySelector("img").setAttribute("src", canvas.toDataURL());
+      $node.querySelector("h4.code").innerHTML(code);
+      document.querySelector("#result_strip ul.thumbnails").prepend($node);
     }
   });
 
