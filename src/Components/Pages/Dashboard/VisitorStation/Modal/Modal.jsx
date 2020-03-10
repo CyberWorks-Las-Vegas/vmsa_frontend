@@ -9,7 +9,7 @@ import ZXing from '../../../../../assets/js/zxing-pdf417'
 // styled
 import StyledModal from "./ModalCss";
 
-console.log($)
+console.log($, "jquery")
 
 const modalRoot = document.getElementById("modal-root");
 
@@ -219,8 +219,8 @@ const scanner = $(function () {
   let App = {
     init: function () {
       let self = this;
-
-      Quagga.init(this.state, function (err) {
+      console.log(self, 'this', this.state, 'state', this.QuaggaState, "quagga")
+      Quagga.init(this.QuaggaState, function (err) {
         if (err) {
           return self.handleError(err);
         }
@@ -422,9 +422,10 @@ const scanner = $(function () {
         }
       }
     },
-    state: {
+    QuaggaState: {
       inputStream: {
         type: "LiveStream",
+        target: document.querySelector('#interactive'),
         constraints: {
           width: { min: 640 },
           height: { min: 480 },
