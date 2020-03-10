@@ -2808,9 +2808,9 @@ ZXing.PDF417.Internal.EC.ErrorCorrection.prototype.decode = function (received, 
     var error = false;
     errorLocationsCount.Value = 0;
     for (var i = numECCodewords; i > 0; i--) {
-        var eval = poly.evaluateAt(this.field.exp(i));
+        var evalEXODUS = poly.evaluateAt(this.field.exp(i));
         S[numECCodewords - i] = eval;
-        if (eval != 0) {
+        if (evalEXODUS != 0) {
             error = true;
         }
     }

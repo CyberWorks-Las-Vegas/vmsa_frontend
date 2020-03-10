@@ -215,7 +215,7 @@ module.exports = ({ mode } = {
         }
       }),
       new ReactLoadablePlugin({
-        filename: './dist/react-loadable.json',
+        filename: './build/react-loadable.json',
       }),
       // to create manifest.json on build
       new WebpackManifestPlugin(),
