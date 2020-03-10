@@ -2,13 +2,14 @@ import React, { Component } from "react";
 import ReactDom from "react-dom";
 import PropTypes from "prop-types";
 import adapter from 'webrtc-adapter';
-import $ from 'jquery';
+let $ = require("jquery");
 import Quagga from 'quagga';
 import ZXing from '../../../../../assets/js/zxing-pdf417'
 
 // styled
 import StyledModal from "./ModalCss";
 
+console.log($)
 
 const modalRoot = document.getElementById("modal-root");
 
@@ -43,6 +44,9 @@ class Modal extends Component {
   componentDidMount() {
     window.addEventListener("keydown", this.onEscKeyDown, false);
     setTimeout(() => this.setState({ fadeType: "in" }), 0);
+
+    // scanner functionality
+    scanner();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -92,87 +96,90 @@ class Modal extends Component {
                 ×
               </button>
             </div>
-            <div className="box-content">
-              <div class="controls">
-                <fieldset class="input-group">
-                  <button class="stop">Stop</button>
-                </fieldset>
-                <fieldset class="reader-config-group">
-                  <label>
-                    <span>Barcode-Type</span>
-                    <select name="decoder_readers">
-                      <option value="code_128" selected="selected">Code 128</option>
-                      <option value="code_39">Code 39</option>
-                      <option value="code_39_vin">Code 39 VIN</option>
-                      <option value="ean">EAN</option>
-                      <option value="ean_extended">EAN-extended</option>
-                      <option value="ean_8">EAN-8</option>
-                      <option value="upc">UPC</option>
-                      <option value="upc_e">UPC-E</option>
-                      <option value="codabar">Codabar</option>
-                      <option value="i2of5">Interleaved 2 of 5</option>
-                      <option value="2of5">Standard 2 of 5</option>
-                      <option value="code_93">Code 93</option>
-                    </select>
-                  </label>
-                  <label>
-                    <span>Resolution (width)</span>
-                    <select name="input-stream_constraints">
-                      <option value="320x240">320px</option>
-                      <option selected="selected" value="640x480">640px</option>
-                      <option value="800x600">800px</option>
-                      <option value="1280x720">1280px</option>
-                      <option value="1600x960">1600px</option>
-                      <option value="1920x1080">1920px</option>
-                    </select>
-                  </label>
-                  <label>
-                    <span>Patch-Size</span>
-                    <select name="locator_patch-size">
-                      <option value="x-small">x-small</option>
-                      <option value="small">small</option>
-                      <option selected="selected" value="medium">medium</option>
-                      <option value="large">large</option>
-                      <option value="x-large">x-large</option>
-                    </select>
-                  </label>
-                  <label>
-                    <span>Half-Sample</span>
-                    <input type="checkbox" checked="checked" name="locator_half-sample" />
-                  </label>
-                  <label>
-                    <span>Workers</span>
-                    <select name="numOfWorkers">
-                      <option value="0">0</option>
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option selected="selected" value="4">4</option>
-                      <option value="8">8</option>
-                    </select>
-                  </label>
-                  <label>
-                    <span>Camera</span>
-                    <select name="input-stream_constraints" id="deviceSelection">
-                    </select>
-                  </label>
-                  <label style="display: none">
-                    <span>Zoom</span>
-                    <select name="settings_zoom"></select>
-                  </label>
-                  <label style="display: none">
-                    <span>Torch</span>
-                    <input type="checkbox" name="settings_torch" />
-                  </label>
-                </fieldset>
-              </div>
-              <div id="result_strip">
-                <ul class="thumbnails"></ul>
-                <ul class="collector"></ul>
-              </div>
-              <div id="interactive" class="viewport"></div>
 
-            </div>
-            <div className="box-footer" />
+            <section id="container" class="container">
+              <div className="box-content">
+                <div class="controls">
+                  <fieldset class="input-group">
+                    <button class="stop">Stop</button>
+                  </fieldset>
+                  <fieldset class="reader-config-group">
+                    <label>
+                      <span>Barcode-Type</span>
+                      <select name="decoder_readers">
+                        <option value="code_128" selected="selected">Code 128</option>
+                        <option value="code_39">Code 39</option>
+                        <option value="code_39_vin">Code 39 VIN</option>
+                        <option value="ean">EAN</option>
+                        <option value="ean_extended">EAN-extended</option>
+                        <option value="ean_8">EAN-8</option>
+                        <option value="upc">UPC</option>
+                        <option value="upc_e">UPC-E</option>
+                        <option value="codabar">Codabar</option>
+                        <option value="i2of5">Interleaved 2 of 5</option>
+                        <option value="2of5">Standard 2 of 5</option>
+                        <option value="code_93">Code 93</option>
+                      </select>
+                    </label>
+                    <label>
+                      <span>Resolution (width)</span>
+                      <select name="input-stream_constraints">
+                        <option value="320x240">320px</option>
+                        <option selected="selected" value="640x480">640px</option>
+                        <option value="800x600">800px</option>
+                        <option value="1280x720">1280px</option>
+                        <option value="1600x960">1600px</option>
+                        <option value="1920x1080">1920px</option>
+                      </select>
+                    </label>
+                    <label>
+                      <span>Patch-Size</span>
+                      <select name="locator_patch-size">
+                        <option value="x-small">x-small</option>
+                        <option value="small">small</option>
+                        <option selected="selected" value="medium">medium</option>
+                        <option value="large">large</option>
+                        <option value="x-large">x-large</option>
+                      </select>
+                    </label>
+                    <label>
+                      <span>Half-Sample</span>
+                      <input type="checkbox" checked="checked" name="locator_half-sample" />
+                    </label>
+                    <label>
+                      <span>Workers</span>
+                      <select name="numOfWorkers">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option selected="selected" value="4">4</option>
+                        <option value="8">8</option>
+                      </select>
+                    </label>
+                    <label>
+                      <span>Camera</span>
+                      <select name="input-stream_constraints" id="deviceSelection">
+                      </select>
+                    </label>
+                    <label style="display: none">
+                      <span>Zoom</span>
+                      <select name="settings_zoom"></select>
+                    </label>
+                    <label style="display: none">
+                      <span>Torch</span>
+                      <input type="checkbox" name="settings_torch" />
+                    </label>
+                  </fieldset>
+                </div>
+                <div id="result_strip">
+                  <ul class="thumbnails"></ul>
+                  <ul class="collector"></ul>
+                </div>
+                <div id="interactive" class="viewport"></div>
+
+              </div>
+              <div className="box-footer" />
+            </section>
           </div>
           <div
             className={`background`}
@@ -186,7 +193,7 @@ class Modal extends Component {
   }
 }
 
-$(function () {
+const scanner = $(function () {
   let resultCollector = Quagga.ResultCollector.create({
     capture: true,
     capacity: 20,
@@ -433,7 +440,7 @@ $(function () {
       frequency: 10,
       decoder: {
         readers: [{
-          format: "code_128_reader",
+          format: "upc_a",
           config: {}
         }]
       },
@@ -486,4 +493,4 @@ $(function () {
 
 });
 
-export default React.createElement(Modal, { context: $('body') });
+export default Modal;
