@@ -48,9 +48,8 @@ class Modal extends Component {
     // scanner functionality
     const interactiveNode = this.interactiveRef.current;
 
-    console.log(interactiveNode, "ref - component did mount")
-      // checks if doc has loaded and waits for scanner to run and add node
-      (document.readyState != "loading") ?
+    // checks if doc has loaded and waits for scanner to run and add node
+    (document.readyState != "loading") ?
       scanner(interactiveNode)
       :
       document.addEventListener("DOMContentLoaded", scanner(interactiveNode));
