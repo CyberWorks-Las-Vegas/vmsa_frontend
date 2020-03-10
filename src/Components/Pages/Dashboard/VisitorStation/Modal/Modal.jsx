@@ -51,7 +51,7 @@ class Modal extends Component {
     console.log(interactiveNode, "ref - component did mount")
       // checks if doc has loaded and waits for scanner to run and add node
       (document.readyState != "loading") ?
-      async () => await scanner(interactiveNode)
+      scanner(interactiveNode)
       :
       document.addEventListener("DOMContentLoaded", scanner(interactiveNode));
   }
@@ -200,7 +200,7 @@ class Modal extends Component {
   }
 }
 
-const scanner = document.addEventListener("DOMContentLoaded", function (Ref) {
+const scanner = (Ref) => {
   let resultCollector = Quagga.ResultCollector.create({
     capture: true,
     capacity: 20,
@@ -551,6 +551,6 @@ const scanner = document.addEventListener("DOMContentLoaded", function (Ref) {
     }
   });
 
-});
+};
 
 export default Modal;
