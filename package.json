@@ -85,6 +85,7 @@
     "http-errors": "1.7.3",
     "image-webpack-loader": "6.0.0",
     "is-empty": "1.2.0",
+    "jquery": "^3.4.1",
     "js-base64": "2.5.2",
     "jsonwebtoken": "8.5.1",
     "methods": "1.1.2",
@@ -120,6 +121,7 @@
     "webpack-cli": "3.3.10",
     "webpack-dev-server": "3.10.3",
     "webpack-manifest-plugin": "2.2.0",
-    "webpack-md5-hash": "0.0.6"
+    "webpack-md5-hash": "0.0.6",
+    "webrtc-adapter": "7.5.0"
   }
 }
