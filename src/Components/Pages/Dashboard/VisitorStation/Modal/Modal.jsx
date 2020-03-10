@@ -33,15 +33,15 @@ class Modal extends Component {
     this.state = {
       fadeType: null
     };
-    // Refs
-    this.interactiveRef = React.createRef();
+
     // function
     this.transitionEnd = this.transitionEnd.bind(this);
     this.onEscKeyDown = this.onEscKeyDown.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
-
+  // Refs
   background = React.createRef();
+  interactiveRef = React.createRef();
 
   componentDidMount() {
     window.addEventListener("keydown", this.onEscKeyDown, false);
