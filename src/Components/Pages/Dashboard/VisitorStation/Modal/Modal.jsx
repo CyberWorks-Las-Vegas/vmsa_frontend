@@ -168,11 +168,11 @@ class Modal extends Component {
                       <select name="input-stream_constraints" id="deviceSelection">
                       </select>
                     </label>
-                    <label style="display: none">
+                    <label style={{ display: "none" }}>
                       <span>Zoom</span>
                       <select name="settings_zoom"></select>
                     </label>
-                    <label style="display: none">
+                    <label style={{ display: "none" }}>
                       <span>Torch</span>
                       <input type="checkbox" name="settings_torch" />
                     </label>
