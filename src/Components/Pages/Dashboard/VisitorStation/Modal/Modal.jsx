@@ -33,7 +33,9 @@ class Modal extends Component {
     this.state = {
       fadeType: null
     };
-
+    // Refs
+    this.interactiveRef = React.createRef();
+    // function
     this.transitionEnd = this.transitionEnd.bind(this);
     this.onEscKeyDown = this.onEscKeyDown.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -46,7 +48,9 @@ class Modal extends Component {
     setTimeout(() => this.setState({ fadeType: "in" }), 0);
 
     // scanner functionality
-    scanner();
+    const interactiveNode = this.interactiveRef.current;
+    console.log(interactiveNode, "ref - component did mount")
+    scanner(interactiveNode);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -175,7 +179,7 @@ class Modal extends Component {
                   <ul class="thumbnails"></ul>
                   <ul class="collector"></ul>
                 </div>
-                <div id="interactive" class="viewport"></div>
+                <div id="interactive" class="viewport" ref={this.interactiveRef}></div>
 
               </div>
               <div className="box-footer" />
@@ -193,7 +197,7 @@ class Modal extends Component {
   }
 }
 
-const scanner = $(function () {
+const scanner = $(function (Ref) {
   let resultCollector = Quagga.ResultCollector.create({
     capture: true,
     capacity: 20,
@@ -216,6 +220,7 @@ const scanner = $(function () {
       return true;
     }
   });
+  console.log(Ref, "ref - quagga function")
   let App = {
     init: function () {
       let self = this;
@@ -425,7 +430,7 @@ const scanner = $(function () {
     QuaggaState: {
       inputStream: {
         type: "LiveStream",
-        target: document.querySelector('#interactive'),
+        target: Ref,
         constraints: {
           width: { min: 640 },
           height: { min: 480 },
