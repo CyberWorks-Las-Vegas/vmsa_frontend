@@ -63,7 +63,7 @@ const useStyles = makeStyles(theme => ({
 }));
 const nextPageAuth = async (props, correct) => {
   const correctLogin = await correct
-  return correctLogin && props.history.push('/dashboard')
+  return correctLogin && props.history.push('/dashboard/administrator')
 }
 const AppLogin = (props, ref) => {
   const classes = useStyles();

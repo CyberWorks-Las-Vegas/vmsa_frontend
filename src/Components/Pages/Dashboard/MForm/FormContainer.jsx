@@ -120,7 +120,7 @@ const FormContainer = ({ context }) => {
                   Your now all set and ready to use the application.
                 </Typography>
                 <Link
-                  to="/dashboard"
+                  to="/dashboard/administrator"
                 >
                   <ComSubmit>Go to administrator dashboard</ComSubmit>
                 </Link>

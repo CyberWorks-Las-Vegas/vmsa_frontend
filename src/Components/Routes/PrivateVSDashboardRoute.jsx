@@ -5,7 +5,7 @@ import { UserContext } from "../../Context/Context"
 
 // TODO: need to check againist token in cookie
 
-const PrivateDashboardRoute = ({ component: Component, ...rest }) => {
+const PrivateVSDashboardRoute = ({ component: Component, ...rest }) => {
 
   const context = useContext(UserContext);
   const {
@@ -19,10 +19,32 @@ const PrivateDashboardRoute = ({ component: Component, ...rest }) => {
     return (
       <Route {...rest} render={props => {
         switch (current_profile) {
+          case visitor_station:
+            (accessTokens.visitor_station_token) ?
+              (
+                <Component {...props} />
+              )
+              :
+              (
+                <Redirect to={{
+                  pathname: '/appLogin',
+                  state: {
+                    from: props.location
+                  }
+                }}
+                />
+              )
+            break;
           case administrator:
             (accessTokens.administrator_token) ?
               (
-                <Component {...props} />
+                <Redirect to={{
+                  pathname: '/dashboard/administrator',
+                  state: {
+                    from: props.location
+                  }
+                }}
+                />
               )
               :
               (
@@ -40,28 +62,6 @@ const PrivateDashboardRoute = ({ component: Component, ...rest }) => {
               (
                 <Redirect to={{
                   pathname: '/dashboard/front_desk',
-                  state: {
-                    from: props.location
-                  }
-                }}
-                />
-              )
-              :
-              (
-                <Redirect to={{
-                  pathname: '/appLogin',
-                  state: {
-                    from: props.location
-                  }
-                }}
-                />
-              )
-            break;
-          case visitor_station:
-            (accessTokens.visitor_station_token) ?
-              (
-                <Redirect to={{
-                  pathname: '/dashboard/visitor_station',
                   state: {
                     from: props.location
                   }
@@ -105,4 +105,4 @@ const PrivateDashboardRoute = ({ component: Component, ...rest }) => {
   }
 };
 
-export default PrivateDashboardRoute; 
+export default PrivateVSDashboardRoute; 

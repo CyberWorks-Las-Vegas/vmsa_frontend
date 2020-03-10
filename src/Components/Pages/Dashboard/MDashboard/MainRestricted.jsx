@@ -109,7 +109,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const MDashboard = (props) => {
+const FDDashboard = (props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
 
@@ -156,4 +156,4 @@ const MDashboard = (props) => {
   );
 };
 
-export default MDashboard;
+export default FDDashboard;

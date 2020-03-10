@@ -7,7 +7,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import ErrorImage from "../../../assets/images/error.jpeg"
+import ErrorImage from "../../../assets/images/error2.webp"
 // Components
 
 
@@ -82,8 +82,7 @@ const Error = () => {
             <Typography component="h1" variant="h4" align="center">
               Error 404
             </Typography>
-
-
+            <Link to="/dashboard">Go to Home </Link>
             <Grid item xs={false} sm={4} md={7} className={classes.image} />
           </Grid>
         </Paper>

@@ -133,7 +133,7 @@ module.exports = ({ mode } = {
         },
         // for loading/compressing big images
         {
-          test: /\.(gif|png|jpe?g|svg)$/i,
+          test: /\.(gif|png|jpe?g|svg|webp)$/i,
           use: [
             'file-loader',
             {

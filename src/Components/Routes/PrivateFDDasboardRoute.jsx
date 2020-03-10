@@ -5,7 +5,7 @@ import { UserContext } from "../../Context/Context"
 
 // TODO: need to check againist token in cookie
 
-const PrivateDashboardRoute = ({ component: Component, ...rest }) => {
+const PrivateFDDashboardRoute = ({ component: Component, ...rest }) => {
 
   const context = useContext(UserContext);
   const {
@@ -19,8 +19,8 @@ const PrivateDashboardRoute = ({ component: Component, ...rest }) => {
     return (
       <Route {...rest} render={props => {
         switch (current_profile) {
-          case administrator:
-            (accessTokens.administrator_token) ?
+          case front_desk:
+            (accessTokens.front_desk_token) ?
               (
                 <Component {...props} />
               )
@@ -35,11 +35,11 @@ const PrivateDashboardRoute = ({ component: Component, ...rest }) => {
                 />
               )
             break;
-          case front_desk:
-            (accessTokens.front_desk_token) ?
+          case administrator:
+            (accessTokens.administrator_token) ?
               (
                 <Redirect to={{
-                  pathname: '/dashboard/front_desk',
+                  pathname: '/dashboard/administrator',
                   state: {
                     from: props.location
                   }
@@ -105,4 +105,4 @@ const PrivateDashboardRoute = ({ component: Component, ...rest }) => {
   }
 };
 
-export default PrivateDashboardRoute; 
+export default PrivateFDDashboardRoute; 
