@@ -90,6 +90,7 @@ const nav = {
   top: "0",
   position: "relative"
 };
+const classes = useStyles();
 
 class VSDashboard extends React.Component {
 
@@ -124,7 +125,6 @@ class VSDashboard extends React.Component {
   }
 
   render() {
-    const classes = useStyles();
 
     return (
       <React.Fragment>
