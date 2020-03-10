@@ -37,9 +37,9 @@ module.exports = ({ mode } = {
     },
     // devServer: {
     //   contentBase: path.join(__dirname, 'dist'),
-    //   stats: { 
+    //   stats: {
     //     children: false
-    //    },
+    //   },
     //   hot: true,
     //   port: 3000
     // },

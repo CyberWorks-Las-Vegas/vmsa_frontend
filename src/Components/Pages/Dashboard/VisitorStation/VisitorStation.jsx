@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/styles';
 
 // Styles
 import { makeStyles } from '@material-ui/core/styles';
@@ -26,7 +28,7 @@ function Copyright() {
   );
 }
 
-const useStyles = makeStyles(theme => ({
+const classStyle = theme => ({
   appBar: {
     position: 'relative',
   },
@@ -61,7 +63,7 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(3),
     marginLeft: theme.spacing(1),
   },
-}));
+});
 
 const modalActive = {
   height: "80vh",
@@ -90,7 +92,7 @@ const nav = {
   top: "0",
   position: "relative"
 };
-const classes = useStyles();
+
 
 class VSDashboard extends React.Component {
 
@@ -125,7 +127,7 @@ class VSDashboard extends React.Component {
   }
 
   render() {
-
+    const { classes } = this.props;
     return (
       <React.Fragment>
         <CssBaseline />
@@ -451,6 +453,10 @@ class VSDashboard extends React.Component {
       </React.Fragment>
     )
   }
-}
+};
 
-export default VSDashboard;
+VSDashboard.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(VSDashboard);
