@@ -35,14 +35,14 @@ module.exports = ({ mode } = {
       path: path.resolve("./dist"),
       filename: "index.[hash].js"
     },
-    devServer: {
-      contentBase: path.join(__dirname, 'dist'),
-      stats: {
-        children: false
-      },
-      hot: true,
-      port: 3000
-    },
+    // devServer: {
+    //   contentBase: path.join(__dirname, 'dist'),
+    //   stats: {
+    //     children: false
+    //   },
+    //   hot: true,
+    //   port: 3000
+    // },
     devtool: "none",
     resolve: {
       alias: {
