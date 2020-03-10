@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/styles';
+
 
 // Styles
-import { makeStyles } from '@material-ui/core/styles';
+import Theme from '../../../../Themes/theme';
+import { withStyles } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -459,4 +460,6 @@ VSDashboard.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(VSDashboard);
+export default withStyles(
+  classStyle(Theme)
+)(VSDashboard);
