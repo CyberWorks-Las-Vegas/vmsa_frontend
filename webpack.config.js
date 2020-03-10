@@ -117,7 +117,7 @@ module.exports = ({ mode } = {
           ]
         },
         {
-          // for loading modules
+          // for loading images/modules
           test: /\.(eot|woff|woff2|ttf|svg|png|jpeg|jpg)$/,
           use: {
             loader: "url-loader",
@@ -128,6 +128,7 @@ module.exports = ({ mode } = {
             }
           }
         },
+        // for loading/compressing big images
         {
           test: /\.(gif|png|jpe?g|svg)$/i,
           use: [

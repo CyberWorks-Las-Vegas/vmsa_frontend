@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Loadable from "react-loadable";
+// import App from []
 
 const LoadApp = Loadable({
   // tells loadable to import our specified component

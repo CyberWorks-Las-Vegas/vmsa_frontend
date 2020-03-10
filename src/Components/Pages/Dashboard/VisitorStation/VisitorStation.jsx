@@ -13,7 +13,7 @@ import TextField from '@material-ui/core/TextField';
 import Modal from './Modal/Modal'
 
 
-Copyright = () => {
+function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
@@ -235,7 +235,7 @@ class VSDashboard extends React.Component {
                   <Button
                     variant="contained"
                     color="primary"
-                    onClick={() => this.signIn()}
+                    onClick={this.signIn}
                     className={classes.button}
                   >
                     Sign In
@@ -246,7 +246,7 @@ class VSDashboard extends React.Component {
                   <Button
                     variant="contained"
                     color="secondary"
-                    onClick={() => this.signOut()}
+                    onClick={this.signOut}
                     className={classes.button}
                   >
                     Sign Out
@@ -257,7 +257,7 @@ class VSDashboard extends React.Component {
                   <Button
                     variant="contained"
                     color="secondary"
-                    onClick={() => this.toggleState()}
+                    onClick={this.toggleState}
                     className={classes.button}
                   >
                     Scan
@@ -445,7 +445,6 @@ class VSDashboard extends React.Component {
                   </div>
                 </Modal>
               )}
-
             </React.Fragment>
           </Paper>
           <Copyright />
