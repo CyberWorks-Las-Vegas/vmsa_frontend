@@ -62,8 +62,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const currProfSel = document.querySelector("#current_profile").value;
-
 const nextPageAuth = async (props, correct) => {
   const correctLogin = await correct
   return correctLogin && props.history.push('/dashboard/administrator')
@@ -81,7 +79,7 @@ const AppLogin = (props, ref) => {
     loginFormChange
   } = context;
   const inputRef = useRef();
-
+  console.log(inputRef)
   // check if login responeded correct then calls redirect func
   correct && nextPageAuth(props, correct);
   return (
@@ -119,7 +117,7 @@ const AppLogin = (props, ref) => {
             </Select>
             {
 
-              (currProfSel !== 'visitor_station') &&
+              (inputRef.current.target.value !== 'visitor_station') &&
               <TextField
                 variant="outlined"
                 margin="normal"
