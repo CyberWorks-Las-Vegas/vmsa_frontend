@@ -77,7 +77,7 @@ const AppLogin = (props, ref) => {
     loginFormChange
   } = context;
   const inputRef = useRef();
-  const currProfsel = document.querySelector(".current_profile").target.value;
+  const currProfsel = document.querySelector("#current_profile").value;
   // check if login responeded correct then calls redirect func
   correct && nextPageAuth(props, correct)
   return (
