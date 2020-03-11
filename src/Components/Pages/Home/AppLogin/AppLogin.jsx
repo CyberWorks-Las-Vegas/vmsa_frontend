@@ -133,8 +133,7 @@ const AppLogin = (props, ref) => {
               <MenuItem value="visitor_station">Visitor Station</MenuItem>
             </Select>
             {
-
-              (selectRef.textContent !== 'Visitor Station') &&
+              (current_profile !== "visitor_station") &&
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -148,7 +147,6 @@ const AppLogin = (props, ref) => {
                 onChange={loginFormChange}
                 autoComplete="current-password"
               />
-
             }
 
             <ComSubmit
