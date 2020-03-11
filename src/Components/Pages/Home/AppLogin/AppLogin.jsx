@@ -96,6 +96,7 @@ const AppLogin = (props, ref) => {
 
   const passwordRef = useRef();
   const [selectRef] = useHookWithRefCallback()
+  console.log(selectRef, "app login - ref")
   // check if login responeded correct then calls redirect func
   correct && nextPageAuth(props, correct);
   return (
