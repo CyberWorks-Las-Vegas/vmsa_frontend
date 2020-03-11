@@ -77,9 +77,9 @@ const AppLogin = (props, ref) => {
     loginFormChange
   } = context;
   const inputRef = useRef();
-  const currProfsel = document.querySelector("#current_profile").value;
+
   // check if login responeded correct then calls redirect func
-  correct && nextPageAuth(props, correct)
+  correct && nextPageAuth(props, correct);
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -114,7 +114,8 @@ const AppLogin = (props, ref) => {
               <MenuItem value="visitor_station">Visitor Station</MenuItem>
             </Select>
             {
-              (currProfsel !== 'visitor_station') &&
+
+              (document.querySelector("#current_profile").value !== 'visitor_station') &&
               <TextField
                 variant="outlined"
                 margin="normal"
