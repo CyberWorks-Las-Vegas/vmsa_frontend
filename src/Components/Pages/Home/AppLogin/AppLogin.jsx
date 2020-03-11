@@ -161,6 +161,7 @@ const AppLogin = (props, ref) => {
                     type="password"
                     id="password"
                     name="profile_password"
+                    value="No value required"
                     ref={passwordRef}
                     onChange={loginFormChange}
                     autoComplete="current-password"
