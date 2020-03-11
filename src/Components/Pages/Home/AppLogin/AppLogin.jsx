@@ -133,20 +133,39 @@ const AppLogin = (props, ref) => {
               <MenuItem value="visitor_station">Visitor Station</MenuItem>
             </Select>
             {
-              (current_profile !== "visitor_station") &&
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                label="Password"
-                type="password"
-                id="password"
-                name="profile_password"
-                ref={passwordRef}
-                onChange={loginFormChange}
-                autoComplete="current-password"
-              />
+              (current_profile !== "visitor_station") ?
+                (
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    label="Password"
+                    type="password"
+                    id="password"
+                    name="profile_password"
+                    ref={passwordRef}
+                    onChange={loginFormChange}
+                    autoComplete="current-password"
+                  />
+                )
+                :
+                (
+                  <TextField
+                    disabled={true}
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    label="Password"
+                    type="password"
+                    id="password"
+                    name="profile_password"
+                    ref={passwordRef}
+                    onChange={loginFormChange}
+                    autoComplete="current-password"
+                  />
+                )
             }
 
             <ComSubmit
