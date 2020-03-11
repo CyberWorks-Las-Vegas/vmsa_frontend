@@ -122,7 +122,7 @@ module.exports = ({ mode } = {
         },
         {
           // for loading images/modules
-          test: /\.(eot|woff|woff2|ttf)$/,
+          test: /\.(eot|woff|woff2|ttf)$/i,
           use: {
             loader: "url-loader",
             options: {
@@ -160,6 +160,13 @@ module.exports = ({ mode } = {
               }
             },
           ],
+        },
+        {
+          // for loading images/modules
+          test: /\.(webp)$/,
+          use: [
+            'webp-loader?{quality: 75}'
+          ]
         }
       ]
     },
