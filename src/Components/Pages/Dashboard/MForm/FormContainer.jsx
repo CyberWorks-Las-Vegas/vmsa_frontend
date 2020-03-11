@@ -137,28 +137,30 @@ const FormContainer = ({ context }) => {
                     Back
                     </Button>
                 )}
-                {activeStep === steps.length - 1 ?
-                  (
-                    <Button
-                      variant="contained"
-                      color="secondary"
-                      onClick={(e) => { setStep(step + 1), saveContinue(e) }}
-                      className={classes.button}
-                    >
-                      Submit
+                {
+                  activeStep <= steps.length - 1 &&
+                    activeStep === steps.length - 1 ?
+                    (
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        onClick={(e) => { setStep(step + 1), saveContinue(e) }}
+                        className={classes.button}
+                      >
+                        Submit
                     </Button>
-                  )
-                  :
-                  (
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={() => setStep(step + 1)}
-                      className={classes.button}
-                    >
-                      Next
+                    )
+                    :
+                    (
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => setStep(step + 1)}
+                        className={classes.button}
+                      >
+                        Next
                    </Button>
-                  )
+                    )
                 }
               </div>
             </React.Fragment>
