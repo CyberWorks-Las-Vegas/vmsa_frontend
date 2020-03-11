@@ -15,12 +15,12 @@ const PrivateDashboardRoute = ({ component: Component, ...rest }) => {
       correct
     } } = context;
   console.log({ context }, accessTokens, 'private dashboard route')
-  if (correct) {
-    return (
-      <Route {...rest} render={props => {
+  return (
+    < Route {...rest} render={props => {
+      if (correct) {
         switch (current_profile) {
           case administrator:
-            (accessTokens.administrator_token) ?
+            return (accessTokens.administrator_token) ?
               (
                 <Component {...props} />
               )
@@ -36,7 +36,7 @@ const PrivateDashboardRoute = ({ component: Component, ...rest }) => {
               )
             break;
           case front_desk:
-            (accessTokens.front_desk_token) ?
+            return (accessTokens.front_desk_token) ?
               (
                 <Redirect to={{
                   pathname: '/dashboard/front_desk',
@@ -58,7 +58,7 @@ const PrivateDashboardRoute = ({ component: Component, ...rest }) => {
               )
             break;
           case visitor_station:
-            (accessTokens.visitor_station_token) ?
+            return (accessTokens.visitor_station_token) ?
               (
                 <Redirect to={{
                   pathname: '/dashboard/visitor_station',
@@ -90,19 +90,19 @@ const PrivateDashboardRoute = ({ component: Component, ...rest }) => {
               />
             )
         }
-      }} />
-    )
-  } else {
-    return (
-      <Redirect to={{
-        pathname: '/appLogin',
-        state: {
-          from: props.location
-        }
-      }}
-      />
-    )
-  }
+      } else {
+        return (
+          <Redirect to={{
+            pathname: '/appLogin',
+            state: {
+              from: props.location
+            }
+          }}
+          />
+        )
+      }
+    }} />
+  )
 };
 
 export default PrivateDashboardRoute; 

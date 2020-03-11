@@ -40,6 +40,7 @@ module.exports = ({ mode } = {
     //   stats: {
     //     children: false
     //   },
+    //   compress: true,
     //   hot: true,
     //   port: 3000
     // },

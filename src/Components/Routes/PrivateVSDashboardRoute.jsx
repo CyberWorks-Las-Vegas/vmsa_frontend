@@ -15,9 +15,9 @@ const PrivateVSDashboardRoute = ({ component: Component, ...rest }) => {
       correct
     } } = context;
   console.log({ context }, accessTokens, 'private dashboard route')
-  if (correct) {
-    return (
-      <Route {...rest} render={props => {
+  return (
+    <Route {...rest} render={props => {
+      if (correct) {
         switch (current_profile) {
           case visitor_station:
             (accessTokens.visitor_station_token) ?
@@ -90,19 +90,20 @@ const PrivateVSDashboardRoute = ({ component: Component, ...rest }) => {
               />
             )
         }
-      }} />
-    )
-  } else {
-    return (
-      <Redirect to={{
-        pathname: '/appLogin',
-        state: {
-          from: props.location
-        }
-      }}
-      />
-    )
-  }
+
+      } else {
+        return (
+          <Redirect to={{
+            pathname: '/appLogin',
+            state: {
+              from: props.location
+            }
+          }}
+          />
+        )
+      }
+    }} />
+  )
 };
 
 export default PrivateVSDashboardRoute; 

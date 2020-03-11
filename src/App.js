@@ -16,7 +16,7 @@ import PrivateFormRoute from "./Components/Routes/PrivateFormRoute";
 import PrivateAdminRoute from "./Components/Routes/PrivateAdminRoute";
 import PrivateDashboardRoute from "./Components/Routes/PrivateDashboardRoute";
 import PrivateFDDashboardRoute from "./Components/Routes/PrivateFDDasboardRoute";
-import PrivateVSDashboardRoute from "./Components/Routes/PrivateVSDasboardRoute";
+import PrivateVSDashboardRoute from "./Components/Routes/PrivateVSDashboardRoute";
 
 import Error from "./Components/Pages/Error/Error";
 // Styles
