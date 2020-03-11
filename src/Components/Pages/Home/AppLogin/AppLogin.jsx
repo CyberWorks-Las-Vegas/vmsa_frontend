@@ -78,8 +78,9 @@ const AppLogin = (props, ref) => {
     onAppSubmit,
     loginFormChange
   } = context;
-  const inputRef = useRef();
-  console.log(inputRef)
+  const selectRef = useRef();
+  const passwordRef = useRef();
+  console.log(selectRef)
   // check if login responeded correct then calls redirect func
   correct && nextPageAuth(props, correct);
   return (
@@ -100,7 +101,7 @@ const AppLogin = (props, ref) => {
             className={classes.form}
           >
             <Select
-              ref={inputRef}
+              ref={selectRef}
               id="current_profile"
               variant="outlined"
               name="current_profile"
@@ -117,7 +118,7 @@ const AppLogin = (props, ref) => {
             </Select>
             {
 
-              (inputRef.current !== 'visitor_station') &&
+              (selectRef.current !== 'visitor_station') &&
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -127,7 +128,7 @@ const AppLogin = (props, ref) => {
                 type="password"
                 id="password"
                 name="profile_password"
-                ref={inputRef}
+                ref={passwordRef}
                 onChange={loginFormChange}
                 autoComplete="current-password"
               />
