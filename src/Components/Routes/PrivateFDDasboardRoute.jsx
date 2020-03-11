@@ -19,8 +19,8 @@ const PrivateFDDashboardRoute = ({ component: Component, ...rest }) => {
     <Route {...rest} render={props => {
       if (correct) {
         switch (current_profile) {
-          case front_desk:
-            (accessTokens.front_desk_token) ?
+          case 'front_desk':
+            return (accessTokens.front_desk_token) ?
               (
                 <Component {...props} />
               )
@@ -35,8 +35,8 @@ const PrivateFDDashboardRoute = ({ component: Component, ...rest }) => {
                 />
               )
             break;
-          case administrator:
-            (accessTokens.administrator_token) ?
+          case 'administrator':
+            return (accessTokens.administrator_token) ?
               (
                 <Redirect to={{
                   pathname: '/dashboard/administrator',
@@ -57,8 +57,8 @@ const PrivateFDDashboardRoute = ({ component: Component, ...rest }) => {
                 />
               )
             break;
-          case visitor_station:
-            (accessTokens.visitor_station_token) ?
+          case 'visitor_station':
+            return (accessTokens.visitor_station_token) ?
               (
                 <Redirect to={{
                   pathname: '/dashboard/visitor_station',

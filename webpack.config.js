@@ -122,7 +122,7 @@ module.exports = ({ mode } = {
         },
         {
           // for loading images/modules
-          test: /\.(eot|woff|woff2|ttf|svg|png|jpeg|jpg)$/,
+          test: /\.(eot|woff|woff2|ttf)$/,
           use: {
             loader: "url-loader",
             options: {
@@ -134,14 +134,12 @@ module.exports = ({ mode } = {
         },
         // for loading/compressing big images
         {
-          test: /\.(gif|png|jpe?g|svg|webp)$/i,
+          test: /\.(gif|png|jpe?g|svg)$/i,
           use: [
             'file-loader',
             {
               loader: 'image-webpack-loader',
               options: {
-                bypassOnDebug: true,
-                disable: true,
                 mozjpeg: {
                   progressive: true,
                   quality: 65
@@ -159,7 +157,6 @@ module.exports = ({ mode } = {
                 webp: {
                   quality: 75
                 },
-                name: "images/[name].[hash].[ext]"
               }
             },
           ],

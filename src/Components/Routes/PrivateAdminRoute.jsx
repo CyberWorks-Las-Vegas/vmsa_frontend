@@ -20,7 +20,9 @@ const PrivateAdminRoute = ({ component: Component, ...rest }) => {
         isFirstSignin ? (
           <Redirect to={{
             pathname: '/form',
-            state: { from: props.location }
+            state: {
+              from: props.location
+            }
           }}
           />
         ) : (
@@ -29,7 +31,9 @@ const PrivateAdminRoute = ({ component: Component, ...rest }) => {
       ) : (
           <Redirect to={{
             pathname: '/',
-            state: { from: props.location }
+            state: {
+              from: props.location
+            }
           }}
           />
         )
