@@ -50,7 +50,7 @@ module.exports = ({ mode } = {
         "react-dom": "@hot-loader/react-dom"
       },
       // helps resolve extensions in react
-      extensions: ["*", ".js", ".jsx"]
+      extensions: ["*", ".js", ".jsx", '.gif', '.png', '.jpg', '.jpeg', '.svg', '.webp']
     },
     optimization: {
       minimize: true,
@@ -89,7 +89,7 @@ module.exports = ({ mode } = {
               presets: ['@babel/react'],
               cacheDirectory: true,
               cacheCompression: false,
-              envName: isProduction ? "production" : "development"
+              envName: "production"
             }
           }
         },
@@ -128,15 +128,22 @@ module.exports = ({ mode } = {
             options: {
               limit: 8192,
               fallback: "file-loader",
-              name: "images/[name].[hash].[ext]"
+              outputPath: path.resolve('./dist/assests/images/'),
+              name: "[name].[hash].[ext]"
             }
           }
         },
         // for loading/compressing big images
         {
-          test: /\.(gif|png|jpe?g|svg)$/i,
+          test: /\.(gif|png|jpe?g|svg|webp)$/i,
           use: [
-            'file-loader',
+            {
+              loader: 'file-loader',
+              options: {
+                outputPath: path.resolve('./dist/assests/images/'),
+                name: "[name].[hash].[ext]"
+              }
+            },
             {
               loader: 'image-webpack-loader',
               options: {
@@ -160,13 +167,6 @@ module.exports = ({ mode } = {
               }
             },
           ],
-        },
-        {
-          // for loading images/modules
-          test: /\.(webp)$/,
-          use: [
-            'webp-loader?{quality: 75}'
-          ]
         }
       ]
     },
