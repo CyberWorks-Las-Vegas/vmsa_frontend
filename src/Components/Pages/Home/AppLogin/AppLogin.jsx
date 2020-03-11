@@ -133,7 +133,7 @@ const AppLogin = (props, ref) => {
             </Select>
             {
 
-              (selectRef.current.textContent !== 'Visitor Station') &&
+              (selectRef.textContent !== 'Visitor Station') &&
               <TextField
                 variant="outlined"
                 margin="normal"
