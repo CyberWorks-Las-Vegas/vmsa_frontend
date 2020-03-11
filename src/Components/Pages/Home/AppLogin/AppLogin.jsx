@@ -77,6 +77,7 @@ const AppLogin = (props, ref) => {
     loginFormChange
   } = context;
   const inputRef = useRef();
+  const currProfsel = document.querySelector(".current_profile").target.value;
   // check if login responeded correct then calls redirect func
   correct && nextPageAuth(props, correct)
   return (
@@ -112,19 +113,23 @@ const AppLogin = (props, ref) => {
               <MenuItem value="front_desk">Front Desk</MenuItem>
               <MenuItem value="visitor_station">Visitor Station</MenuItem>
             </Select>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              label="Password"
-              type="password"
-              id="password"
-              name="profile_password"
-              ref={inputRef}
-              onChange={loginFormChange}
-              autoComplete="current-password"
-            />
+            {
+              (currProfsel !== 'visitor_station') &&
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                label="Password"
+                type="password"
+                id="password"
+                name="profile_password"
+                ref={inputRef}
+                onChange={loginFormChange}
+                autoComplete="current-password"
+              />
+
+            }
 
             <ComSubmit
               type="submit"

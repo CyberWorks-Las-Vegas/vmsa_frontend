@@ -128,7 +128,6 @@ module.exports = ({ mode } = {
             options: {
               limit: 8192,
               fallback: "file-loader",
-              outputPath: path.resolve('./dist/assests/images/'),
               name: "[name].[hash].[ext]"
             }
           }
@@ -140,7 +139,6 @@ module.exports = ({ mode } = {
             {
               loader: 'file-loader',
               options: {
-                outputPath: path.resolve('./dist/assests/images/'),
                 name: "[name].[hash].[ext]"
               }
             },
