@@ -80,7 +80,7 @@ const AppLogin = (props, ref) => {
   } = context;
   const selectRef = useRef();
   const passwordRef = useRef();
-  console.log(selectRef)
+  const selectRefCurr = selectRef.current !== undfined ? true : false
   // check if login responeded correct then calls redirect func
   correct && nextPageAuth(props, correct);
   return (
@@ -118,7 +118,7 @@ const AppLogin = (props, ref) => {
             </Select>
             {
 
-              (selectRef.current.textContent !== 'Visitor Station') &&
+              (selectRefCurr && (selectRef.current.textContent !== 'Visitor Station')) &&
               <TextField
                 variant="outlined"
                 margin="normal"
