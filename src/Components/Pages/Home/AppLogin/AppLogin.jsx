@@ -61,10 +61,14 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(3, 0, 2),
   },
 }));
+
+const currProfSel = document.querySelector("#current_profile").value;
+
 const nextPageAuth = async (props, correct) => {
   const correctLogin = await correct
   return correctLogin && props.history.push('/dashboard/administrator')
 }
+
 const AppLogin = (props, ref) => {
   const classes = useStyles();
   const context = useContext(UserContext);
@@ -115,7 +119,7 @@ const AppLogin = (props, ref) => {
             </Select>
             {
 
-              (document.querySelector("#current_profile").value !== 'visitor_station') &&
+              (currProfSel !== 'visitor_station') &&
               <TextField
                 variant="outlined"
                 margin="normal"
