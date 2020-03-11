@@ -128,7 +128,7 @@ module.exports = ({ mode } = {
             options: {
               limit: 8192,
               fallback: "file-loader",
-              name: "[name].[hash].[ext]"
+              name: "[path][name].[hash].[ext]"
             }
           }
         },
@@ -137,10 +137,11 @@ module.exports = ({ mode } = {
           test: /\.(gif|png|jpe?g|svg|webp)$/i,
           use: [
             'file-loader',
+            'webp-loader',
             {
               loader: 'image-webpack-loader',
               options: {
-                name: "[name].[hash].[ext]",
+                name: "[path][name].[hash].[ext]",
                 mozjpeg: {
                   progressive: true,
                   quality: 65
