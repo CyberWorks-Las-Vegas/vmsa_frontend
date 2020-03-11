@@ -259,7 +259,7 @@ class UserProvider extends Component {
         errorResponse: body.error ? body.error : false
       },
       schoolDetails: {
-        ...prevState.adminDetails,
+        ...prevState.schoolDetails,
         errorResponse: body.error ? body.error : false
       }
     }))
