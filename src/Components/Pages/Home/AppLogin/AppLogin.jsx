@@ -1,4 +1,4 @@
-import React, { forwardRef, useContext, useRef } from 'react';
+import React, { forwardRef, useContext, useRef, useCallback } from 'react';
 import { withRouter } from 'react-router-dom';
 // Styles
 import Avatar from '@material-ui/core/Avatar';
@@ -78,9 +78,24 @@ const AppLogin = (props, ref) => {
     onAppSubmit,
     loginFormChange
   } = context;
-  const selectRef = useRef();
+
+  function useHookWithRefCallback() {
+    const selectRef = useRef();
+
+    const setRef = useCallback(node => {
+      (node) ?
+        // Save a reference to the node
+        selectRef.current = node
+        :
+        // Save false to the node instead of undefined
+        selectRef.current = false
+    }, [])
+
+    return [setRef]
+  }
+
   const passwordRef = useRef();
-  const selectRefCurr = selectRef.current !== undfined ? true : false
+  const [selectRef] = useHookWithRefCallback()
   // check if login responeded correct then calls redirect func
   correct && nextPageAuth(props, correct);
   return (
@@ -118,7 +133,7 @@ const AppLogin = (props, ref) => {
             </Select>
             {
 
-              (selectRefCurr && (selectRef.current.textContent !== 'Visitor Station')) &&
+              (selectRef.current.textContent !== 'Visitor Station') &&
               <TextField
                 variant="outlined"
                 margin="normal"
