@@ -199,6 +199,10 @@ class UserProvider extends Component {
 
     // updates state with info from express
     this.setState(prevState => ({
+      accessTokens: {
+        ...prevState.accessTokens,
+        [`${current_profile}_token`]: body.accessToken
+      },
       loginApp: {
         ...prevState.loginApp,
         correct: body.correct,

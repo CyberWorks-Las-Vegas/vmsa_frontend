@@ -20,23 +20,20 @@ const PrivateVSDashboardRoute = ({ component: Component, ...rest }) => {
       if (correct) {
         switch (current_profile) {
           case 'visitor_station':
-            // return (accessTokens.visitor_station_token) ?
-            //   (
-            //     <Component {...props} />
-            //   )
-            //   :
-            //   (
-            //     <Redirect to={{
-            //       pathname: '/appLogin',
-            //       state: {
-            //         from: props.location
-            //       }
-            //     }}
-            //     />
-            //   )
-            return (
-              <Component {...props} />
-            )
+            return (accessTokens.visitor_station_token) ?
+              (
+                <Component {...props} />
+              )
+              :
+              (
+                <Redirect to={{
+                  pathname: '/appLogin',
+                  state: {
+                    from: props.location
+                  }
+                }}
+                />
+              )
             break;
           case 'administrator':
             return (accessTokens.administrator_token) ?
