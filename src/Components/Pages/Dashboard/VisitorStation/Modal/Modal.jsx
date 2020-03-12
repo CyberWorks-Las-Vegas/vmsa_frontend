@@ -498,10 +498,7 @@ const scanner = (Ref) => {
       numOfWorkers: 2,
       frequency: 10,
       decoder: {
-        readers: [{
-          format: "upc_a",
-          config: {}
-        }]
+        readers: ["upc_a"]
       },
       locate: true
     },
