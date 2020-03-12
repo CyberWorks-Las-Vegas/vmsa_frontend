@@ -157,11 +157,11 @@ const AppLogin = (props, ref) => {
                     margin="normal"
                     required
                     fullWidth
-                    label="Password"
+                    label="No value required"
                     type="password"
                     id="password"
                     name="profile_password"
-                    value="No value required"
+                    value=""
                     ref={passwordRef}
                     onChange={loginFormChange}
                     autoComplete="current-password"
