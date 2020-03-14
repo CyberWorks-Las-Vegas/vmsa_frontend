@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Base64 } from 'js-base64';
 
 // TODO: put all form changes into single function
+// made check in/out routes on backend need to connect visitor station sign in/out feature to ap
+// made log retrieval route on backend need to connect charts/logs to api
 
 // creates context api
 const UserContext = React.createContext();
@@ -44,6 +46,9 @@ class UserProvider extends Component {
         state: '',
         zip: 0,
         errorResponse: ''
+      },
+      current_logs: {
+
       }
     };
 
@@ -55,6 +60,7 @@ class UserProvider extends Component {
     this.jumpStep = this.jumpStep.bind(this);
     this.filterNames = this.filterNames.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.retrieveLogs = this.retrieveLogs.bind(this);
     this.handleSubmitApp = this.handleSubmitApp.bind(this);
     this.handleFilterChange = this.handleFilterChange.bind(this);
     this.handleAdminRegSubmit = this.handleAdminRegSubmit.bind(this);
@@ -65,14 +71,14 @@ class UserProvider extends Component {
   }
   /*SERVER FUNCTIONS START*/
 
-  // used to get data from server
-  // async componentDidMount() {
-  //   // test
-  //   await this.callApi()
-  //     .then(res => this.setState({ response: res }))
-  //     .catch(err => console.log(err, "componentdidmount"));
+  // used to get data from db on mount 
+  async componentDidMount() {
+    // put logs into stat for chart to load
+    await this.retrieveLogs()
+      .then(res => console.log(res, 'logs finished downloading'))
+      .catch(err => console.log(err, "componentdidmount"));
 
-  // }
+  }
   // Fetches data from express
   callApi = async () => {
     const response = await fetch('/API/');
@@ -98,6 +104,43 @@ class UserProvider extends Component {
   }
 
   /*SERVER FUNCTIONS END*/
+  /*DASHBOARD FUNCTIONS START*/
+
+  // function to handle retriving current logs from db
+  retrieveLogs = async e => {
+
+    const {
+      loginPremise: {
+        premises_id
+      } } = this.state;
+
+    const id = {
+      premises_id
+    };
+    // waits for post api to resolve promise
+    const endPoint = 'https://vmsa-prod-backend.herokuapp.com/API/Get/logRetrieveVal/logRetrieve'
+    const body = await this.postApi(id, endPoint).then(res => res);
+
+    // updates state with info from express
+    this.setState(prevState => ({
+      current_logs: {
+        ...prevState,
+        correct: body.correct,
+        logs: body.logs
+      }
+    }))
+    console.log(this.state, 'context retrive log api endpoint')
+  };
+
+
+
+
+  /*DASHBOARD FUNCTIONS END*/
+  /*VISITOR STATION FUNCTIONS START*/
+
+
+
+  /*VISITOR STATION FUNCTIONS END*/
   /* FORMS START*/
 
   // forward pagnation
@@ -168,7 +211,6 @@ class UserProvider extends Component {
         errorResponse: body.error ? body.error : false
       }
     }))
-    console.log(this.state, 'context api call')
   };
 
   // function to handle form submit and post data to express
