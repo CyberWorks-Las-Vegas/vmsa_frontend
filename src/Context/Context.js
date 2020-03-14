@@ -120,11 +120,11 @@ class UserProvider extends Component {
     // waits for post api to resolve promise
     const endPoint = 'https://vmsa-prod-backend.herokuapp.com/API/Get/logRetrieveVal/logRetrieve'
     const body = await this.postApi(id, endPoint).then(res => res);
-
+    console.log(body, 'res received from express')
     // updates state with info from express
     this.setState(prevState => ({
       current_logs: {
-        ...prevState,
+        ...prevState.current_logs,
         correct: body.correct,
         logs: body.logs
       }
