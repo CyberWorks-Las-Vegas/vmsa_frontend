@@ -52,14 +52,17 @@ const Chart = ({ context }) => {
     '24:00': 0,
   })
 
-  useEffect(() => {
+  useEffect(async () => {
     const {
+      retrieveLogs,
       current_logs: {
         logs }
     } = context;
-    filteredLogs(logs, setData);
+    await retrieveLogs().then(res => {
+      filteredLogs(logs, setData);
+    })
   })
-
+  console.log(data);
   return (
     <React.Fragment>
       <Title>Today</Title>

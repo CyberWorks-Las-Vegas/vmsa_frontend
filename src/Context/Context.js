@@ -72,13 +72,13 @@ class UserProvider extends Component {
   /*SERVER FUNCTIONS START*/
 
   // used to get data from db on mount 
-  async componentDidMount() {
-    // put logs into stat for chart to load
-    await this.retrieveLogs()
-      .then(res => console.log(res, 'logs finished downloading'))
-      .catch(err => console.log(err, "componentdidmount"));
+  // async componentDidMount() {
+  //   // put logs into stat for chart to load
+  //   await this.retrieveLogs()
+  //     .then(res => console.log(res, 'logs finished downloading'))
+  //     .catch(err => console.log(err, "componentdidmount"));
 
-  }
+  // }
   // Fetches data from express
   callApi = async () => {
     const response = await fetch('/API/');
@@ -459,6 +459,7 @@ class UserProvider extends Component {
           jumpStep: this.jumpStep,
           onSubmit: this.handleSubmit,
           onAppSubmit: this.handleSubmitApp,
+          retrieveLogs: this.this.retrieveLogs,
           saveContinue: this.handleAdminRegSubmit,
           loginFormChange: this.handleAppLoginFormChange,
           premiseFormChange: this.handlePremiseFormChange,
