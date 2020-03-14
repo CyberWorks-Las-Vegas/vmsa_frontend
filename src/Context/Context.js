@@ -459,7 +459,7 @@ class UserProvider extends Component {
           jumpStep: this.jumpStep,
           onSubmit: this.handleSubmit,
           onAppSubmit: this.handleSubmitApp,
-          retrieveLogs: this.this.retrieveLogs,
+          retrieveLogs: this.retrieveLogs,
           saveContinue: this.handleAdminRegSubmit,
           loginFormChange: this.handleAppLoginFormChange,
           premiseFormChange: this.handlePremiseFormChange,
