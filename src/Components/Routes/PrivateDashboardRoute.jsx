@@ -14,7 +14,7 @@ const PrivateDashboardRoute = ({ component: Component, ...rest }) => {
       current_profile,
       correct
     } } = context;
-  console.log({ context }, accessTokens, 'private dashboard route')
+
   return (
     < Route {...rest} render={props => {
       if (correct) {

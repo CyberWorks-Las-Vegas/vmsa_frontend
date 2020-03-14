@@ -24,14 +24,6 @@ const Chart = ({ context }) => {
       logs
     } } = context;
 
-  useEffect(async () => {
-    const {
-      retrieveLogs,
-    } = context;
-
-    await retrieveLogs();
-  })
-
   // function checks fetched logs for check in times and sets amount of check ins for correct interval to display in chart
   const filteredLogs = (logs, setData) => {
 

@@ -242,6 +242,8 @@ class UserProvider extends Component {
         errorResponse: body.error ? body.error : false
       }
     }))
+    // retrive logs from db
+    this.retrieveLogs();
   };
 
   // function to handle form submit and post data to express
@@ -490,8 +492,6 @@ class UserProvider extends Component {
           jumpStep: this.jumpStep,
           onSubmit: this.handleSubmit,
           onAppSubmit: this.handleSubmitApp,
-          retrieveLogs: this.retrieveLogs,
-          filteredLogs: this.filteredLogs,
           saveContinue: this.handleAdminRegSubmit,
           loginFormChange: this.handleAppLoginFormChange,
           premiseFormChange: this.handlePremiseFormChange,
