@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { withUserConsumer } from "../../../../Context/Context"
 import { useTheme } from '@material-ui/core/styles';
 import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recharts';
@@ -8,7 +8,7 @@ import Title from './Title';
 
 const Chart = ({ context }) => {
   const theme = useTheme();
-  const [data, setData] = useState({
+  const data = {
     '00:00': 0,
     '03:00': 0,
     '06:00': 0,
@@ -18,14 +18,14 @@ const Chart = ({ context }) => {
     '18:00': 0,
     '21:00': 0,
     '24:00': 0,
-  })
+  }
   const {
     current_logs: {
       logs
     } } = context;
 
   // function checks fetched logs for check in times and sets amount of check ins for correct interval to display in chart
-  const filteredLogs = (logs, setData) => {
+  const filteredLogs = (logs) => {
 
     const dataArr = ['00:00', '03:00', '06:00', '09:00', '12:00', '15:00', '18:00', '21:00', '24:00'];
 
@@ -47,16 +47,14 @@ const Chart = ({ context }) => {
         const arrTimeInSecondsEnd = dataArr[dataArrEndIndex].split(':').reduce((acc, time) => (60 * acc) + +time);
         // checks if check in time is in between interval then increases amount of checkins for interval by one data 
         if ((arrTimeInSecondsStart < checkInTimeInSeconds) && (arrTimeInSecondsEnd > checkInTimeInSeconds)) {
-          let key = data[arrTime]
-          setData({
-            [`${arrTime}`]: key + 1
-          })
+          let value = data[arrTime]
+          data[`${arrTime}`] = value + 1;
         }
       })
     })
   }
 
-  filteredLogs(logs, setData);
+  filteredLogs(logs);
 
   return (
     <React.Fragment>
