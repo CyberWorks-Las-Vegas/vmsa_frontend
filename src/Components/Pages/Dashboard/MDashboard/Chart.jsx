@@ -6,38 +6,6 @@ import Title from './Title';
 
 
 
-// function checks fetched logs for check in times and sets amount of check ins for correct interval to display in chart
-const filteredLogs = (logs, setData) => {
-
-  const dataArr = ['00:00', '03:00', '06:00', '09:00', '12:00', '15:00', '18:00', '21:00', '24:00'];
-
-  // loops thru logs
-  logs.map(logObj => {
-    // converts check in time to seconds
-    const { check_in } = logObj;
-    let checkInTimeInSeconds = check_in.split(':').reduce((acc, time) => (60 * acc) + +time);
-    // loops thru array of check in times set at 3 hour intervals 
-    dataArr.filter((arrTime, index) => {
-
-      let dataArrEndIndex = (index + 1)
-      // checks if at end of arr and bails
-      if (dataArr[dataArrEndIndex] === undefined) {
-        return null
-      }
-      // sets check in interval into seconds
-      arrTimeInSecondsStart = arrTime.split(':').reduce((acc, time) => (60 * acc) + +time);
-      arrTimeInSecondsEnd = dataArr[dataArrEndIndex].split(':').reduce((acc, time) => (60 * acc) + +time);
-      // checks if check in time is in between interval then increases amount of checkins for interval by one data 
-      if (arrTimeInSecondsStart < checkInTimeInSeconds && arrTimeInSecondsEnd > checkInTimeInSeconds) {
-        let key = data[arrTime]
-        setData({
-          [`${arrTime}`]: key + 1
-        })
-      }
-    })
-  })
-}
-
 const Chart = ({ context }) => {
   const theme = useTheme();
   const [data, setData] = useState({
@@ -56,6 +24,7 @@ const Chart = ({ context }) => {
   useEffect(async () => {
     const {
       retrieveLogs,
+      filteredLogs,
       current_logs: {
         logs }
     } = context;
