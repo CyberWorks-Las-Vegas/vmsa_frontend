@@ -28,11 +28,15 @@ const Chart = ({ context }) => {
       current_logs: {
         logs }
     } = context;
-    console.log(data, context);
 
-    await retrieveLogs().then(res => {
+    console.log(data, context);
+    filteredLogs(logs, setData);
+
+    await retrieveLogs();
+
+    if (data) {
       filteredLogs(logs, setData);
-    })
+    }
   })
 
   return (
