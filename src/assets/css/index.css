@@ -1,6 +1,7 @@
 /* BODY STYLES START*/
 body {
   background-color: rgba(163, 180, 146, 0.561);
+  overflow: hidden;
 }
 div#root {
   color: rgb(255, 254, 254);
