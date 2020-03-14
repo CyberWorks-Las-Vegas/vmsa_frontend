@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { withUserConsumer } from "../../../../Context/Context"
 import { useTheme } from '@material-ui/core/styles';
 import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recharts';
@@ -33,7 +33,7 @@ const Chart = ({ context }) => {
     logs.map(logObj => {
       // converts check in time to seconds
       const { check_in } = logObj;
-      let checkInTimeInSeconds = check_in.split(':').reduce((acc, time) => (60 * acc) + +time);
+      const checkInTimeInSeconds = check_in.split(':').reduce((acc, time) => (60 * acc) + +time);
       // loops thru array of check in times set at 3 hour intervals 
       dataArr.filter((arrTime, index) => {
 
@@ -43,10 +43,10 @@ const Chart = ({ context }) => {
           return null
         }
         // sets check in interval into seconds
-        arrTimeInSecondsStart = arrTime.split(':').reduce((acc, time) => (60 * acc) + +time);
-        arrTimeInSecondsEnd = dataArr[dataArrEndIndex].split(':').reduce((acc, time) => (60 * acc) + +time);
+        const arrTimeInSecondsStart = arrTime.split(':').reduce((acc, time) => (60 * acc) + +time);
+        const arrTimeInSecondsEnd = dataArr[dataArrEndIndex].split(':').reduce((acc, time) => (60 * acc) + +time);
         // checks if check in time is in between interval then increases amount of checkins for interval by one data 
-        if (arrTimeInSecondsStart < checkInTimeInSeconds && arrTimeInSecondsEnd > checkInTimeInSeconds) {
+        if ((arrTimeInSecondsStart < checkInTimeInSeconds) && (arrTimeInSecondsEnd > checkInTimeInSeconds)) {
           let key = data[arrTime]
           setData({
             [`${arrTime}`]: key + 1
