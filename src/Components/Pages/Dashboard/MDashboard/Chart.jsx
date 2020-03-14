@@ -33,7 +33,7 @@ const Chart = ({ context }) => {
   })
 
   // function checks fetched logs for check in times and sets amount of check ins for correct interval to display in chart
-  filteredLogs = (logs, setData) => {
+  const filteredLogs = (logs, setData) => {
 
     const dataArr = ['00:00', '03:00', '06:00', '09:00', '12:00', '15:00', '18:00', '21:00', '24:00'];
 
