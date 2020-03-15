@@ -19,6 +19,7 @@ const Chart = ({ context }) => {
     '21:00': 0,
     '24:00': 0,
   }
+  const dataObjectArray = []
   const {
     current_logs: {
       logs
@@ -43,8 +44,9 @@ const Chart = ({ context }) => {
           return null
         }
         // sets check in interval into seconds
-        const arrTimeInSecondsStart = arrTime.split(':').reduce((acc, time) => (60 * acc) + +time);
-        const arrTimeInSecondsEnd = dataArr[dataArrEndIndex].split(':').reduce((acc, time) => (60 * acc) + +time);
+        // reduce function loops thru HH:MM like (60 * ((60 * HH) + MM) +ss multiplying by 60 twice for hhand once for mm then adding ss
+        const arrTimeInSecondsStart = arrTime.split(':').reduce((accumalatedTime, time) => (60 * accumalatedTime) + +time);
+        const arrTimeInSecondsEnd = dataArr[dataArrEndIndex].split(':').reduce((accumalatedTime, time) => (60 * accumalatedTime) + +time);
         // checks if check in time is in between interval then increases amount of checkins for interval by one data 
         if ((arrTimeInSecondsStart < checkInTimeInSeconds) && (arrTimeInSecondsEnd > checkInTimeInSeconds)) {
           let value = data[arrTime]
@@ -53,16 +55,24 @@ const Chart = ({ context }) => {
       })
     })
   }
+  // converts each time interval and amount of scans into new object and pushs into readable array for chart
+  const convertToDataBlock = (dataObject) => {
+    for (const key in dataObject) {
+      let block = Object.assign({}, { time: key, amount: dataObject[key] });
+      dataObjectArray.push(block)
+    }
+  }
 
   filteredLogs(logs);
-  console.log(data, logs)
+  convertToDataBlock(data)
+  console.log({ data }, { logs }, { dataObjectArray }, 'charts comp')
 
   return (
     <React.Fragment>
       <Title>Today</Title>
       <ResponsiveContainer>
         <LineChart
-          data={data}
+          data={dataObjectArray}
           margin={{
             top: 16,
             right: 16,
