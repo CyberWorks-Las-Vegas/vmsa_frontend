@@ -12,15 +12,15 @@ import Link from '@material-ui/core/Link';
 
 // TODO: get chart working 
 import Chart from './Chart';
-import Deposits from './Deposits';
-import Orders from './Orders';
+import Logs from './Logs';
+import BlackList from './BlackList';
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+      <Link to="https://sound-secure.com">
+        Sound Secure
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -137,13 +137,13 @@ const FDDashboard = (props) => {
             {/* Recent Deposits */}
             <Grid item xs={12} md={4} lg={3}>
               <Paper className={fixedHeightPaper}>
-                <Deposits />
+                <BlackList />
               </Paper>
             </Grid>
             {/* Recent Orders */}
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <Orders />
+                <Logs />
               </Paper>
             </Grid>
           </Grid>

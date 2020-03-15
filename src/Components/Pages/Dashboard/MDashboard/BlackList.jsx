@@ -14,7 +14,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Deposits() {
+export default function BlackList() {
   const classes = useStyles();
   return (
     <React.Fragment>
