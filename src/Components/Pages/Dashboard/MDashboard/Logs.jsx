@@ -58,8 +58,8 @@ const Logs = ({ context }) => {
               <TableCell>{row.date}</TableCell>
               <TableCell>{row.name}</TableCell>
               <TableCell>{row.approved}</TableCell>
-              <TableCell>{row.checkIn}</TableCell>
-              <TableCell align="right">{row.checkOut}</TableCell>
+              <TableCell>{row.check_in}</TableCell>
+              <TableCell align="right">{row.check_out}</TableCell>
             </TableRow>
           ))}
         </TableBody>
