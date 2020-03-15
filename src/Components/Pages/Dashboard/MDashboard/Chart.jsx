@@ -55,6 +55,7 @@ const Chart = ({ context }) => {
   }
 
   filteredLogs(logs);
+  console.log(data, logs)
 
   return (
     <React.Fragment>
