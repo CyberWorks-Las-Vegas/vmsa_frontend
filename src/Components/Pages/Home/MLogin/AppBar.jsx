@@ -136,17 +136,8 @@ function ButtonAppBar({ context }) {
                       <ListItemIcon>
                         <CameraFrontIcon fontSize="small" />
                       </ListItemIcon>
-                      <Link to='/dashboard/visitor_station' onClick={resetProfileStatus}>
+                      <Link to='/dashboard/visitor_station'>
                         <ListItemText primary="Visitor Station" />
-                      </Link>
-                    </StyledMenuItem>
-
-                    <StyledMenuItem>
-                      <ListItemIcon>
-                        <LockTwoToneIcon fontSize="small" />
-                      </ListItemIcon>
-                      <Link to='/' onClick={resetPremisesStatus}>
-                        <ListItemText primary="Exit Site" />
                       </Link>
                     </StyledMenuItem>
                   </StyledMenu>
