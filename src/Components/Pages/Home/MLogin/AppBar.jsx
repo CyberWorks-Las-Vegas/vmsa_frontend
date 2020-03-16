@@ -14,6 +14,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ExitToAppTwoToneIcon from '@material-ui/icons/ExitToAppTwoTone';
 import LockTwoToneIcon from '@material-ui/icons/LockTwoTone';
 import EditTwoToneIcon from '@material-ui/icons/EditTwoTone';
+import CameraFrontIcon from '@material-ui/icons/CameraFront';
 
 const StyledMenu = withStyles({
   paper: {
@@ -102,44 +103,96 @@ function ButtonAppBar({ context }) {
           <Typography variant="h6" className={classes.title}>
             Sound Secure
           </Typography>
+          {
+            (inDashboard)
+            &&
+            (
+              <React.Fragment>
+                <div>
+                  <Button
+                    className={classes.menuButton}
+                    aria-controls="customized-menu"
+                    aria-haspopup="true"
+                    variant="contained"
+                    color="primary"
+                    onClick={handleClick}
+                  >
+                    Navigation
+                  </Button>
+                  <StyledMenu
+                    id="customized-menu"
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}
+                  >
+                    <StyledMenuItem>
+                      <ListItemIcon>
+                        <CameraFrontIcon fontSize="small" />
+                      </ListItemIcon>
+                      <Link to='/dashboard/visitor_station' onClick={resetProfileStatus}>
+                        <ListItemText primary="Visitor Station" />
+                      </Link>
+                    </StyledMenuItem>
 
-          <div>
-            <Button
-              className={classes.menuButton}
-              aria-controls="customized-menu"
-              aria-haspopup="true"
-              variant="contained"
-              color="primary"
-              onClick={handleClick}
-            >
-              Log out
-          </Button>
-            <StyledMenu
-              id="customized-menu"
-              anchorEl={anchorEl}
-              keepMounted
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-            >
-              <StyledMenuItem>
-                <ListItemIcon>
-                  <ExitToAppTwoToneIcon fontSize="small" />
-                </ListItemIcon>
-                <Link to='/applogin' onClick={resetProfileStatus}>
-                  <ListItemText primary="Exit profile" />
-                </Link>
-              </StyledMenuItem>
+                    <StyledMenuItem>
+                      <ListItemIcon>
+                        <LockTwoToneIcon fontSize="small" />
+                      </ListItemIcon>
+                      <Link to='/' onClick={resetPremisesStatus}>
+                        <ListItemText primary="Exit Site" />
+                      </Link>
+                    </StyledMenuItem>
+                  </StyledMenu>
+                </div>
+              </React.Fragment>
+            )
+          }
+          {
+            (inDashboard)
+            &&
+            (
+              <React.Fragment>
+                <div>
+                  <Button
+                    className={classes.menuButton}
+                    aria-controls="customized-menu"
+                    aria-haspopup="true"
+                    variant="contained"
+                    color="primary"
+                    onClick={handleClick}
+                  >
+                    Log out
+                </Button>
+                  <StyledMenu
+                    id="customized-menu"
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}
+                  >
+                    <StyledMenuItem>
+                      <ListItemIcon>
+                        <ExitToAppTwoToneIcon fontSize="small" />
+                      </ListItemIcon>
+                      <Link to='/applogin' onClick={resetProfileStatus}>
+                        <ListItemText primary="Exit profile" />
+                      </Link>
+                    </StyledMenuItem>
 
-              <StyledMenuItem>
-                <ListItemIcon>
-                  <LockTwoToneIcon fontSize="small" />
-                </ListItemIcon>
-                <Link to='/' onClick={resetPremisesStatus}>
-                  <ListItemText primary="Exit Site" />
-                </Link>
-              </StyledMenuItem>
-            </StyledMenu>
-          </div>
+                    <StyledMenuItem>
+                      <ListItemIcon>
+                        <LockTwoToneIcon fontSize="small" />
+                      </ListItemIcon>
+                      <Link to='/' onClick={resetPremisesStatus}>
+                        <ListItemText primary="Exit Site" />
+                      </Link>
+                    </StyledMenuItem>
+                  </StyledMenu>
+                </div>
+              </React.Fragment>
+            )
+          }
           {
             (
               (current_profile === 'administrator')
