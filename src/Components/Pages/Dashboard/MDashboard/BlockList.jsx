@@ -14,7 +14,7 @@ import Title from './Title';
 
 
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   depositContext: {
     flex: 1,
   },
@@ -22,7 +22,7 @@ const useStyles = makeStyles({
     zIndex: theme.zIndex.drawer + 1,
     color: '#fff',
   }
-});
+}));
 
 const BlockList = ({ context }) => {
   const classes = useStyles();
