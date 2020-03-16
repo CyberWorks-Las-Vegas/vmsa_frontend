@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { createRef } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -109,9 +109,8 @@ class VSDashboard extends React.Component {
       state: '',
       zip: '',
       license_id: ''
-
     };
-    this.inputRef = useRef();
+    this.inputRef = createRef();
 
     this.signIn = this.signIn.bind(this);
     this.signOut = this.signOut.bind(this);
