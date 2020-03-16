@@ -101,6 +101,7 @@ class VSDashboard extends React.Component {
     super(props);
     this.state = {
       isModalOpen: false,
+      premises_id: '',
       first_name: '',
       last_name: '',
       street: '',
@@ -126,8 +127,9 @@ class VSDashboard extends React.Component {
       loginPremise: {
         premises_id
       } } = this.props.context;
-
+    console.log(this.props)
     this.setState({ premises_id });
+    console.log(this.state)
   }
 
   toggleState = e => {
