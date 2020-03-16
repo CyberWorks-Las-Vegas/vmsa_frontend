@@ -21,6 +21,7 @@ const useStyles = makeStyles(theme => ({
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
     color: '#fff',
+    backgroundColor: 'rgba(0, 0, 0, 0.91)'
   }
 }));
 
@@ -53,6 +54,7 @@ const BlockList = ({ context }) => {
         {`as of ${new Date().toDateString()}`}
       </Typography>
       <div>
+
         <Link color="primary" href="#" onClick={handleToggle}>
           View block list
         </Link>
@@ -60,15 +62,15 @@ const BlockList = ({ context }) => {
           <Table size="small">
             <TableHead>
               <TableRow>
-                <TableCell>Date</TableCell>
-                <TableCell>Name</TableCell>
+                <TableCell style={{ color: 'rgba(75, 193, 228, 0.87)' }}>Date</TableCell>
+                <TableCell style={{ color: 'rgba(75, 193, 228, 0.87)' }}>Name</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {blockListArray.map(row => (
                 <TableRow key={DBArray._id}>
-                  <TableCell>{DBArray.date}</TableCell>
-                  <TableCell>{`${row.first_name} ${row.last_name}`}</TableCell>
+                  <TableCell style={{ color: 'rgba(78, 187, 76, 0.87)' }}>{DBArray.date}</TableCell>
+                  <TableCell style={{ color: 'rgba(236, 43, 43, 0.87)' }}>{`${row.first_name} ${row.last_name}`}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
