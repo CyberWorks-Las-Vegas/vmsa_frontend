@@ -83,6 +83,7 @@ function ButtonAppBar({ context }) {
 
   const {
     loginApp: {
+      inDashboard,
       current_profile,
       profile_password
     },
@@ -141,9 +142,9 @@ function ButtonAppBar({ context }) {
           </div>
           {
             (
-              administrator_token &&
-              profile_password &&
               (current_profile === 'administrator')
+              &&
+              inDashboard
             ) &&
 
             (

@@ -25,6 +25,7 @@ class UserProvider extends Component {
         errorResponse: ''
       },
       loginApp: {
+        inDashboard: false,
         current_profile: '',
         profile_password: '',
         correct: '',
@@ -350,6 +351,7 @@ class UserProvider extends Component {
       },
       loginApp: {
         ...prevState.loginApp,
+        inDashboard: true,
         correct: body.correct,
         fetchResponse: body.error ? body.error : "no errors"
       }
