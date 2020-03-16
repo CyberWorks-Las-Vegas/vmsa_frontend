@@ -148,12 +148,11 @@ class VSDashboard extends React.Component {
     e.persist();
 
     this.setState(prevState => ({
-      form: {
-        ...prevState.loginPremise,
-        [e.target.name]: e.target.value
-      }
+      ...prevState,
+      [e.target.name]: e.target.value
     })
     );
+    console.log(this.state);
   }
 
   // Post form data to express
@@ -202,13 +201,13 @@ class VSDashboard extends React.Component {
     // waits for post api to resolve promise
     const endPoint = 'https://vmsa-prod-backend.herokuapp.com/API/logInsertVal/logInsert'
     const body = await this.postApi(logInForm, endPoint).then(res => res);
+    console.log(body)
     // updates state with info from express
-    this.setState(prevState => ({
+    this.setState({
       current_logs: {
-        ...prevState.current_logs,
         correct: body.correct,
       }
-    }))
+    })
   };
 
   // function to handle posting current logs to db
@@ -228,13 +227,12 @@ class VSDashboard extends React.Component {
     const endPoint = 'https://vmsa-prod-backend.herokuapp.com/API/logInsertOutVal/logInsertOut'
     const body = await this.postApi(logOutForm, endPoint).then(res => res);
     // updates state with info from express
-    this.setState(prevState => ({
+    console.log(body)
+    this.setState({
       current_logs: {
-        ...prevState.current_logs,
         correct: body.correct,
       }
-    }))
-
+    })
   };
 
   render() {
