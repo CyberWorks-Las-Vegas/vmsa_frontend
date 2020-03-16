@@ -39,6 +39,7 @@ const BlockList = ({ context }) => {
     current_block_list: {
       block_list
     } } = context;
+  console.log({ block_list }, { context }, 'block list comp')
   return (
     <React.Fragment>
       <Title>Month to date</Title>
