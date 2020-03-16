@@ -274,6 +274,8 @@ class UserProvider extends Component {
     }))
     // retrive logs from db
     this.retrieveLogs();
+    // retrieve block list from db
+    this.retrieveBlockList();
   };
 
   // function to handle form submit and post data to express
@@ -314,8 +316,6 @@ class UserProvider extends Component {
         fetchResponse: body.error ? body.error : "no errors"
       }
     }))
-    // retrieve block list from db
-    this.retrieveBlockList();
   };
 
   // function to handle form submit and post data to express
