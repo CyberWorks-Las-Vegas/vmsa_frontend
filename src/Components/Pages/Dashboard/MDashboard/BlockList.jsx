@@ -42,15 +42,15 @@ const BlockList = ({ context }) => {
   console.log({ block_list }, { context }, 'block list comp')
   const DBArray = block_list[0];
   const blockListArray = DBArray.block_list
-
+  console.log({ DBArray }, { blockListArray }, 'block list comp')
   return (
     <React.Fragment>
       <Title>Month to date</Title>
       <Typography component="p" variant="h4">
-        {`${block_list.length}`}
+        {`${blockListArray.length}`}
       </Typography>
       <Typography color="textSecondary" className={classes.depositContext}>
-        as of 2/18/202
+        {`${new Date().toDateString()}`}
       </Typography>
       <div>
         <Link color="primary" href="#" onClick={handleToggle}>
@@ -66,11 +66,9 @@ const BlockList = ({ context }) => {
             </TableHead>
             <TableBody>
               {blockListArray.map(row => (
-                <TableRow key={row.id}>
-                  <TableCell>{row.id}</TableCell>
-                  <TableCell>{
-                    `${row.first_name} ${row.last_name}`
-                  }</TableCell>
+                <TableRow key={DBArray._id}>
+                  <TableCell>{DBArray.date}</TableCell>
+                  <TableCell>{`${row.first_name} ${row.last_name}`}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
