@@ -83,7 +83,11 @@ function ButtonAppBar({ context }) {
 
   const {
     loginApp: {
-      current_profile
+      current_profile,
+      profile_password
+    },
+    accessTokens: {
+      administrator_token
     },
     setSignInStatus,
     resetProfileStatus,
@@ -97,75 +101,83 @@ function ButtonAppBar({ context }) {
           <Typography variant="h6" className={classes.title}>
             Sound Secure
           </Typography>
-        </Toolbar>
-        <div>
-          <Button
-            aria-controls="customized-menu"
-            aria-haspopup="true"
-            variant="contained"
-            color="primary"
-            onClick={handleClick}
-          >
-            Log out
+
+          <div>
+            <Button
+              className={classes.menuButton}
+              aria-controls="customized-menu"
+              aria-haspopup="true"
+              variant="contained"
+              color="primary"
+              onClick={handleClick}
+            >
+              Log out
           </Button>
-          <StyledMenu
-            id="customized-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            <StyledMenuItem>
-              <ListItemIcon>
-                <ExitToAppTwoToneIcon fontSize="small" />
-              </ListItemIcon>
-              <Link to='/applogin' onClick={resetProfileStatus}>
-                <ListItemText primary="Exit profile" />
-              </Link>
-            </StyledMenuItem>
+            <StyledMenu
+              id="customized-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <StyledMenuItem>
+                <ListItemIcon>
+                  <ExitToAppTwoToneIcon fontSize="small" />
+                </ListItemIcon>
+                <Link to='/applogin' onClick={resetProfileStatus}>
+                  <ListItemText primary="Exit profile" />
+                </Link>
+              </StyledMenuItem>
 
-            <StyledMenuItem>
-              <ListItemIcon>
-                <LockTwoToneIcon fontSize="small" />
-              </ListItemIcon>
-              <Link to='/' onClick={resetPremisesStatus}>
-                <ListItemText primary="Exit Site" />
-              </Link>
-            </StyledMenuItem>
-          </StyledMenu>
-        </div>
-        {current_profile === 'administrator' &&
+              <StyledMenuItem>
+                <ListItemIcon>
+                  <LockTwoToneIcon fontSize="small" />
+                </ListItemIcon>
+                <Link to='/' onClick={resetPremisesStatus}>
+                  <ListItemText primary="Exit Site" />
+                </Link>
+              </StyledMenuItem>
+            </StyledMenu>
+          </div>
+          {
+            (
+              administrator_token &&
+              profile_password &&
+              (current_profile === 'administrator')
+            ) &&
 
-          (
-            <div>
-              <Button
-                aria-controls="customized-menu"
-                aria-haspopup="true"
-                variant="contained"
-                color="primary"
-                onClick={handleAdminClick}
-              >
-                Account
+            (
+              <div>
+                <Button
+                  className={classes.menuButton}
+                  aria-controls="customized-menu"
+                  aria-haspopup="true"
+                  variant="contained"
+                  color="primary"
+                  onClick={handleAdminClick}
+                >
+                  Account
                   </Button>
-              <StyledMenu
-                id="customized-menu"
-                anchorEl={adminAnchorEl}
-                keepMounted
-                open={Boolean(adminAnchorEl)}
-                onClose={handleAdminClose}
-              >
-                <StyledMenuItem>
-                  <ListItemIcon>
-                    <EditTwoToneIcon fontSize="small" />
-                  </ListItemIcon>
-                  <Link to='/form' onClick={setSignInStatus}>
-                    <ListItemText primary="Edit profile" />
-                  </Link>
-                </StyledMenuItem>
-              </StyledMenu>
-            </div>
-          )
-        }
+                <StyledMenu
+                  id="customized-menu"
+                  anchorEl={adminAnchorEl}
+                  keepMounted
+                  open={Boolean(adminAnchorEl)}
+                  onClose={handleAdminClose}
+                >
+                  <StyledMenuItem>
+                    <ListItemIcon>
+                      <EditTwoToneIcon fontSize="small" />
+                    </ListItemIcon>
+                    <Link to='/form' onClick={setSignInStatus}>
+                      <ListItemText primary="Edit profile" />
+                    </Link>
+                  </StyledMenuItem>
+                </StyledMenu>
+              </div>
+            )
+          }
+        </Toolbar>
       </AppBar>
     </div>
   );

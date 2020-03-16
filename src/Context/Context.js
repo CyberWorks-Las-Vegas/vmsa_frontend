@@ -207,25 +207,33 @@ class UserProvider extends Component {
   /*VISITOR STATION FUNCTIONS END*/
   /*APP NAV BAR FUNCTIONS START*/
   setSignInStatus = () => {
-    this.setState(prevState => ({
-      isFirstSignin: !prevState.isFirstSignin
-    }))
+    this.setState({
+      isFirstSignin: true
+    })
   }
 
   resetProfileStatus = () => {
     this.setState(prevState => ({
       loginApp: {
-        ...prevState.loginApp,
-        current_profile: ''
+        current_profile: '',
+        profile_password: ''
       }
     }))
   }
 
   resetPremisesStatus = () => {
+    this.resetProfileStatus();
+
     this.setState(prevState => ({
+      ...prevState,
+      accessTokens: {
+        administrator_token: '',
+        front_desk_token: '',
+        visitor_station_token: ''
+      },
       loginPremise: {
-        ...prevState.loginPremise,
-        premises_id: ''
+        premises_id: '',
+        premises_password: ''
       }
     }))
   }
