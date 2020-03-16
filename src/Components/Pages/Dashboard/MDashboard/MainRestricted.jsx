@@ -13,7 +13,7 @@ import Link from '@material-ui/core/Link';
 // TODO: get chart working 
 import Chart from './Chart';
 import Logs from './Logs';
-import BlackList from './BlackList';
+import BlockList from './BlockList';
 
 function Copyright() {
   return (
@@ -134,13 +134,13 @@ const FDDashboard = (props) => {
                 <Chart />
               </Paper>
             </Grid>
-            {/* Recent Deposits */}
+            {/* BlockList */}
             <Grid item xs={12} md={4} lg={3}>
               <Paper className={fixedHeightPaper}>
-                <BlackList />
+                <BlockList />
               </Paper>
             </Grid>
-            {/* Recent Orders */}
+            {/* Logs */}
             <Grid item xs={12}>
               <Paper className={classes.paper}>
                 <Logs />

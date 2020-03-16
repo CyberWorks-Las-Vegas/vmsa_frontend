@@ -48,7 +48,10 @@ class UserProvider extends Component {
         errorResponse: ''
       },
       current_logs: {
-
+        logs: {}
+      },
+      current_block_list: {
+        block_list: []
       }
     };
 
@@ -63,6 +66,7 @@ class UserProvider extends Component {
     this.retrieveLogs = this.retrieveLogs.bind(this);
     this.filteredLogs = this.filteredLogs.bind(this);
     this.handleSubmitApp = this.handleSubmitApp.bind(this);
+    this.retrieveBlockList = this.retrieveBlockList.bind(this);
     this.handleFilterChange = this.handleFilterChange.bind(this);
     this.handleAdminRegSubmit = this.handleAdminRegSubmit.bind(this);
     this.handleAppLoginFormChange = this.handleAppLoginFormChange.bind(this);
@@ -127,6 +131,31 @@ class UserProvider extends Component {
         ...prevState.current_logs,
         correct: body.correct,
         logs: body.logs
+      }
+    }))
+
+  };
+
+  // function to handle retriving current block list from db
+  retrieveBlockList = async e => {
+
+    const {
+      loginPremise: {
+        premises_id
+      } } = this.state;
+
+    const id = {
+      premises_id
+    };
+    // waits for post api to resolve promise
+    const endPoint = 'https://vmsa-prod-backend.herokuapp.com/API/Get/blockListRetrieveVal/blockListRetrieve'
+    const body = await this.postApi(id, endPoint).then(res => res);
+    // updates state with info from express
+    this.setState(prevState => ({
+      current_block_list: {
+        ...prevState.current_logs,
+        correct: body.correct,
+        block_list: body.block_list
       }
     }))
 
@@ -284,6 +313,8 @@ class UserProvider extends Component {
         fetchResponse: body.error ? body.error : "no errors"
       }
     }))
+    // retrieve block list from db
+    this.retrieveBlockList();
   };
 
   // function to handle form submit and post data to express
