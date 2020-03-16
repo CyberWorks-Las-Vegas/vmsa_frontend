@@ -54,7 +54,6 @@ const BlockList = ({ context }) => {
           View block list
         </Link>
         <Backdrop className={classes.backdrop} open={open} onClick={handleClose}>
-          <Title>Recent Scans</Title>
           <Table size="small">
             <TableHead>
               <TableRow>
