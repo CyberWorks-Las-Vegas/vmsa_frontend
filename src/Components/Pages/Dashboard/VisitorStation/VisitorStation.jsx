@@ -190,7 +190,9 @@ class VSDashboard extends React.Component {
 
     const check_inDate = () => {
       let date = new Date();
-      return `${date.getHours()}:${date.getMinutes()}`
+      let minutes = date.getMinutes();
+      let zero = '0';
+      return `${date.getHours()}:${minutes > 9 ? minutes : zero + minutes}`
     };
     const check_in = check_inDate();
 
@@ -228,7 +230,9 @@ class VSDashboard extends React.Component {
 
     const check_outDate = () => {
       let date = new Date();
-      return `${date.getHours()}:${date.getMinutes()}`
+      let minutes = date.getMinutes();
+      let zero = '0';
+      return `${date.getHours()}:${minutes > 9 ? minutes : zero + minutes}`
     };
     const check_out = check_outDate();
     const logOutForm = {
@@ -265,27 +269,27 @@ class VSDashboard extends React.Component {
                   <TextField
                     required
                     id="firstName"
-                    name="first_Name"
+                    name="first_name"
                     label="First name"
                     ref={this.inputRef}
                     fullWidth
                     autoComplete="fname"
                     autoFocus
                     onChange={this.VisitorStationFormChange}
-                    value={this.state.first_Name}
+                    value={this.state.first_name}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
                     required
                     id="lastName"
-                    name="last_Name"
+                    name="last_name"
                     label="Last name"
                     ref={this.inputRef}
                     fullWidth
                     autoComplete="lname"
                     onChange={this.VisitorStationFormChange}
-                    value={this.state.last_Name}
+                    value={this.state.last_name}
                   />
                 </Grid>
 
