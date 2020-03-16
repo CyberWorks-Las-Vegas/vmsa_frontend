@@ -136,7 +136,7 @@ function ButtonAppBar({ context }) {
                       <ListItemIcon>
                         <CameraFrontIcon fontSize="small" />
                       </ListItemIcon>
-                      <Link to='/appLogin'>
+                      <Link to='/appLogin' onClick={resetProfileStatus}>
                         <ListItemText primary="Visitor Station" />
                       </Link>
                     </StyledMenuItem>
