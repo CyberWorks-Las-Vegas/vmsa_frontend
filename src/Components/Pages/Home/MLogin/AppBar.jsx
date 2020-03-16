@@ -136,7 +136,7 @@ function ButtonAppBar({ context }) {
                       <ListItemIcon>
                         <CameraFrontIcon fontSize="small" />
                       </ListItemIcon>
-                      <Link to='/dashboard/visitor_station'>
+                      <Link to='/appLogin'>
                         <ListItemText primary="Visitor Station" />
                       </Link>
                     </StyledMenuItem>

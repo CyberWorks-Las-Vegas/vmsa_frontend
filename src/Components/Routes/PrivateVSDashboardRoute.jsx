@@ -11,6 +11,7 @@ const PrivateVSDashboardRoute = ({ component: Component, ...rest }) => {
   const {
     accessTokens,
     loginApp: {
+      inDashboard,
       current_profile,
       correct
     } } = context;
@@ -20,7 +21,7 @@ const PrivateVSDashboardRoute = ({ component: Component, ...rest }) => {
       if (correct) {
         switch (current_profile) {
           case 'visitor_station':
-            return (accessTokens.visitor_station_token) ?
+            return (inDashboard || accessTokens.visitor_station_token) ?
               (
                 <Component {...props} context={context} />
               )
