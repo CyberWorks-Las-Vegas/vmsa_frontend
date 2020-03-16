@@ -82,14 +82,20 @@ function ButtonAppBar({ context }) {
     adminSetAnchorEl(null);
   };
 
+  const [navAnchorEl, navSetAnchorEl] = React.useState(null);
+
+  const handleNavClick = event => {
+    navSetAnchorEl(event.currentTarget);
+  };
+
+  const handleNavClose = () => {
+    navSetAnchorEl(null);
+  };
+
   const {
     loginApp: {
       inDashboard,
       current_profile,
-      profile_password
-    },
-    accessTokens: {
-      administrator_token
     },
     setSignInStatus,
     resetProfileStatus,
@@ -115,16 +121,16 @@ function ButtonAppBar({ context }) {
                     aria-haspopup="true"
                     variant="contained"
                     color="primary"
-                    onClick={handleClick}
+                    onClick={handleNavClick}
                   >
                     Navigation
                   </Button>
                   <StyledMenu
                     id="customized-menu"
-                    anchorEl={anchorEl}
+                    anchorEl={navAnchorEl}
                     keepMounted
-                    open={Boolean(anchorEl)}
-                    onClose={handleClose}
+                    open={Boolean(navAnchorEl)}
+                    onClose={handleNavClose}
                   >
                     <StyledMenuItem>
                       <ListItemIcon>
