@@ -62,7 +62,7 @@ const BlockList = ({ context }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map(row => (
+              {block_list.map(row => (
                 <TableRow key={row.id}>
                   <TableCell>{row.id}</TableCell>
                   <TableCell>{
