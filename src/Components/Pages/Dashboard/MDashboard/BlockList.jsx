@@ -50,7 +50,7 @@ const BlockList = ({ context }) => {
         {`${blockListArray.length}`}
       </Typography>
       <Typography color="textSecondary" className={classes.depositContext}>
-        {`${new Date().toDateString()}`}
+        {`as of ${new Date().toDateString()}`}
       </Typography>
       <div>
         <Link color="primary" href="#" onClick={handleToggle}>
