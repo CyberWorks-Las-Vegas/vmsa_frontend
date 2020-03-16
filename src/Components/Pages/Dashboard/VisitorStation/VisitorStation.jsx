@@ -101,10 +101,10 @@ class VSDashboard extends React.Component {
     super(props);
     this.state = {
       isModalOpen: false,
-      first_Name: '',
-      last_Name: '',
+      first_name: '',
+      last_name: '',
       street: '',
-      street_Number: '',
+      street_number: '',
       city: '',
       state: '',
       zip: '',
@@ -176,27 +176,33 @@ class VSDashboard extends React.Component {
 
     const {
       premises_id,
-      first_Name,
-      last_Name,
+      first_name,
+      last_name,
       street,
-      street_Number,
+      street_number,
       city,
       state,
       zip,
       license_id
     } = this.state;
 
+    const check_inDate = () => {
+      let date = new Date();
+      return `${date.getHours()}:${date.getMinutes()}`
+    };
+    const check_in = check_inDate();
+
     const logInForm = {
       premises_id,
-      first_Name,
-      last_Name,
+      first_name,
+      last_name,
       street,
-      street_Number,
+      street_number,
       city,
       state,
       zip,
       license_id,
-      check_in: () => { let date = new Date(); return `${date.getHours()}:${date.getMinutes()}` }
+      check_in
     };
     // waits for post api to resolve promise
     const endPoint = 'https://vmsa-prod-backend.herokuapp.com/API/logInsertVal/logInsert'
@@ -218,10 +224,15 @@ class VSDashboard extends React.Component {
       license_id
     } = this.state;
 
+    const check_outDate = () => {
+      let date = new Date();
+      return `${date.getHours()}:${date.getMinutes()}`
+    };
+    const check_out = check_outDate();
     const logOutForm = {
       premises_id,
       license_id,
-      check_Out: () => { let date = new Date(); return `${date.getHours()}:${date.getMinutes()}` }
+      check_out
     };
     // waits for post api to resolve promise
     const endPoint = 'https://vmsa-prod-backend.herokuapp.com/API/logInsertOutVal/logInsertOut'
@@ -347,7 +358,7 @@ class VSDashboard extends React.Component {
                     fullWidth
                     autoComplete="driver license"
                     onChange={this.VisitorStationFormChange}
-                    value={this.state.zip}
+                    value={this.state.license_id}
                   />
                 </Grid>
               </Grid>
