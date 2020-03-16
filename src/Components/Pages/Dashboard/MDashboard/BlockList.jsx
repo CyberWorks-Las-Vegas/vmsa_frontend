@@ -39,6 +39,8 @@ const BlockList = ({ context }) => {
     current_block_list: {
       block_list
     } } = context;
+  const DBArray = block_list[0];
+  const blockListArray = DBArray.block_list
   console.log({ block_list }, { context }, 'block list comp')
   return (
     <React.Fragment>
@@ -62,7 +64,7 @@ const BlockList = ({ context }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {block_list.map(row => (
+              {blockListArray.map(row => (
                 <TableRow key={row.id}>
                   <TableCell>{row.id}</TableCell>
                   <TableCell>{
