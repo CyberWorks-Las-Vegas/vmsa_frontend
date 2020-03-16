@@ -66,6 +66,7 @@ class UserProvider extends Component {
     this.retrieveLogs = this.retrieveLogs.bind(this);
     this.filteredLogs = this.filteredLogs.bind(this);
     this.handleSubmitApp = this.handleSubmitApp.bind(this);
+    this.setSignInStatus = this.setSignInStatus.bind(this);
     this.retrieveBlockList = this.retrieveBlockList.bind(this);
     this.handleFilterChange = this.handleFilterChange.bind(this);
     this.handleAdminRegSubmit = this.handleAdminRegSubmit.bind(this);
@@ -199,9 +200,16 @@ class UserProvider extends Component {
   /*DASHBOARD FUNCTIONS END*/
   /*VISITOR STATION FUNCTIONS START*/
 
-
+  // For now all functions in visitor station component
 
   /*VISITOR STATION FUNCTIONS END*/
+  /*APP NAV BAR FUNCTIONS START*/
+  setSignInStatus = () => {
+    this.setState(prevState => {
+      isFirstSignin: !prevState.isFirstSignin
+    })
+  }
+  /*APP NAV BAR FUNCTIONS END*/
   /* FORMS START*/
 
   // forward pagnation
@@ -259,21 +267,21 @@ class UserProvider extends Component {
     const body = await this.postApi(loginPremiseForm, endPoint).then(res => res);
 
     // updates state with info from express
-    if(body){
-    this.setState(prevState => ({
-      ...prevState,
-      isFirstSignin: body.first_login,
-      accessTokens: {
-        ...prevState.accessTokens,
-        administrator_token: body.accessToken ? body.accessToken : false
-      },
-      loginPremise: {
-        ...prevState.loginPremise,
-        correct: body.correct !== undefined ? body.correct : false,
-        errorResponse: body.error ? body.error : false
-      }
-    }))
-  }
+    if (body) {
+      this.setState(prevState => ({
+        ...prevState,
+        isFirstSignin: body.first_login,
+        accessTokens: {
+          ...prevState.accessTokens,
+          administrator_token: body.accessToken ? body.accessToken : false
+        },
+        loginPremise: {
+          ...prevState.loginPremise,
+          correct: body.correct !== undefined ? body.correct : false,
+          errorResponse: body.error ? body.error : false
+        }
+      }))
+    }
     // retrive logs from db
     await this.retrieveLogs();
     // retrieve block list from db
@@ -526,6 +534,7 @@ class UserProvider extends Component {
           jumpStep: this.jumpStep,
           onSubmit: this.handleSubmit,
           onAppSubmit: this.handleSubmitApp,
+          setSignInStatus: this.setSignInStatus,
           saveContinue: this.handleAdminRegSubmit,
           loginFormChange: this.handleAppLoginFormChange,
           premiseFormChange: this.handlePremiseFormChange,
