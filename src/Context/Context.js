@@ -150,6 +150,7 @@ class UserProvider extends Component {
     // waits for post api to resolve promise
     const endPoint = 'https://vmsa-prod-backend.herokuapp.com/API/Get/blockListRetrieveVal/blockListRetrieve'
     const body = await this.postApi(id, endPoint).then(res => res);
+    console.log(body, 'retrieveblocklist context')
     // updates state with info from express
     this.setState(prevState => ({
       current_block_list: {
