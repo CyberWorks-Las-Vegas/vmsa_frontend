@@ -22,7 +22,7 @@ const PrivateVSDashboardRoute = ({ component: Component, ...rest }) => {
           case 'visitor_station':
             return (accessTokens.visitor_station_token) ?
               (
-                <Component {...props} />
+                <Component {...props} context={context} />
               )
               :
               (

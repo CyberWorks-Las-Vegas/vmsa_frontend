@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -100,13 +100,35 @@ class VSDashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isModalOpen: false
+      isModalOpen: false,
+      first_Name: '',
+      last_Name: '',
+      street: '',
+      street_Number: '',
+      city: '',
+      state: '',
+      zip: '',
+      license_id: ''
+
     };
+    this.inputRef = useRef();
 
     this.signIn = this.signIn.bind(this);
     this.signOut = this.signOut.bind(this);
+    this.postApi = this.postApi.bind(this);
     this.toggleState = this.toggleState.bind(this);
+    this.logInsertCheckIn = this.logInsertCheckIn.bind(this);
+    this.logInsertCheckOut = this.logInsertCheckOut.bind(this);
     this.VisitorStationFormChange = this.VisitorStationFormChange.bind(this);
+  }
+
+  componentDidMount() {
+    const {
+      loginPremise: {
+        premises_id
+      } } = this.props.context;
+
+    this.setState({ premises_id });
   }
 
   toggleState = e => {
@@ -116,16 +138,105 @@ class VSDashboard extends React.Component {
   };
 
   signIn = () => {
-    return console.log("checked in")
+    this.logInsertCheckIn();
   }
 
   signOut = () => {
-    return console.log("checked out ")
+    this.logInsertCheckOut();
+  }
+  // function checks for form changes and updates state
+  VisitorStationFormChange = (e) => {
+    e.persist();
+
+    this.setState(prevState => ({
+      form: {
+        ...prevState.loginPremise,
+        [e.target.name]: e.target.value
+      }
+    })
+    );
   }
 
-  VisitorStationFormChange = () => {
-    return console.log("form changed")
+  // Post form data to express
+  postApi = async (form, endPoint) => {
+
+    // get response json from express server
+    return await fetch(endPoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(form)
+    })
+      .then((result) => result.json())
+      .catch(error => console.log('Authorization failed : ' + error.message));
   }
+
+  // function to handle retriving current logs from db
+  logInsertCheckIn = async e => {
+
+    const {
+      premises_id,
+      first_Name,
+      last_Name,
+      street,
+      street_Number,
+      city,
+      state,
+      zip,
+      license_id
+    } = this.state;
+
+    const logInForm = {
+      premises_id,
+      first_Name,
+      last_Name,
+      street,
+      street_Number,
+      city,
+      state,
+      zip,
+      license_id,
+      check_in: () => { let date = new Date(); return `${date.getHours()}:${date.getMinutes()}` }
+    };
+    // waits for post api to resolve promise
+    const endPoint = 'https://vmsa-prod-backend.herokuapp.com/API/logInsertVal/logInsert'
+    const body = await this.postApi(logInForm, endPoint).then(res => res);
+    // updates state with info from express
+    this.setState(prevState => ({
+      current_logs: {
+        ...prevState.current_logs,
+        correct: body.correct,
+      }
+    }))
+  };
+
+  // function to handle posting current logs to db
+  logInsertCheckOut = async e => {
+
+    const {
+      premises_id,
+      license_id
+    } = this.state;
+
+    const logOutForm = {
+      premises_id,
+      license_id,
+      check_Out: () => { let date = new Date(); return `${date.getHours()}:${date.getMinutes()}` }
+    };
+    // waits for post api to resolve promise
+    const endPoint = 'https://vmsa-prod-backend.herokuapp.com/API/logInsertOutVal/logInsertOut'
+    const body = await this.postApi(logOutForm, endPoint).then(res => res);
+    // updates state with info from express
+    this.setState(prevState => ({
+      current_logs: {
+        ...prevState.current_logs,
+        correct: body.correct,
+      }
+    }))
+
+  };
 
   render() {
     const { classes } = this.props;
@@ -146,12 +257,12 @@ class VSDashboard extends React.Component {
                     id="firstName"
                     name="first_Name"
                     label="First name"
-                    // ref={inputRef}
+                    ref={this.inputRef}
                     fullWidth
                     autoComplete="fname"
                     autoFocus
                     onChange={this.VisitorStationFormChange}
-                  // value={adminDetails.first_Name}
+                    value={this.state.first_Name}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -160,11 +271,11 @@ class VSDashboard extends React.Component {
                     id="lastName"
                     name="last_Name"
                     label="Last name"
-                    // ref={inputRef}
+                    ref={this.inputRef}
                     fullWidth
                     autoComplete="lname"
                     onChange={this.VisitorStationFormChange}
-                  // value={adminDetails.last_Name}
+                    value={this.state.last_Name}
                   />
                 </Grid>
 
@@ -173,11 +284,11 @@ class VSDashboard extends React.Component {
                     id="address2"
                     name="street_Number"
                     label="Street Number"
-                    // ref={inputRef}
+                    ref={this.inputRef}
                     fullWidth
                     autoComplete="billing address-line2"
                     onChange={this.VisitorStationFormChange}
-                  // value={schoolDetails.street_Number}
+                    value={this.state.street_Number}
                   />
                 </Grid>
 
@@ -186,11 +297,11 @@ class VSDashboard extends React.Component {
                     id="address1"
                     name="street"
                     label="Street Address"
-                    // ref={inputRef}
+                    ref={this.inputRef}
                     fullWidth
                     autoComplete="billing address-line1"
                     onChange={this.VisitorStationFormChange}
-                  // value={schoolDetails.street}
+                    value={this.state.street}
                   />
                 </Grid>
 
@@ -199,11 +310,11 @@ class VSDashboard extends React.Component {
                     id="city"
                     name="city"
                     label="City"
-                    // ref={inputRef}
+                    ref={this.inputRef}
                     fullWidth
                     autoComplete="billing address-level2"
                     onChange={this.VisitorStationFormChange}
-                  // value={schoolDetails.city}
+                    value={this.state.city}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -211,10 +322,10 @@ class VSDashboard extends React.Component {
                     id="state"
                     name="state"
                     label="State/Province/Region"
-                    // ref={inputRef}
+                    ref={this.inputRef}
                     fullWidth
                     onChange={this.VisitorStationFormChange}
-                  // value={schoolDetails.state}
+                    value={this.state.state}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -222,11 +333,24 @@ class VSDashboard extends React.Component {
                     id="zip"
                     name="zip"
                     label="Zip / Postal code"
-                    // ref={inputRef}
+                    ref={this.inputRef}
                     fullWidth
                     autoComplete="billing postal-code"
                     onChange={this.VisitorStationFormChange}
-                  // value={schoolDetails.zip}
+                    value={this.state.zip}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    required
+                    id="license_id"
+                    name="license_id"
+                    label="Driver license #"
+                    ref={this.inputRef}
+                    fullWidth
+                    autoComplete="driver license"
+                    onChange={this.VisitorStationFormChange}
+                    value={this.state.zip}
                   />
                 </Grid>
               </Grid>
