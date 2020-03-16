@@ -64,11 +64,11 @@ const Logs = ({ context }) => {
           ))}
         </TableBody>
       </Table>
-      <div className={classes.seeMore}>
+      {/* <div className={classes.seeMore}>
         <Link color="primary" href="#" onClick={preventDefault}>
           See all scans
         </Link>
-      </div>
+      </div> */}
     </React.Fragment>
   );
 }
