@@ -85,9 +85,11 @@ function ButtonAppBar({ context }) {
     loginApp: {
       current_profile
     },
-    setSignInStatus
+    setSignInStatus,
+    resetProfileStatus,
+    resetPremisesStatus
   } = context;
-
+  console.log(context)
   return (
     <div className={classes.root}>
       <AppBar style={{ background: 'linear-gradient(166deg, rgba(51, 171, 84, 1) 30%, rgb(20, 197, 181) 90%' }} position="static">
@@ -117,7 +119,7 @@ function ButtonAppBar({ context }) {
               <ListItemIcon>
                 <ExitToAppTwoToneIcon fontSize="small" />
               </ListItemIcon>
-              <Link to='/applogin'>
+              <Link to='/applogin' onClick={resetProfileStatus}>
                 <ListItemText primary="Exit profile" />
               </Link>
             </StyledMenuItem>
@@ -126,46 +128,43 @@ function ButtonAppBar({ context }) {
               <ListItemIcon>
                 <LockTwoToneIcon fontSize="small" />
               </ListItemIcon>
-              <Link to='/'>
+              <Link to='/' onClick={resetPremisesStatus}>
                 <ListItemText primary="Exit Site" />
               </Link>
             </StyledMenuItem>
           </StyledMenu>
         </div>
         {current_profile === 'administrator' &&
-          (function admin() {
 
-            return () =>
-              (
-                <div>
-                  <Button
-                    aria-controls="customized-menu"
-                    aria-haspopup="true"
-                    variant="contained"
-                    color="primary"
-                    onClick={handleAdminClick}
-                  >
-                    Account
+          (
+            <div>
+              <Button
+                aria-controls="customized-menu"
+                aria-haspopup="true"
+                variant="contained"
+                color="primary"
+                onClick={handleAdminClick}
+              >
+                Account
                   </Button>
-                  <StyledMenu
-                    id="customized-menu"
-                    anchorEl={adminAnchorEl}
-                    keepMounted
-                    open={Boolean(adminAnchorEl)}
-                    onClose={handleAdminClose}
-                  >
-                    <StyledMenuItem>
-                      <ListItemIcon>
-                        <EditTwoToneIcon fontSize="small" />
-                      </ListItemIcon>
-                      <Link to='/form' onClick={setSignInStatus}>
-                        <ListItemText primary="Edit profile" />
-                      </Link>
-                    </StyledMenuItem>
-                  </StyledMenu>
-                </div>
-              )
-          })()
+              <StyledMenu
+                id="customized-menu"
+                anchorEl={adminAnchorEl}
+                keepMounted
+                open={Boolean(adminAnchorEl)}
+                onClose={handleAdminClose}
+              >
+                <StyledMenuItem>
+                  <ListItemIcon>
+                    <EditTwoToneIcon fontSize="small" />
+                  </ListItemIcon>
+                  <Link to='/form' onClick={setSignInStatus}>
+                    <ListItemText primary="Edit profile" />
+                  </Link>
+                </StyledMenuItem>
+              </StyledMenu>
+            </div>
+          )
         }
       </AppBar>
     </div>

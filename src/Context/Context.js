@@ -69,9 +69,11 @@ class UserProvider extends Component {
     this.setSignInStatus = this.setSignInStatus.bind(this);
     this.retrieveBlockList = this.retrieveBlockList.bind(this);
     this.handleFilterChange = this.handleFilterChange.bind(this);
+    this.resetProfileStatus = this.resetProfileStatus.bind(this);
+    this.resetPremisesStatus = this.resetPremisesStatus.bind(this);
     this.handleAdminRegSubmit = this.handleAdminRegSubmit.bind(this);
-    this.handleAppLoginFormChange = this.handleAppLoginFormChange.bind(this);
     this.handlePremiseFormChange = this.handlePremiseFormChange.bind(this)
+    this.handleAppLoginFormChange = this.handleAppLoginFormChange.bind(this);
     this.handleAdminDetailsFormChange = this.handleAdminDetailsFormChange.bind(this);
     this.handleSchoolDetailsFormChange = this.handleSchoolDetailsFormChange.bind(this);
   }
@@ -205,9 +207,27 @@ class UserProvider extends Component {
   /*VISITOR STATION FUNCTIONS END*/
   /*APP NAV BAR FUNCTIONS START*/
   setSignInStatus = () => {
-    this.setState(prevState => {
+    this.setState(prevState => ({
       isFirstSignin: !prevState.isFirstSignin
-    })
+    }))
+  }
+
+  resetProfileStatus = () => {
+    this.setState(prevState => ({
+      loginApp: {
+        ...prevState.loginApp,
+        current_profile: ''
+      }
+    }))
+  }
+
+  resetPremisesStatus = () => {
+    this.setState(prevState => ({
+      loginPremise: {
+        ...prevState.loginPremise,
+        premises_id: ''
+      }
+    }))
   }
   /*APP NAV BAR FUNCTIONS END*/
   /* FORMS START*/
@@ -536,6 +556,8 @@ class UserProvider extends Component {
           onAppSubmit: this.handleSubmitApp,
           setSignInStatus: this.setSignInStatus,
           saveContinue: this.handleAdminRegSubmit,
+          resetProfileStatus: this.resetProfileStatus,
+          resetPremisesStatus: this.resetPremisesStatus,
           loginFormChange: this.handleAppLoginFormChange,
           premiseFormChange: this.handlePremiseFormChange,
           adminDetailsChange: this.handleAdminDetailsFormChange,
