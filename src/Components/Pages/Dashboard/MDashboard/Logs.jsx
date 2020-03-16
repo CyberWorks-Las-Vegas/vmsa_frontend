@@ -1,4 +1,6 @@
 import React from 'react';
+import { withUserConsumer } from '../../../../Context/Context';
+
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -8,22 +10,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Title from './Title';
 
-// Generate Order Data
-function createData(id, date, name, approved, checkIn, checkOut) {
-  return { id, date, name, approved, checkIn, checkOut };
-}
 
-const rows = [
-  createData(0, '18 Feb, 2020', 'Barack Obama', 'Yes', '8:00', '12:00'),
-  createData(1, '18 Feb, 2020', 'Paul McCartney', 'Yes', '10:00', '14:00'),
-  createData(2, '18 Feb, 2020', 'Rihanna', 'Yes', '17:00', '17:45'),
-  createData(3, '18 Feb, 2020', 'Michael Jackson', 'Yes', '7:00', '13:00'),
-  createData(4, '18 Feb, 2020', 'Bruce Springsteen', 'Yes', '11:00', '19:00'),
-];
 
-function preventDefault(event) {
-  event.preventDefault();
-}
 
 const useStyles = makeStyles(theme => ({
   seeMore: {
@@ -31,8 +19,26 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Orders() {
+const Logs = ({ context }) => {
   const classes = useStyles();
+  const {
+    current_logs: {
+      logs
+    } } = context;
+  const rows = [];
+
+  // format logs into rows by destrucuring logs into props then using thme to create objects that get push into an array
+  function createData(logs) {
+    logs.map(log => {
+      const { license_id, id, first_name, last_name, check_in, check_out } = log
+      rows.push({ id: license_id, date: id, name: `${first_name} ${last_name}`, approved: 'yes', check_in, check_out });
+    })
+  }
+  // TODO: make function for pagnation
+  function preventDefault(event) {
+    event.preventDefault();
+  }
+  createData(logs);
   return (
     <React.Fragment>
       <Title>Recent Scans</Title>
@@ -52,17 +58,19 @@ export default function Orders() {
               <TableCell>{row.date}</TableCell>
               <TableCell>{row.name}</TableCell>
               <TableCell>{row.approved}</TableCell>
-              <TableCell>{row.checkIn}</TableCell>
-              <TableCell align="right">{row.checkOut}</TableCell>
+              <TableCell>{row.check_in}</TableCell>
+              <TableCell align="right">{row.check_out}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-      <div className={classes.seeMore}>
+      {/* <div className={classes.seeMore}>
         <Link color="primary" href="#" onClick={preventDefault}>
           See all scans
         </Link>
-      </div>
+      </div> */}
     </React.Fragment>
   );
 }
+
+export default withUserConsumer(Logs);

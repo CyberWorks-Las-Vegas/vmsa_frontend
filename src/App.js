@@ -6,10 +6,19 @@ import { hot } from "react-hot-loader";
 import SignInSide from './Components/Pages/Home/MLogin/SignIn';
 import ButtonAppBar from './Components/Pages/Home/MLogin/AppBar';
 import FormContainer from './Components/Pages/Dashboard/MForm/FormContainer';
+import AppLogin from "./Components/Pages/Home/AppLogin/AppLogin";
+
 import MDashboard from "./Components/Pages/Dashboard/MDashboard/Main";
-import PrivateAdminRoute from "./Components/Routes/PrivateAdminRoute";
+import FDDashboard from "./Components/Pages/Dashboard/MDashboard/MainRestricted";
+import VSDashboard from "./Components/Pages/Dashboard/VisitorStation/VisitorStation";
+
 import PrivateFormRoute from "./Components/Routes/PrivateFormRoute";
-import AppLogin from "./Components/Pages/Home/AppLogin/AppLogin"
+import PrivateAdminRoute from "./Components/Routes/PrivateAdminRoute";
+import PrivateDashboardRoute from "./Components/Routes/PrivateDashboardRoute";
+import PrivateFDDashboardRoute from "./Components/Routes/PrivateFDDasboardRoute";
+import PrivateVSDashboardRoute from "./Components/Routes/PrivateVSDashboardRoute";
+
+import Error from "./Components/Pages/Error/Error";
 // Styles
 import Container from '@material-ui/core/Container';
 
@@ -23,7 +32,10 @@ const App = () => {
           <Route exact path="/" component={SignInSide} />
           <PrivateAdminRoute path="/applogin" component={AppLogin} />
           <PrivateFormRoute path="/form" component={FormContainer} />
-          <Route path="/dashboard" component={MDashboard} />
+          <PrivateDashboardRoute path="/dashboard/administrator" component={MDashboard} />
+          <PrivateFDDashboardRoute path="/dashboard/front_desk" component={FDDashboard} />
+          <PrivateVSDashboardRoute path="/dashboard/visitor_station" component={VSDashboard} />
+          <Route path="*" component={Error} />
         </Switch>
       </Container>
     </>
@@ -32,10 +44,3 @@ const App = () => {
 
 // helps perserve state on each reload in dev
 export default hot(module)(App);
-
-
-// <Route path="/Admin" component={InitForm} />
-//           <Route path="/Admin/Dashboard" component={Dashboard} />
-//           {/* test */}
-//           <Route exact path="/Admin/Dashboard/:slug" component={Search} />
-//           <Route exact path="/Guest/Dashboard/:slug" component={AddVistor} />

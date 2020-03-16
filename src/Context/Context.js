@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Base64 } from 'js-base64';
 
 // TODO: put all form changes into single function
+// made check in/out routes on backend need to connect visitor station sign in/out feature to ap
+// made log retrieval route on backend need to connect charts/logs to api
 
 // creates context api
 const UserContext = React.createContext();
@@ -23,6 +25,7 @@ class UserProvider extends Component {
         errorResponse: ''
       },
       loginApp: {
+        inDashboard: false,
         current_profile: '',
         profile_password: '',
         correct: '',
@@ -44,6 +47,12 @@ class UserProvider extends Component {
         state: '',
         zip: 0,
         errorResponse: ''
+      },
+      current_logs: {
+        logs: {}
+      },
+      current_block_list: {
+        block_list: []
       }
     };
 
@@ -55,21 +64,27 @@ class UserProvider extends Component {
     this.jumpStep = this.jumpStep.bind(this);
     this.filterNames = this.filterNames.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.retrieveLogs = this.retrieveLogs.bind(this);
+    this.filteredLogs = this.filteredLogs.bind(this);
     this.handleSubmitApp = this.handleSubmitApp.bind(this);
+    this.setSignInStatus = this.setSignInStatus.bind(this);
+    this.retrieveBlockList = this.retrieveBlockList.bind(this);
     this.handleFilterChange = this.handleFilterChange.bind(this);
+    this.resetProfileStatus = this.resetProfileStatus.bind(this);
+    this.resetPremisesStatus = this.resetPremisesStatus.bind(this);
     this.handleAdminRegSubmit = this.handleAdminRegSubmit.bind(this);
-    this.handleAppLoginFormChange = this.handleAppLoginFormChange.bind(this);
     this.handlePremiseFormChange = this.handlePremiseFormChange.bind(this)
+    this.handleAppLoginFormChange = this.handleAppLoginFormChange.bind(this);
     this.handleAdminDetailsFormChange = this.handleAdminDetailsFormChange.bind(this);
     this.handleSchoolDetailsFormChange = this.handleSchoolDetailsFormChange.bind(this);
   }
   /*SERVER FUNCTIONS START*/
 
-  // used to get data from server
+  // used to get data from db on mount 
   // async componentDidMount() {
-  //   // test
-  //   await this.callApi()
-  //     .then(res => this.setState({ response: res }))
+  //   // put logs into stat for chart to load
+  //   await this.retrieveLogs()
+  //     .then(res => console.log(res, 'logs finished downloading'))
   //     .catch(err => console.log(err, "componentdidmount"));
 
   // }
@@ -98,6 +113,132 @@ class UserProvider extends Component {
   }
 
   /*SERVER FUNCTIONS END*/
+  /*DASHBOARD FUNCTIONS START*/
+
+  // function to handle retriving current logs from db
+  retrieveLogs = async e => {
+
+    const {
+      loginPremise: {
+        premises_id
+      } } = this.state;
+
+    const id = {
+      premises_id
+    };
+    // waits for post api to resolve promise
+    const endPoint = 'https://vmsa-prod-backend.herokuapp.com/API/Get/logRetrieveVal/logRetrieve'
+    const body = await this.postApi(id, endPoint).then(res => res);
+    // updates state with info from express
+    this.setState(prevState => ({
+      current_logs: {
+        ...prevState.current_logs,
+        correct: body.correct,
+        logs: body.logs
+      }
+    }))
+
+  };
+
+  // function to handle retriving current block list from db
+  retrieveBlockList = async e => {
+
+    const {
+      loginPremise: {
+        premises_id
+      } } = this.state;
+
+    const id = {
+      premises_id
+    };
+    // waits for post api to resolve promise
+    const endPoint = 'https://vmsa-prod-backend.herokuapp.com/API/Get/blockListRetrieveVal/blockListRetrieve'
+    const body = await this.postApi(id, endPoint).then(res => res);
+    console.log(body, 'retrieveblocklist context')
+    // updates state with info from express
+    this.setState(prevState => ({
+      current_block_list: {
+        ...prevState.current_logs,
+        correct: body.correct,
+        block_list: body.block_list
+      }
+    }))
+
+  };
+
+  // function checks fetched logs for check in times and sets amount of check ins for correct interval to display in chart
+  filteredLogs = (logs, setData) => {
+
+    const dataArr = ['00:00', '03:00', '06:00', '09:00', '12:00', '15:00', '18:00', '21:00', '24:00'];
+
+    // loops thru logs
+    logs.map(logObj => {
+      // converts check in time to seconds
+      const { check_in } = logObj;
+      let checkInTimeInSeconds = check_in.split(':').reduce((acc, time) => (60 * acc) + +time);
+      // loops thru array of check in times set at 3 hour intervals 
+      dataArr.filter((arrTime, index) => {
+
+        let dataArrEndIndex = (index + 1)
+        // checks if at end of arr and bails
+        if (dataArr[dataArrEndIndex] === undefined) {
+          return null
+        }
+        // sets check in interval into seconds
+        arrTimeInSecondsStart = arrTime.split(':').reduce((acc, time) => (60 * acc) + +time);
+        arrTimeInSecondsEnd = dataArr[dataArrEndIndex].split(':').reduce((acc, time) => (60 * acc) + +time);
+        // checks if check in time is in between interval then increases amount of checkins for interval by one data 
+        if (arrTimeInSecondsStart < checkInTimeInSeconds && arrTimeInSecondsEnd > checkInTimeInSeconds) {
+          let key = data[arrTime]
+          setData({
+            [`${arrTime}`]: key + 1
+          })
+        }
+      })
+    })
+  }
+
+
+
+  /*DASHBOARD FUNCTIONS END*/
+  /*VISITOR STATION FUNCTIONS START*/
+
+  // For now all functions in visitor station component
+
+  /*VISITOR STATION FUNCTIONS END*/
+  /*APP NAV BAR FUNCTIONS START*/
+  setSignInStatus = () => {
+    this.setState({
+      isFirstSignin: true
+    })
+  }
+
+  resetProfileStatus = () => {
+    this.setState(prevState => ({
+      loginApp: {
+        current_profile: '',
+        profile_password: ''
+      }
+    }))
+  }
+
+  resetPremisesStatus = () => {
+    this.resetProfileStatus();
+
+    this.setState(prevState => ({
+      ...prevState,
+      accessTokens: {
+        administrator_token: '',
+        front_desk_token: '',
+        visitor_station_token: ''
+      },
+      loginPremise: {
+        premises_id: '',
+        premises_password: ''
+      }
+    }))
+  }
+  /*APP NAV BAR FUNCTIONS END*/
   /* FORMS START*/
 
   // forward pagnation
@@ -155,20 +296,25 @@ class UserProvider extends Component {
     const body = await this.postApi(loginPremiseForm, endPoint).then(res => res);
 
     // updates state with info from express
-    this.setState(prevState => ({
-      ...prevState,
-      isFirstSignin: body.first_login,
-      accessTokens: {
-        ...prevState.accessTokens,
-        administrator_token: body.accessToken ? body.accessToken : false
-      },
-      loginPremise: {
-        ...prevState.loginPremise,
-        correct: body.correct !== undefined ? body.correct : false,
-        errorResponse: body.error ? body.error : false
-      }
-    }))
-    console.log(this.state, 'context api call')
+    if (body) {
+      this.setState(prevState => ({
+        ...prevState,
+        isFirstSignin: body.first_login,
+        accessTokens: {
+          ...prevState.accessTokens,
+          administrator_token: body.accessToken ? body.accessToken : false
+        },
+        loginPremise: {
+          ...prevState.loginPremise,
+          correct: body.correct !== undefined ? body.correct : false,
+          errorResponse: body.error ? body.error : false
+        }
+      }))
+    }
+    // retrive logs from db
+    await this.retrieveLogs();
+    // retrieve block list from db
+    await this.retrieveBlockList();
   };
 
   // function to handle form submit and post data to express
@@ -199,8 +345,13 @@ class UserProvider extends Component {
 
     // updates state with info from express
     this.setState(prevState => ({
+      accessTokens: {
+        ...prevState.accessTokens,
+        [`${current_profile}_token`]: body.accessToken
+      },
       loginApp: {
         ...prevState.loginApp,
+        inDashboard: true,
         correct: body.correct,
         fetchResponse: body.error ? body.error : "no errors"
       }
@@ -413,7 +564,10 @@ class UserProvider extends Component {
           jumpStep: this.jumpStep,
           onSubmit: this.handleSubmit,
           onAppSubmit: this.handleSubmitApp,
+          setSignInStatus: this.setSignInStatus,
           saveContinue: this.handleAdminRegSubmit,
+          resetProfileStatus: this.resetProfileStatus,
+          resetPremisesStatus: this.resetPremisesStatus,
           loginFormChange: this.handleAppLoginFormChange,
           premiseFormChange: this.handlePremiseFormChange,
           adminDetailsChange: this.handleAdminDetailsFormChange,

@@ -1,4 +1,4 @@
-import React, { forwardRef, useContext, useRef } from 'react';
+import React, { forwardRef, useContext, useRef, useCallback } from 'react';
 import { withRouter } from 'react-router-dom';
 // Styles
 import Avatar from '@material-ui/core/Avatar';
@@ -61,10 +61,12 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(3, 0, 2),
   },
 }));
+
 const nextPageAuth = async (props, correct) => {
   const correctLogin = await correct
-  return correctLogin && props.history.push('/dashboard')
+  return correctLogin && props.history.push('/dashboard/administrator')
 }
+
 const AppLogin = (props, ref) => {
   const classes = useStyles();
   const context = useContext(UserContext);
@@ -76,9 +78,26 @@ const AppLogin = (props, ref) => {
     onAppSubmit,
     loginFormChange
   } = context;
-  const inputRef = useRef();
+
+  function useHookWithRefCallback() {
+    const selectRef = useRef();
+
+    const setRef = useCallback(node => {
+      (node) ?
+        // Save a reference to the node
+        selectRef.current = node
+        :
+        // Save false to the node instead of undefined
+        selectRef.current = false
+    }, [])
+
+    return [setRef]
+  }
+
+  const passwordRef = useRef();
+  const [selectRef] = useHookWithRefCallback()
   // check if login responeded correct then calls redirect func
-  correct && nextPageAuth(props, correct)
+  correct && nextPageAuth(props, correct);
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -97,7 +116,7 @@ const AppLogin = (props, ref) => {
             className={classes.form}
           >
             <Select
-              ref={inputRef}
+              ref={selectRef}
               id="current_profile"
               variant="outlined"
               name="current_profile"
@@ -112,19 +131,41 @@ const AppLogin = (props, ref) => {
               <MenuItem value="front_desk">Front Desk</MenuItem>
               <MenuItem value="visitor_station">Visitor Station</MenuItem>
             </Select>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              label="Password"
-              type="password"
-              id="password"
-              name="profile_password"
-              ref={inputRef}
-              onChange={loginFormChange}
-              autoComplete="current-password"
-            />
+            {
+              (current_profile !== "visitor_station") ?
+                (
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    label="Password"
+                    type="password"
+                    id="password"
+                    name="profile_password"
+                    ref={passwordRef}
+                    onChange={loginFormChange}
+                    autoComplete="current-password"
+                  />
+                )
+                :
+                (
+                  <TextField
+                    disabled={true}
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    label="No password needed"
+                    type="text"
+                    id="password"
+                    name="profile_password"
+                    ref={passwordRef}
+                    onChange={loginFormChange}
+                    autoComplete="current-password"
+                  />
+                )
+            }
 
             <ComSubmit
               type="submit"

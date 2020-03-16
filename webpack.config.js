@@ -35,19 +35,22 @@ module.exports = ({ mode } = {
       path: path.resolve("./dist"),
       filename: "index.[hash].js"
     },
-    devServer: {
-      contentBase: path.join(__dirname, 'dist'),
-      compress: true,
-      hot: true,
-      port: 3000
-    },
+    // devServer: {
+    //   contentBase: path.join(__dirname, 'dist'),
+    //   stats: {
+    //     children: false
+    //   },
+    //   compress: true,
+    //   hot: true,
+    //   port: 3000
+    // },
     devtool: "none",
     resolve: {
       alias: {
         "react-dom": "@hot-loader/react-dom"
       },
       // helps resolve extensions in react
-      extensions: ["*", ".js", ".jsx"]
+      extensions: ["*", ".js", ".jsx", '.gif', '.png', '.jpg', '.jpeg', '.svg', '.webp']
     },
     optimization: {
       minimize: true,
@@ -86,7 +89,7 @@ module.exports = ({ mode } = {
               presets: ['@babel/react'],
               cacheDirectory: true,
               cacheCompression: false,
-              envName: isProduction ? "production" : "development"
+              envName: "production"
             }
           }
         },
@@ -118,16 +121,47 @@ module.exports = ({ mode } = {
           ]
         },
         {
-          // for loading modules
-          test: /\.(eot|woff|woff2|ttf|svg|png|jp(e*)g)$/,
+          // for loading images/modules
+          test: /\.(eot|woff|woff2|ttf)$/i,
           use: {
             loader: "url-loader",
             options: {
               limit: 8192,
               fallback: "file-loader",
-              name: "images/[name].[hash].[ext]"
+              name: "[path][name].[hash].[ext]"
             }
           }
+        },
+        // for loading/compressing big images
+        {
+          test: /\.(gif|png|jpe?g|svg|webp)$/i,
+          use: [
+            'file-loader',
+            'webp-loader',
+            {
+              loader: 'image-webpack-loader',
+              options: {
+                name: "[path][name].[hash].[ext]",
+                mozjpeg: {
+                  progressive: true,
+                  quality: 65
+                },
+                optipng: {
+                  enabled: true,
+                },
+                pngquant: {
+                  quality: [0.65, 0.90],
+                  speed: 4
+                },
+                gifsicle: {
+                  interlaced: false,
+                },
+                webp: {
+                  quality: 75
+                },
+              }
+            },
+          ],
         }
       ]
     },
@@ -181,7 +215,7 @@ module.exports = ({ mode } = {
         }
       }),
       new ReactLoadablePlugin({
-        filename: './dist/react-loadable.json',
+        filename: './build/react-loadable.json',
       }),
       // to create manifest.json on build
       new WebpackManifestPlugin(),

@@ -69,6 +69,7 @@
     "babel-plugin-styled-components": "1.10.7",
     "babel-register": "6.26.0",
     "bcryptjs": "2.4.3",
+    "big-integer": "1.6.48",
     "body-parser": "1.19.0",
     "clean-webpack-plugin": "3.0.0",
     "clsx": "1.1.0",
@@ -82,6 +83,9 @@
     "html-loader": "0.5.5",
     "html-webpack-plugin": "3.2.0",
     "http-errors": "1.7.3",
+    "image-webpack-loader": "6.0.0",
+    "imagemin": "7.0.1",
+    "imagemin-webp": "5.1.0",
     "is-empty": "1.2.0",
     "js-base64": "2.5.2",
     "jsonwebtoken": "8.5.1",
@@ -96,6 +100,7 @@
     "passport": "0.4.1",
     "passport-jwt": "4.0.0",
     "path": "0.12.7",
+    "quagga": "0.12.1",
     "react": "16.12.0",
     "react-composer": "5.0.1",
     "react-dom": "16.12.0",
@@ -113,10 +118,12 @@
     "uglifyjs-webpack-plugin": "2.2.0",
     "url-loader": "3.0.0",
     "validator": "12.2.0",
+    "webp-loader": "0.6.0",
     "webpack": "4.41.5",
     "webpack-cli": "3.3.10",
     "webpack-dev-server": "3.10.3",
     "webpack-manifest-plugin": "2.2.0",
-    "webpack-md5-hash": "0.0.6"
+    "webpack-md5-hash": "0.0.6",
+    "webrtc-adapter": "7.5.0"
   }
 }
