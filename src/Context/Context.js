@@ -259,6 +259,7 @@ class UserProvider extends Component {
     const body = await this.postApi(loginPremiseForm, endPoint).then(res => res);
 
     // updates state with info from express
+    if(body){
     this.setState(prevState => ({
       ...prevState,
       isFirstSignin: body.first_login,
@@ -272,10 +273,11 @@ class UserProvider extends Component {
         errorResponse: body.error ? body.error : false
       }
     }))
+  }
     // retrive logs from db
-    this.retrieveLogs();
+    await this.retrieveLogs();
     // retrieve block list from db
-    this.retrieveBlockList();
+    await this.retrieveBlockList();
   };
 
   // function to handle form submit and post data to express
