@@ -543,13 +543,16 @@ const scanner = (Ref) => {
 
       if (result.codeResult.format === "upc_a") {
         imageData = ctx.getImageData(0, 0, cw, ch);
-        let ZXINGAPP = new ZXing();
+        let ZXINGAPP = window.zxing;
         source = new ZXINGAPP.BitmapLuminanceSource(imageData);
+        console.log({ source }, 'zxing source')
         binarizer = new ZXINGAPP.Common.HybridBinarizer(source);
+        console.log({ binarizer }, 'zxing binarizer')
         bitmap = new ZXINGAPP.BinaryBitmap(binarizer);
+        console.log({ bitmap }, 'zxing bitmap')
 
-        pdf417 = ZXing.PDF417.PDF417Reader.decode(bitmap, null, false);
-
+        pdf417 = ZXINGAPP.PDF417.PDF417Reader.decode(bitmap, null, false);
+        console.log({ pdf417 }, 'zxing pdf417')
         // parse the read pdf417 string if need be and set the value on the result
 
         result.codeResult.code = pdf417; // or some portion therein
