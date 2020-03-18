@@ -14,7 +14,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CancelIcon from '@material-ui/icons/Cancel';
 
 
-console.log(ZXing, 'zxing');
+console.log(window.ZXing, 'zxing');
 const modalRoot = document.getElementById("modal-root");
 
 class Modal extends Component {
@@ -544,11 +544,11 @@ const scanner = (Ref) => {
       if (result.codeResult.format === "upc_a") {
         imageData = ctx.getImageData(0, 0, cw, ch);
         let ZXINGAPP = window.zxing;
-        source = new ZXINGAPP.BitmapLuminanceSource(imageData);
+        source = ZXINGAPP.BitmapLuminanceSource(imageData);
         console.log({ source }, 'zxing source')
-        binarizer = new ZXINGAPP.Common.HybridBinarizer(source);
+        binarizer = ZXINGAPP.Common.HybridBinarizer(source);
         console.log({ binarizer }, 'zxing binarizer')
-        bitmap = new ZXINGAPP.BinaryBitmap(binarizer);
+        bitmap = ZXINGAPP.BinaryBitmap(binarizer);
         console.log({ bitmap }, 'zxing bitmap')
 
         pdf417 = ZXINGAPP.PDF417.PDF417Reader.decode(bitmap, null, false);
