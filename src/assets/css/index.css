@@ -235,8 +235,9 @@ div#root {
 
 #interactive.viewport canvas, video {
   float: left;
-  width: 640px;
-  height: 480px;
+  width: 63vw;
+  height: 77vh;
+  margin-bottom: 4rem;
 }
 
 #interactive.viewport canvas.drawingBuffer, video.drawingBuffer {

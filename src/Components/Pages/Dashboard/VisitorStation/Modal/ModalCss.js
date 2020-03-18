@@ -43,7 +43,7 @@ const ModalCss = styled.div`
     .box-content {
       padding: 1rem;
       width: 100%;
-      height: 74vh;
+      height: 100vh;
     }
     .box-header {
       height: 7vh;
@@ -56,7 +56,7 @@ const ModalCss = styled.div`
         font-size: 2rem;
         font-weight: 400;
         margin: 0 auto;
-        color: #323232;
+        color: rgb(255, 255, 255);
       }
       .x-close {
         font-size: 35px;

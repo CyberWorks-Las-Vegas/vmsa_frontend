@@ -1,12 +1,18 @@
 import React, { Component } from "react";
 import ReactDom from "react-dom";
 import PropTypes from "prop-types";
+
+// Scanner
+// adapter just needs to be imported to work
 import adapter from 'webrtc-adapter';
 import Quagga from 'quagga';
 import ZXing from '../../../../../assets/js/zxing-pdf417'
 
-// styled
+// styles
 import StyledModal from "./ModalCss";
+import IconButton from '@material-ui/core/IconButton';
+import CancelIcon from '@material-ui/icons/Cancel';
+
 
 
 const modalRoot = document.getElementById("modal-root");
@@ -87,7 +93,7 @@ class Modal extends Component {
 
     const modalLayout = {
       width: "70vw",
-      height: "80vh",
+      height: "90vh",
       margin: "0 auto",
       padding: "0 4rem"
     };
@@ -106,15 +112,21 @@ class Modal extends Component {
           <div className="box-dialog">
             <div className="box-header">
               <h4 className="box-title">Place barcode in scaner view finder</h4>
-              <button onClick={this.handleClick} className="close">
-                ×
-              </button>
+              <label htmlFor="icon-button-file">
+                <IconButton
+                  color="primary"
+                  aria-label="upload picture"
+                  component="span"
+                  onClick={this.handleClick}>
+                  <CancelIcon fontSize='small' />
+                </IconButton>
+              </label>
             </div>
             <div className="box-body">
               <div style={modalLayout}>
                 <section id="container" class="container">
                   <div className="box-content">
-                    <div class="controls">
+                    {/* <div class="controls">
                       <fieldset class="input-group">
                         <button class="stop">Stop</button>
                       </fieldset>
@@ -185,7 +197,7 @@ class Modal extends Component {
                           <input type="checkbox" name="settings_torch" />
                         </label>
                       </fieldset>
-                    </div>
+                    </div> */}
                     <div id="result_strip">
                       <ul class="thumbnails"></ul>
                       <ul class="collector"></ul>
@@ -448,7 +460,7 @@ const scanner = (Ref) => {
       }
       self._accessByPath(self.state, path, value);
 
-      console.log(JSON.stringify(self.state));
+      console.log(JSON.stringify(self.state), "quagga setState");
       App.detachListeners();
       Quagga.stop();
       App.init();
@@ -521,6 +533,8 @@ const scanner = (Ref) => {
     let drawingCtx = Quagga.canvas.ctx.overlay,
       drawingCanvas = Quagga.canvas.dom.overlay;
 
+    console.log(result, 'quagg on processed');
+
     if (result.box) {
       ctx = Quagga.canvas.ctx.overlay;
       canvas = Quagga.canvas.dom.overlay;
@@ -539,13 +553,14 @@ const scanner = (Ref) => {
         // parse the read pdf417 string if need be and set the value on the result
 
         result.codeResult.code = pdf417; // or some portion therein
+        console.log(result, 'quagg on processed upc_a');
       }
     }
   });
 
   Quagga.onDetected(function (result) {
     let code = result.codeResult.code;
-
+    console.log(result, 'quagg on detected');
     if (App.lastResult !== code) {
       App.lastResult = code;
       let $node = null, canvas = Quagga.canvas.dom.image;
