@@ -14,7 +14,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CancelIcon from '@material-ui/icons/Cancel';
 
 
-
+console.log(ZXing, 'zxing');
 const modalRoot = document.getElementById("modal-root");
 
 class Modal extends Component {
@@ -248,7 +248,7 @@ const scanner = (Ref) => {
   let App = {
     init: function () {
       let self = this;
-      console.log(self, 'this', this.state, 'state', this.QuaggaState, "quagga")
+      console.log(self, 'this', this.state, 'state', this.QuaggaState, "quagga - app")
       Quagga.init(this.QuaggaState, function (err) {
         if (err) {
           return self.handleError(err);
@@ -543,10 +543,10 @@ const scanner = (Ref) => {
 
       if (result.codeResult.format === "upc_a") {
         imageData = ctx.getImageData(0, 0, cw, ch);
-
-        source = new ZXing.BitmapLuminanceSource(imageData);
-        binarizer = new ZXing.Common.HybridBinarizer(source);
-        bitmap = new ZXing.BinaryBitmap(binarizer);
+        let ZXINGAPP = new ZXing();
+        source = new ZXINGAPP.BitmapLuminanceSource(imageData);
+        binarizer = new ZXINGAPP.Common.HybridBinarizer(source);
+        bitmap = new ZXINGAPP.BinaryBitmap(binarizer);
 
         pdf417 = ZXing.PDF417.PDF417Reader.decode(bitmap, null, false);
 

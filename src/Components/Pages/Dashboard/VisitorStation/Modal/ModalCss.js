@@ -36,6 +36,7 @@ const ModalCss = styled.div`
     outline: 0;
   }
   .box-dialog {
+    height: 100vh;
     z-index: 1050;
     width: 100%;
     background-color: #000;
