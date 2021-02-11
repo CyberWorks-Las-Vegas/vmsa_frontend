@@ -29,7 +29,7 @@ const App = () => {
         <ButtonAppBar />
 
         <Switch>
-          <Route exact path="/" component={SignInSide} />
+          <Route exact path="/" component={MDashboard} />
           <PrivateAdminRoute path="/applogin" component={AppLogin} />
           <PrivateFormRoute path="/form" component={FormContainer} />
           <PrivateDashboardRoute path="/dashboard/administrator" component={MDashboard} />

@@ -19,26 +19,26 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Logs = ({ context }) => {
+const Logs = () => {
   const classes = useStyles();
-  const {
-    current_logs: {
-      logs
-    } } = context;
+  // const {
+  //   current_logs: {
+  //     logs
+  //   } } = context;
   const rows = [];
 
   // format logs into rows by destrucuring logs into props then using thme to create objects that get push into an array
   function createData(logs) {
-    logs.map(log => {
-      const { license_id, id, first_name, last_name, check_in, check_out } = log
-      rows.push({ id: license_id, date: id, name: `${first_name} ${last_name}`, approved: 'yes', check_in, check_out });
-    })
+    // logs.map(log => {
+    //   const { license_id, id, first_name, last_name, check_in, check_out } = log
+    //   rows.push({ id: license_id, date: id, name: `${first_name} ${last_name}`, approved: 'yes', check_in, check_out });
+    // })
   }
   // TODO: make function for pagnation
   function preventDefault(event) {
     event.preventDefault();
   }
-  createData(logs);
+  // createData(logs);
   return (
     <React.Fragment>
       <Title>Recent Scans</Title>
@@ -54,12 +54,12 @@ const Logs = ({ context }) => {
         </TableHead>
         <TableBody>
           {rows.map(row => (
-            <TableRow key={row.id}>
-              <TableCell>{row.date}</TableCell>
-              <TableCell>{row.name}</TableCell>
-              <TableCell>{row.approved}</TableCell>
-              <TableCell>{row.check_in}</TableCell>
-              <TableCell align="right">{row.check_out}</TableCell>
+            <TableRow key={"row.id"}>
+              <TableCell>{"row.date"}</TableCell>
+              <TableCell>{"row.name"}</TableCell>
+              <TableCell>{"row.approved"}</TableCell>
+              <TableCell>{"row.check_in"}</TableCell>
+              <TableCell align="right">{"row.check_out"}</TableCell>
             </TableRow>
           ))}
         </TableBody>

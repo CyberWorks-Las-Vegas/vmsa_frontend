@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const BlockList = ({ context }) => {
+const BlockList = () => {
   const classes = useStyles();
 
   const [open, setOpen] = React.useState(false);
@@ -36,19 +36,19 @@ const BlockList = ({ context }) => {
     setOpen(!open);
   };
 
-  const {
-    current_block_list: {
-      block_list
-    } } = context;
-  console.log({ block_list }, { context }, 'block list comp')
-  const DBArray = block_list[0];
-  const blockListArray = DBArray.block_list
-  console.log({ DBArray }, { blockListArray }, 'block list comp')
+  // const {
+  //   current_block_list: {
+  //     block_list
+  //   } } = context;
+  // console.log({ block_list }, { context }, 'block list comp')
+  // const DBArray = block_list[0];
+  // const blockListArray = DBArray.block_list
+  // console.log({ DBArray }, { blockListArray }, 'block list comp')
   return (
     <React.Fragment>
       <Title>Month to date</Title>
       <Typography component="p" variant="h4">
-        {`${blockListArray.length}`}
+        {/* {`${blockListArray.length}`} */}
       </Typography>
       <Typography color="textSecondary" className={classes.depositContext}>
         {`as of ${new Date().toDateString()}`}
@@ -67,10 +67,10 @@ const BlockList = ({ context }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {blockListArray.map(row => (
-                <TableRow key={DBArray._id}>
-                  <TableCell style={{ color: 'rgba(78, 187, 76, 0.87)' }}>{DBArray.date}</TableCell>
-                  <TableCell style={{ color: 'rgba(236, 43, 43, 0.87)' }}>{`${row.first_name} ${row.last_name}`}</TableCell>
+              {["hello"].map(row => (
+                <TableRow key={"DBArray._id"}>
+                  <TableCell style={{ color: 'rgba(78, 187, 76, 0.87)' }}>{"DBArray.date"}</TableCell>
+                  <TableCell style={{ color: 'rgba(236, 43, 43, 0.87)' }}>{`${"row.first_name"} ${"row.last_name"}`}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
