@@ -3,9 +3,9 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { hot } from "react-hot-loader";
 // COMPONENTS
-import SignInSide from './Components/Pages/Home/MLogin/SignIn';
-import ButtonAppBar from './Components/Pages/Home/MLogin/AppBar';
-import FormContainer from './Components/Pages/Dashboard/MForm/FormContainer';
+import SignInSide from "./Components/Pages/Home/MLogin/SignIn";
+import ButtonAppBar from "./Components/Pages/Home/MLogin/AppBar";
+import FormContainer from "./Components/Pages/Dashboard/MForm/FormContainer";
 import AppLogin from "./Components/Pages/Home/AppLogin/AppLogin";
 
 import MDashboard from "./Components/Pages/Dashboard/MDashboard/Main";
@@ -20,7 +20,7 @@ import PrivateVSDashboardRoute from "./Components/Routes/PrivateVSDashboardRoute
 
 import Error from "./Components/Pages/Error/Error";
 // Styles
-import Container from '@material-ui/core/Container';
+import Container from "@material-ui/core/Container";
 
 const App = () => {
   return (
@@ -29,12 +29,21 @@ const App = () => {
         <ButtonAppBar />
 
         <Switch>
-          <Route exact path="/" component={MDashboard} />
+          <Route exact path="/" component={SignInSide} />
           <PrivateAdminRoute path="/applogin" component={AppLogin} />
           <PrivateFormRoute path="/form" component={FormContainer} />
-          <PrivateDashboardRoute path="/dashboard/administrator" component={MDashboard} />
-          <PrivateFDDashboardRoute path="/dashboard/front_desk" component={FDDashboard} />
-          <PrivateVSDashboardRoute path="/dashboard/visitor_station" component={VSDashboard} />
+          <PrivateDashboardRoute
+            path="/dashboard/administrator"
+            component={MDashboard}
+          />
+          <PrivateFDDashboardRoute
+            path="/dashboard/front_desk"
+            component={FDDashboard}
+          />
+          <PrivateVSDashboardRoute
+            path="/dashboard/visitor_station"
+            component={VSDashboard}
+          />
           <Route path="*" component={Error} />
         </Switch>
       </Container>
